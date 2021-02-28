@@ -1,0 +1,29 @@
+*{
+    box-sizing: border-box;
+}
+.des-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width: auto;
+    height: fit-content;
+}
+.des-container > .title{
+    border: 1px solid red;
+    width: 100%;
+    height: fit-content;
+}
+.course_img,.courseDes,.courseprice,.course_author{
+    border: 1px solid red;
+    width: 100%;
+    height: fit-content;
+}
+.courseDes_price{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}

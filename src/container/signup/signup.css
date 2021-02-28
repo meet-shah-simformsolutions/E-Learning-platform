@@ -1,0 +1,102 @@
+
+*{
+    box-sizing: border-box;
+}
+.Signup, .Login{
+    width: 40%;
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 8%;
+    padding: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    border-radius: 8px;
+}
+.title{
+    color: #160f30;
+}
+.line{
+    width: 100%;
+    border-top: 6px solid #160f30;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.form-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    padding: auto;
+}
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-items: center;
+}
+.container-label > img {
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin: 10px;
+    opacity: 0.9;
+}
+.container-input{
+    width: 80%;
+    height: 50px;
+    float: right;
+    outline:none;
+    border: none;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 18px;
+    padding-left: 15px;
+}
+.container-input:focus{
+    border-bottom: 2px solid #160f30;
+    border-right: 2px solid #160f30;
+
+}
+.signup-btn, .reset-btn, .login-btn{
+    width: 100%;
+    height: 50px;
+    background-color: #160f30;
+    outline:none;
+    border: none;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 20px;
+    color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    letter-spacing: 2px;
+}
+.signup-btn:hover {
+    background-color: transparent;
+    border: 2px solid #160f30;
+    color: #160f30;
+
+}
+.forgot_password{
+    text-decoration: none;
+    color: #554688;
+}
+@media only screen and (max-device-width: 480px) {
+    .Signup,.Login{
+        width: 100%;
+        margin:  0px 100px;
+    }
+}
+@media only screen and (max-device-width: 480px) {
+    .Signup, .Login{
+        width: 100%;
+    }
+}
