@@ -36,7 +36,7 @@ class Signup extends Component {
       axios.post(url,this.state).then((res)=>{
         console.log(res)
         alert("you signup");
-        <Redirect to="/web-development"/>
+        <Redirect to="/Registration"/>
         console.log("data posted")
       }).catch((error)=>{
         console.log(error)

@@ -26,6 +26,8 @@ function App() {
       <Route path="/Signup" exact component={Signup}/>
       <Route path="/Login" exact component={Login}/>
       <Route path="/Forgot_Password" exact component={Forgot_password}/>
+      <Route path="/Course_Description"  component={Description}/>
+
       
       {/* <Route path="/all/frontend" exact component={Frontend}/> */}
 

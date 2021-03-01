@@ -2,15 +2,20 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar"
 import data from "../data.json";
 import "../css/course-container.css"
+import { Link, Redirect } from "react-router-dom";
+import Description from "./Description";
 const CourseData = (props) => {
   const [searchText, setSearchText] = useState("");
   const [mainDataSource, setMaindataSource] = useState(data); /*do not change*/
   const [dataSource, setDataSource] = useState(data);
   const [sortBy,setSortBy] = useState("")
   const [filtertBy,setFiltertBy] = useState("")
-  const [offSet,setOffSet] = useState(8)
+  const [offSet,setOffSet] = useState(9)
   const [status,setStatus] =useState("Loading....")
   const [price,setPrice] = useState([])
+  const [newComp,setNewComp] = useState(false)
+  const [redirectData,setRedirectData] = useState(null)
+
   const [finalPrice,setFinalPrice] = useState(0)
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -158,6 +163,13 @@ const CourseData = (props) => {
     
 
   }
+  const getCourseDesc = (e,data) =>{
+    e.preventDefault()
+    console.log(e);
+    console.log(data);
+    setRedirectData(data)
+    return true
+  }
   const LoadData = (props) => {
     // console.log("in load data");
     // console.log(props.data);
@@ -175,19 +187,24 @@ const CourseData = (props) => {
     // >
     // {
       
-    props.data.map((data, i) => (
+    props.data.map((data, i) => 
+      
+    (
+      
       <div
+        onClick={(e)=> {getCourseDesc(e,data)}}
         className="course-container"
         // onClick={(e) => {
         //   courseDescription(e, data.courseName, data.courseId);
         // }}
-      >
+      > 
         <div className="course_data" value={data.courseId}>
           <img alt="course-img" src={data.courseImg} value={data.courseId} />
           <div className="courseName" value={data.courseId}>
             {data.courseName}
           </div>
           <div className="price_data" value={data.courseId}>
+           
             <img
               alt="price"
               className="price_tag"
@@ -281,7 +298,7 @@ const CourseData = (props) => {
     setSearchText("");
     setSortBy("")
     setFiltertBy("")
-    setOffSet(8)
+    setOffSet(9)
     setPrice([])
     setFinalPrice(0)
 
@@ -308,6 +325,10 @@ const CourseData = (props) => {
   // }
   return (
     <div>
+    { redirectData ? <Redirect to={{
+            pathname: `/Course_Description/${redirectData.courseId}`,
+            state: { data: redirectData }
+        }}/> : null}
       <div className="container">
         <div className="nav-container">
           <div className="sort">
@@ -358,7 +379,7 @@ const CourseData = (props) => {
               title="Reset Filters"
             />
           </div>
-          <div>
+          <div style={{backgroundColor:"transparent"}}>
             <input
               className="search_course"
               value={searchText}

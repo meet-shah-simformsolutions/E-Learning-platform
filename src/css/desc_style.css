@@ -1,21 +1,53 @@
 *{
     box-sizing: border-box;
 }
-.des-container{
+.description_container{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    border: 1px solid black;
+    justify-items: center;
+    text-align: center;
+    border: 1px solid blue;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+.first-container{
+    display: flex;
+    flex-direction: row;
+    border: 3px solid rgb(45, 223, 0);
     width: auto;
     height: fit-content;
-}
-.des-container > .title{
-    border: 1px solid red;
-    width: 100%;
+} .course_title{
+    width: 80%;
     height: fit-content;
+    height: 260px;
+    text-align: left;
+    border-radius: 15px;
+    font-size: 50px;
+    font-family: 'Anton', sans-serif;
+    color: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+    background-color: lightcyan;
+    padding: 20px;
+    background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+    margin: 10px;
 }
-.course_img,.courseDes,.courseprice,.course_author{
+.course_img{
+    float: right;
+    height: 260px;
+    width: 20%;
+    background-color: lightcyan;
+    border-radius: 15px;
+    padding: 20px;
+    background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+    margin: 10px;
+    border: 1px dashed #160f30;
+}
+.course_img > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.courseDes,.courseprice,.course_author{
     border: 1px solid red;
     width: 100%;
     height: fit-content;
@@ -26,4 +58,20 @@
     justify-content: center;
     align-items: center;
     margin: 10px;
+}
+.course_description{
+    color: lightslategray;
+    font-family: 'Anton', sans-serif;
+font-family: 'M PLUS Rounded 1c', sans-serif;
+font-size: 40px;
+}
+.category{
+    display: inline-block;
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);;
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 20px;
+    color: honeydew;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

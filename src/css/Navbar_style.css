@@ -212,12 +212,17 @@ display: block;
     }
     .nav ul{
         width: 100%;
+        margin-right: 10px;
     }
     .container{
-        width: 520px;
+        margin: 5px 90px;
+        
     }
     .nav-container{
-        display: grid;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        justify-items: center;
         height: 300px;
         grid-row-gap: 10px;
     }
@@ -225,12 +230,12 @@ display: block;
         margin-top: 10px;
     }
     .reset{
-        display: grid;
+        width: 90%;
+        display: inline-flex;
         justify-content: center;
         flex-direction: row;
-        width: 100px;
         background-color: transparent;
-        padding: 0px auto;
         border-radius: 20px;
+        padding: 0px 10px;
     }   
 }

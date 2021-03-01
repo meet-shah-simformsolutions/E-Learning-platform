@@ -10,7 +10,8 @@
     margin: 0px 10px;
     border-radius: 8px;
     width: auto;
-    overflow-x: scroll;
+    height: auto;
+    overflow-y: scroll;
     border-radius: 8px;
 
   }
@@ -27,6 +28,8 @@
     transition: 0.5s;
     width: 380px;
     margin:10px 10px ;
+    justify-content: center;
+    justify-items: center;
   }
 .course-list > .course-container > .course_data{
     display: grid;
@@ -90,9 +93,19 @@
         
     }
     .course-list{
-        margin-left: 10px;
-        margin-right: 10px;
+        display: inline-flex;
+        flex-direction: column;
         grid-template-columns: auto;
+        margin: 10px 30PX;
         padding: 20px 50px;
+    }
+}
+@media only screen and (max-device-width: 2200px) {
+    .course-container{
+        margin: 0px
+        
+    }
+    .course-list{
+        grid-template-columns: auto auto auto auto;
     }
 }
