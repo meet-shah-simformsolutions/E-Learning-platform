@@ -2,7 +2,7 @@
 *{
     box-sizing: border-box;
 }
-.Signup, .Login{
+.Signup, .Login, .dashboard_container{
     width: 40%;
     height: 100%;
     margin: 0 auto;
@@ -41,6 +41,23 @@
     justify-content: center;
     justify-items: center;
 }
+.danger, .success{
+    width: 80%;
+    margin: auto;
+    padding: 5px;
+    background-color: rgb(228, 133, 133);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 8px;
+    color: rgb(160, 7, 7);
+
+}
+.success{
+    background-color: rgb(66, 187, 96);
+    color: rgb(13, 58, 2);
+}
 .container-label > img {
     width: 60px;
     height: 60px;
@@ -65,7 +82,7 @@
     border-right: 2px solid #160f30;
 
 }
-.signup-btn, .reset-btn, .login-btn{
+.signup-btn, .reset-btn, .login-btn, .logout-btn, .update-btn{
     width: 100%;
     height: 50px;
     background-color: #160f30;
@@ -79,11 +96,33 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     letter-spacing: 2px;
 }
+.logout-btn , .update-btn{
+    width: 50%;
+    margin: auto;
+    margin-top: 10px;
+}
+.update-btn{
+    background-color: tan;
+}
+.update-btn > a{
+    color: #160f30;
+}
 .signup-btn:hover {
     background-color: transparent;
     border: 2px solid #160f30;
     color: #160f30;
 
+}
+.login-btn:hover{
+    background-color: transparent;
+    border: 2px solid #160f30;
+    color: #160f30;
+
+}
+.reset-btn:hover{
+    background-color: transparent;
+    border: 2px solid #160f30;
+    color: #160f30;
 }
 .forgot_password{
     text-decoration: none;
@@ -93,6 +132,9 @@
     .Signup,.Login{
         width: 100%;
         margin:  0px 100px;
+    }
+    .container{
+        margin: 0;
     }
 }
 @media only screen and (max-device-width: 480px) {

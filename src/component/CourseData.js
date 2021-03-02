@@ -15,6 +15,7 @@ const CourseData = (props) => {
   const [price,setPrice] = useState([])
   const [newComp,setNewComp] = useState(false)
   const [redirectData,setRedirectData] = useState(null)
+  
 
   const [finalPrice,setFinalPrice] = useState(0)
   useEffect(() => {
