@@ -20,6 +20,7 @@ import Dashboard from './component/dashboard/Dashboard';
 import PrivateRoutes from './container/PrivateRoutes';
 import UpdateProfile from './component/Update_Profile/UpdateProfile';
 import {  useAuth } from "./contexts/AuthContext";
+import WorkshopList from './component/Workshop/WorkshopList';
 function App() {
 
   return (
@@ -30,6 +31,7 @@ function App() {
 
       <Route path="/web-development" exact component={CourseData}/>
       <Route path="/Registration" exact component={Registration}/>
+      <Route path="/Workshop" exact component={WorkshopList}/>
       <Route path="/Signup" exact component={Signup}/>
       <Route path="/Login" exact component={Login}/>
       <Route path="/Forgot_Password" exact component={Forgot_password}/>

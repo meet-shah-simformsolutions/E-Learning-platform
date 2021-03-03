@@ -29,7 +29,7 @@ a{
     align-items: center;
     justify-content: space-around;
     width: 100%;
-    background-color: #160f30;
+    background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
     height: 70px;
     margin: 10px;
     margin-left: 0px;
@@ -87,6 +87,7 @@ a{
 .nav-container{
 display: block;
   background-color: #193550;
+  
   padding: 10px;
   width: 100%;
   margin: 10px;
@@ -121,6 +122,7 @@ display: block;
     margin-top: 0px;
     border-radius: 20px;
     justify-content: center;
+
   }
   
 .dropdown-content button {
@@ -147,7 +149,17 @@ display: block;
 }
 .dropdown:hover .dropdown-content {
     display: block;
+    -webkit-animation: slide-down .3s ease-in;
+    -moz-animation: slide-down .3s ease-out;
   }
+  @keyframes slide-down {
+    0% { opacity: 0; -webkit-transform: translateY(-100%); }   
+  100% { opacity: 1; -webkit-transform: translateY(0); }
+}
+@keyframes slide-down {
+    0% { opacity: 0; -moz-transform: translateY(-100%); }   
+  100% { opacity: 1; -moz-transform: translateY(0); }
+}
   .sort{
       float: left;
       width: auto;

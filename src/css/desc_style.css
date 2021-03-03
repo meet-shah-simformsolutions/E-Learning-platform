@@ -65,7 +65,7 @@
 font-family: 'M PLUS Rounded 1c', sans-serif;
 font-size: 40px;
 }
-.category{
+.category , .RegisterButton{
     display: inline-block;
     background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);;
     padding: 5px;
@@ -74,4 +74,7 @@ font-size: 40px;
     color: honeydew;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    outline: none;
+    background-color: #185980;
+    /* background-image: linear-gradient(to right, #243949 0%, #517fa4 100%); */
 }

@@ -9,7 +9,7 @@ const Navbar = () => {
           <li className="logo">
             <div>
               <li>
-            <NavLink to="/" exact activeStyle={{color:"red"}}>
+            <NavLink to="/" exact activeStyle={{color:"blue"}}>
 
               <img
                 src="../img/simform-logo.png"
@@ -35,21 +35,21 @@ const Navbar = () => {
           <li>
             <div>
               <li>
-                <NavLink to="/" exact activeStyle={{color:"red"}}>Home</NavLink>
+                <NavLink to="/" exact activeStyle={{color:"black"}}>Home</NavLink>
               </li>
             </div>
           </li>
           <li>
             <div>
               <li>
-                <NavLink to="/web-development" exact activeStyle={{color:"red"}}>Web Development Courses</NavLink>
+                <NavLink to="/web-development" exact activeStyle={{color:"black"}}>Web Development Courses</NavLink>
               </li>
             </div>
           </li>
           <li>
             <div>
               <li>
-                <NavLink to="/Registration" exact activeStyle={{color:"red"}}>Registration</NavLink>
+                <NavLink to="/Workshop" exact activeStyle={{color:"black"}}>Workshop Registration</NavLink>
               </li>
             </div>
           </li>
@@ -57,7 +57,7 @@ const Navbar = () => {
             <div>
               <li>
                 {/* <NavLink to="/My-learning" exact activeStyle={{color:"red"}}>My learning</NavLink> */}
-                <NavLink to="/Signup" exact activeStyle={{color:"red"}}>Signup</NavLink>
+                <NavLink to="/Signup" exact activeStyle={{color:"black"}}>Signup</NavLink>
 
               </li>
             </div>
@@ -66,7 +66,7 @@ const Navbar = () => {
             <div>
               <li>
                 {/* <NavLink to="/My-learning" exact activeStyle={{color:"red"}}>My learning</NavLink> */}
-                <NavLink to="/Login" exact activeStyle={{color:"red"}}>Login</NavLink>
+                <NavLink to="/Login" exact activeStyle={{color:"black"}}>Login</NavLink>
 
               </li>
             </div>

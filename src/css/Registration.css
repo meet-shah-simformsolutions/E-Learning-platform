@@ -11,6 +11,7 @@
     border-radius: 20px;
     background-color: #160f30;
     margin: 10px 10px;
+    background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
 }
 .sub-registration{
     width: 160px;
