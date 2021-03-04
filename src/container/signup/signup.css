@@ -86,7 +86,7 @@
 .signup-btn, .reset-btn, .login-btn, .logout-btn, .update-btn{
     width: 100%;
     height: 50px;
-    background-color: #160f30;
+    background-color: #69678f;
     outline:none;
     border: none;
     border-radius: 15px;
@@ -110,20 +110,20 @@
 }
 .signup-btn:hover {
     background-color: transparent;
-    border: 2px solid #160f30;
-    color: #160f30;
+    border: 2px solid #69678f;
+    color: #69678f;
 
 }
 .login-btn:hover{
     background-color: transparent;
-    border: 2px solid #160f30;
-    color: #160f30;
+    border: 2px solid #69678f;
+    color: #69678f;
 
 }
 .reset-btn:hover{
     background-color: transparent;
-    border: 2px solid #160f30;
-    color: #160f30;
+    border: 2px solid #69678f;
+    color: #69678f;
 }
 .forgot_password{
     text-decoration: none;

@@ -29,7 +29,8 @@ a{
     align-items: center;
     justify-content: space-around;
     width: 100%;
-    background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
+    /* background-image: linear-gradient(to right, #243949 0%, #517fa4 100%); */
+    background-color: #908db9;
     height: 70px;
     margin: 10px;
     margin-left: 0px;
@@ -86,7 +87,7 @@ a{
 }
 .nav-container{
 display: block;
-  background-color: #193550;
+  background-color: #a9a9c4;
   
   padding: 10px;
   width: 100%;

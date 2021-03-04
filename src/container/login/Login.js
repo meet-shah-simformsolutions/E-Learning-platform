@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
-
+import React, { useRef, useState,useEffect } from "react";
+import { connect } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-
+import { ADD_PRICE } from "../../store/actions/actionTypes";
+import * as actions from "../../store/actions/index";
 function Login(props) {
   const [alertCss, setAlertCss] = useState("danger");
   const [error, setError] = useState("");
@@ -11,6 +12,12 @@ function Login(props) {
   const passwordRef = useRef();
   const { login } = useAuth();
   const history = useHistory();
+  useEffect(() => {
+    console.log(props.details)
+    return () => {
+      
+    }
+  }, [props.details])
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -90,5 +97,14 @@ function Login(props) {
     </div>
   );
 }
-
-export default Login;
+const mapStateToProps = state =>{
+  return{
+      details:state.cartDetails.price
+  }
+}
+const mapDispatchToProps = dispatch =>{
+  return{
+    change:(e)=> dispatch(actions.addDetails(e.target.value))
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

@@ -4,6 +4,8 @@ import data from "../data.json";
 import "../css/course-container.css"
 import { Link, Redirect } from "react-router-dom";
 import Description from "./Description";
+import * as actions from "../store/actions/index";
+import { connect } from "react-redux";
 const CourseData = (props) => {
   const [searchText, setSearchText] = useState("");
   const [mainDataSource, setMaindataSource] = useState(data); /*do not change*/
@@ -142,7 +144,7 @@ const CourseData = (props) => {
     }
   };
   
-  const handleClick =(e,course_price,index) =>{
+  const handleClick =(e,course_price,index,data) =>{
     console.log(e)
     console.log(course_price)
     console.log(price)
@@ -152,6 +154,7 @@ const CourseData = (props) => {
         return a + b;
       }, 0);
     setFinalPrice(sum)
+    props.addDetails(data,sum)
     }
     else{
       alert("Limit Reached")
@@ -193,14 +196,14 @@ const CourseData = (props) => {
     (
       
       <div
-        onClick={(e)=> {getCourseDesc(e,data)}}
+        
         className="course-container"
         // onClick={(e) => {
         //   courseDescription(e, data.courseName, data.courseId);
         // }}
       > 
         <div className="course_data" value={data.courseId}>
-          <img alt="course-img" src={data.courseImg} value={data.courseId} />
+          <img alt="course-img" src={data.courseImg} value={data.courseId}  onClick={(e)=> {getCourseDesc(e,data)}} />
           <div className="courseName" value={data.courseId}>
             {data.courseName}
           </div>
@@ -211,13 +214,14 @@ const CourseData = (props) => {
               className="price_tag"
               src="../img/price.png"
               value={data.courseId}
+             
             />
             &nbsp;
             <div className="price" value={data.courseId}>    
               {data.price}/-
             </div>
           </div>
-          <button className="price_btn" onClick={(e)=>handleClick(e,data.price,i)} >
+          <button className="price_btn" onClick={(e)=>handleClick(e,data.price,i,data)} >
             Add to Cart
           </button>
         </div>
@@ -302,7 +306,7 @@ const CourseData = (props) => {
     setOffSet(9)
     setPrice([])
     setFinalPrice(0)
-
+    props.reset()
     setStatus("Loading...")
     return setDataSource(mainDataSource);
   };
@@ -366,13 +370,11 @@ const CourseData = (props) => {
           </div>
           
           <div className="filter">
-              Total Price: {finalPrice}
+              Total Price: {props.price}
           </div>
           <div
             className="reset"
-            onClick={() => {
-              resetData();
-            }}
+            onClick={props.reset}
           >
             <img
               alt="reset_filter"
@@ -418,5 +420,17 @@ const CourseData = (props) => {
     </div>
   );
 };
-
-export default CourseData;
+const mapStateToProps = state =>{
+  return{
+    price:state.cartDetails.price,
+    mainDataSource:state.cartDetails.mainDataSource,
+    dataSource:state.cartDetails.dataSource
+  }
+}
+const mapDispatchToProps = dispatch =>{
+  return{
+    addDetails:(data,price) => dispatch(actions.addDetails(data,price)),
+    reset:()=> dispatch(actions.resetData())
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(CourseData);

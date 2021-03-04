@@ -71,7 +71,23 @@ const Navbar = () => {
               </li>
             </div>
           </li>
-          
+          <li>
+            <div>
+              <li>
+                {/* <NavLink to="/My-learning" exact activeStyle={{color:"red"}}>My learning</NavLink> */}
+                <NavLink to="/Login" exact activeStyle={{color:"black"}}>Wishlist</NavLink>
+
+              </li>
+            </div>
+          </li><li>
+            <div>
+              <li>
+                {/* <NavLink to="/My-learning" exact activeStyle={{color:"red"}}>My learning</NavLink> */}
+                <NavLink to="/Checkout" exact activeStyle={{color:"black"}}>Cart</NavLink>
+
+              </li>
+            </div>
+          </li>
           {/* <a href="https://github.com">
             <li>
               <div className="fav_logo">

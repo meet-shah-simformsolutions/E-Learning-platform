@@ -1,0 +1,192 @@
+.main_cart{
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+
+}
+.cartLanding{
+    width: auto;
+    height: 150px;
+    display: flex;
+    background-color: #a9a9c4;
+    color: whitesmoke;
+    font-size: 25px;
+    text-align: center;
+    margin: 10px;
+    border-radius: 8px;
+}
+.cartLanding > h1 {
+    margin: auto;
+    padding: auto;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 1.5px;
+
+}
+.checkout-container{
+    margin: auto;
+    padding: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 60%;
+    height: auto;
+    /* border: 1px solid black; */
+}
+.selectedCourses{
+    width: 70%;
+ /* border: 1px solid red; */
+ padding: 10px;
+ 
+}
+.listOfSelectedCourse{
+    border: 1px solid rgb(207, 205, 205);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: left;
+    height: 150px;
+    padding: 10px;
+    border-radius: 2px;
+    margin-bottom: 13px;
+}
+.courseLogo{
+    width: 25%;
+    height: 100%;
+    /* border: 1px solid green; */
+
+}  
+.courseLogo > img {
+    width: 100%;
+    height: 100%;
+}    
+.courseDetails{
+    width: 42%;
+    height: 100%;
+    /* border: 1px solid rgb(4, 59, 4); */
+    text-align: left;
+    padding-left: 10px;
+} 
+.courseTitle{
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+
+} 
+.courseDesc{
+    font-size: 15px;
+    color: grey;
+} 
+.actions{
+    width: 20%;
+    height: 100%;
+    /* border: 1px solid rgb(4, 59, 4); */
+    text-align: right;
+    text-transform: capitalize;
+    line-height: 1.2;
+    font-weight: 400;
+} 
+.coursePricetag{
+    width: 20%;
+    height: 100%;
+    /* border: 1px solid rgb(4, 59, 4); */
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+
+}           
+.price-Container{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    width: 30%;
+    padding-left: 10px;
+ /* border: 1px solid blue; */
+}
+.courseTotal{
+    margin: 3px 0px;
+    display: block;
+    font-size: 25px;
+    color: #686f7a;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.coursePrice{
+    margin: 3px 0px;
+
+    display: block;
+    font-size: 36px;
+    color: black;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.basePrice{
+    margin: 3px 0px;
+    display: block;
+    font-size: 18px;
+    color: rgb(177, 170, 170);
+    text-decoration: line-through;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.offer{
+    margin: 3px 0px;
+    display: block;
+    font-size: 18px;
+    color: rgb(177, 170, 170);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+.checkout-btn{
+    margin: 3px 0px;
+    display: block;
+    font-size: 18px;
+    width: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height: 54px;
+
+}
+.checkout-btn > button {
+    width: 100%;
+    color: whitesmoke;
+    background-color: #5c5c92;
+    outline: none;
+    border: none;
+    height: 100%;
+    text-align: center;
+    letter-spacing: 1px;
+    font-size: 20px;
+    border-radius: 2px;
+}
+
+.checkout-btn:hover button{
+    background-color:transparent;
+    border: 1px solid #5c5c92;
+    color: #5c5c92;
+}
+@media only screen and (max-device-width: 480px) {
+    .main_cart{
+        width: 550px;
+        height: auto;
+    }
+    .cartLanding{
+        width: auto;
+        height: 150px;
+    }
+    .checkout-container{
+        width: auto;
+        flex-direction: column-reverse;
+    }
+    .price-Container{
+        width: auto;
+    }
+    .listOfSelectedCourse{
+        width: 450px;
+        flex-direction: row;
+        flex-grow: auto;
+        height: auto;
+    }
+}

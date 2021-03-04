@@ -4,16 +4,29 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import thunk from "redux-thunk"
 import { AuthProvider } from "./contexts/AuthContext";
+import cartDetails from "./store/reducers/priceReducer"
+// const composeEnhancers = process.env.NODE_ENV === 'development' ?  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null|| compose;
+const rootReducer = combineReducers({
+cartDetails:cartDetails
+})
+// const store = createStore(rootReducer, composeEnhancers(
+//   applyMiddleware(thunk)
+// ));
+const store  = createStore(rootReducer)
 ReactDOM.render(
+  <Provider store={store}>
   <React.StrictMode>
     <BrowserRouter>
     <AuthProvider>
     <App />
     </AuthProvider>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 

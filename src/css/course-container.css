@@ -5,7 +5,7 @@
     display: inline-grid;
     grid-template-columns: auto auto auto auto;
     grid-gap: 10px;
-    background-color: #160f30;
+    background-color: #d0d1e1;
     padding: 10px;
     margin: 0px 10px;
     border-radius: 8px;
@@ -13,7 +13,6 @@
     height: auto;
     overflow-y: scroll;
     border-radius: 8px;
-
   }
   
   .course-list > .course-container {
@@ -30,6 +29,8 @@
     margin:10px 10px ;
     justify-content: center;
     justify-items: center;
+    border: none;
+
   }
 .course-list > .course-container > .course_data{
     display: grid;
@@ -49,11 +50,13 @@
 }
 .course-container:hover{
     transform: scale(1.01,1.02);
+    border: 1px dashed #69678f;
+
 }
 .price{
     display: inline;
     font-size: 25px;
-    color: rgb(82, 33, 10);
+    color: #69678f;
     font-weight: bold;
 }   
 .price_tag{
@@ -64,7 +67,7 @@
     padding: 10px;
     margin: 10px;
     margin-bottom: 0px;
-    background-color: #193550;
+    background-color: #908db9;
     border: none;
     border-radius: 8px;
     color: aliceblue;
@@ -73,9 +76,9 @@
     transition: 0.1s;
 }
 .price_btn:hover{
-    border: 1px solid #04203a;
+    border: 1px solid #908db9;
     background-color: transparent;
-    color: #04203a;
+    color: #908db9;
     font-weight: 500;
 
 }

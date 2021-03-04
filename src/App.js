@@ -21,6 +21,7 @@ import PrivateRoutes from './container/PrivateRoutes';
 import UpdateProfile from './component/Update_Profile/UpdateProfile';
 import {  useAuth } from "./contexts/AuthContext";
 import WorkshopList from './component/Workshop/WorkshopList';
+import Checkout from './component/checkout/checkout';
 function App() {
 
   return (
@@ -37,6 +38,8 @@ function App() {
       <Route path="/Forgot_Password" exact component={Forgot_password}/>
       <Route path="/Course_Description"  component={Description}/>
       <Route path="/Dashboard"  component={Dashboard}/>
+      <PrivateRoutes path="/Checkout"  component={Checkout}/>
+
 
 
       
