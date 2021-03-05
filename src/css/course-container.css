@@ -49,8 +49,8 @@
     color: #04203a;
 }
 .course-container:hover{
-    transform: scale(1.01,1.02);
-    border: 1px dashed #69678f;
+    /* transform: scale(1.01,1.02); */
+    /* border: 1px dashed #69678f; */
 
 }
 .price{

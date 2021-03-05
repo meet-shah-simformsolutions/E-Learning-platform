@@ -22,6 +22,7 @@ import UpdateProfile from './component/Update_Profile/UpdateProfile';
 import {  useAuth } from "./contexts/AuthContext";
 import WorkshopList from './component/Workshop/WorkshopList';
 import Checkout from './component/checkout/checkout';
+import WishList from './component/wishlist/WishList';
 function App() {
 
   return (
@@ -39,6 +40,8 @@ function App() {
       <Route path="/Course_Description"  component={Description}/>
       <Route path="/Dashboard"  component={Dashboard}/>
       <PrivateRoutes path="/Checkout"  component={Checkout}/>
+      <PrivateRoutes path="/Wishlist"  component={WishList}/>
+
 
 
 

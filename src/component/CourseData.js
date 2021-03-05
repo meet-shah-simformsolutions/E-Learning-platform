@@ -145,9 +145,6 @@ const CourseData = (props) => {
   };
   
   const handleClick =(e,course_price,index,data) =>{
-    console.log(e)
-    console.log(course_price)
-    console.log(price)
     if(finalPrice < 50000){
       setPrice([...price,course_price])
       let sum = price.reduce((a, b) =>{
@@ -221,7 +218,7 @@ const CourseData = (props) => {
               {data.price}/-
             </div>
           </div>
-          <button className="price_btn" onClick={(e)=>handleClick(e,data.price,i,data)} >
+          <button className="price_btn" onClick={(e)=>handleClick(e,data.price,i,data)}  >
             Add to Cart
           </button>
         </div>

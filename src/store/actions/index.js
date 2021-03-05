@@ -1,5 +1,9 @@
 export {
     addDetails,
     resetData,
-    removeFromCart
+    removeFromCart,
+    calculateCartPrice,
+    moveToWishlist,
+    removeFromWishList,
+    moveToCart
 } from "./coursePriceAction"
