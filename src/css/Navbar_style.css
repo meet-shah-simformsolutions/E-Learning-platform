@@ -236,27 +236,31 @@ display: block;
         flex-direction: column;
         justify-content: center;
         justify-items: center;
-        height: 300px;
+        height: auto;
+        padding: 20px 10px;
         grid-row-gap: 10px;
     }
     .sort .filter .reset .search_course{
         margin-top: 10px;
     }
     .reset{
-        width: 90%;
+        width: auto;
         display: inline-flex;
         justify-content: center;
         flex-direction: row;
         background-color: transparent;
         border-radius: 20px;
         padding: 0px 10px;
-    }   
+    } 
+    .search_course{
+        width: 100%;
+    }  
 }
-.cartIcon{
+.cartIcon, .wishlistIcon{
     position: relative;
     font-size: 35px;
 }
-.cartCounter{
+.cartCounter, .wishlistCounter{
     width: 20px;
     height: 20px;
     border-radius: 50%;

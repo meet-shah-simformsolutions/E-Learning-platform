@@ -15,8 +15,7 @@ const initialState = {
           ...state,
         //   price:state.price.concat(+action.price),
             id:state.id.concat([action.cart.courseId]),
-          cart:state.cart.concat([action.cart]),
-
+          cart:state.cart.concat([action.cart]),  
       }
   }
   const calculateCartPrice = (state) => {

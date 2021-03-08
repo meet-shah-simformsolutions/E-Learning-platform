@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar"
+import Navbar from "./Navbar";
 import data from "../data.json";
-import "../css/course-container.css"
+import "../css/course-container.css";
 import { Link, Redirect } from "react-router-dom";
 import Description from "./Description";
 import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
+import { WarningAlert } from "./Alert/WarningAlert";
 const CourseData = (props) => {
   const [searchText, setSearchText] = useState("");
   const [mainDataSource, setMaindataSource] = useState(data); /*do not change*/
   const [dataSource, setDataSource] = useState(data);
-  const [sortBy,setSortBy] = useState("")
-  const [filtertBy,setFiltertBy] = useState("")
-  const [offSet,setOffSet] = useState(9)
-  const [status,setStatus] =useState("Loading....")
-  const [price,setPrice] = useState([])
-  const [newComp,setNewComp] = useState(false)
-  const [redirectData,setRedirectData] = useState(null)
-  
-
-  const [finalPrice,setFinalPrice] = useState(0)
+  const [sortBy, setSortBy] = useState("");
+  const [filtertBy, setFiltertBy] = useState("");
+  const [offSet, setOffSet] = useState(9);
+  const [status, setStatus] = useState("Loading....");
+  const [price, setPrice] = useState([]);
+  const [newComp, setNewComp] = useState(false);
+  const [redirectData, setRedirectData] = useState(null);
+  const [alertState,setAlertState] = useState(false)
+  const [alertMsg,setAlertMsg] = useState("")
+  const [noOfResult,setNoOfResult] =  useState()
+  const [finalPrice, setFinalPrice] = useState(0);
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -32,15 +34,15 @@ const CourseData = (props) => {
     const scrollHeight =
       (document.documentElement && document.documentElement.scrollHeight) ||
       document.body.scrollHeight;
-      // console.log(event.currentTarget)
-      // console.log("stop",scrollTop)
-      // console.log("sheight",scrollHeight)
-      // console.log("clientheight",window.innerHeight)
+    // console.log(event.currentTarget)
+    // console.log("stop",scrollTop)
+    // console.log("sheight",scrollHeight)
+    // console.log("clientheight",window.innerHeight)
 
     if (scrollTop + window.innerHeight + 10 >= scrollHeight) {
       // console.log("inside")
-      setStatus("")
-      return setOffSet(prev => prev + 7)
+      setStatus("");
+      return setOffSet((prev) => prev + 7);
     }
   };
   // console.log(searchText);
@@ -100,6 +102,7 @@ const CourseData = (props) => {
   const filterName = (value) => {
     if (value < 1) {
       setSearchText("");
+      setNoOfResult(0)
       return setDataSource(mainDataSource);
     } else {
       setSearchText(value.toLowerCase());
@@ -112,7 +115,7 @@ const CourseData = (props) => {
           lowerString_category.includes(searchText)
         );
       });
-
+      setNoOfResult(filteredData.length)
       console.log(filteredData.length);
       console.log(filteredData);
       return setDataSource(filteredData);
@@ -129,8 +132,7 @@ const CourseData = (props) => {
     return console.log(e.target);
   };
 
-  
- const filterStack = (value) => {
+  const filterStack = (value) => {
     let filterStack_data = mainDataSource.filter((x) => {
       return x.category === value;
     });
@@ -138,96 +140,117 @@ const CourseData = (props) => {
     if (filterStack_data.length < 0) {
       setDataSource(mainDataSource);
     } else {
-      setSortBy("")
-      setFiltertBy(value)
+      setSortBy("");
+      setFiltertBy(value);
       return setDataSource(filterStack_data);
     }
   };
-  
-  const handleClick =(e,course_price,index,data) =>{
-    if(finalPrice < 50000){
-      setPrice([...price,course_price])
-      let sum = price.reduce((a, b) =>{
-        return a + b;
-      }, 0);
-    setFinalPrice(sum)
-    props.addDetails(data,sum)
+
+  const handleClick = (e, course_price, index, data, id) => {
+    console.log("button clicked")
+    if (props.price < 10000) {
+      // setPrice([...price, course_price]);
+      // let sum = price.reduce((a, b) => {
+      //   return a + b;
+      // }, 0);
+      // setFinalPrice(sum);
+      if (props.id.includes(id)) {
+        setAlertState(true)
+        setAlertMsg("Course Already Added in Cart")
+
+      } else {
+        setAlertState(false)
+        props.addDetails(data);
+        props.getCartPrice()
+
+      }
     }
-    else{
-      alert("Limit Reached")
+    else if(props.price > 10000 && props.id.includes(id)){
+      setAlertState(true)
+      setAlertMsg("Limit Reached and Course Already Added in Cart")
     }
-    console.log(price)
-    console.log(index)
-    console.log(dataSource[index].courseDesc)
+    else {
+      setAlertState(true)
+      setAlertMsg("Limit Reached")
+    }
+    setTimeout(() => {
+      setAlertState(false);
+    },4000);
+    console.log(price);
+    console.log(index);
+    console.log(dataSource[index].courseDesc);
     // setDataSource(dataSource.slice(index,1))
     // price.reduce(sum)
-    
-
-  }
-  const getCourseDesc = (e,data) =>{
-    e.preventDefault()
+  };
+  const getCourseDesc = (e, data) => {
+    e.preventDefault();
     console.log(e);
     console.log(data);
-    setRedirectData(data)
-    return true
-  }
+    setRedirectData(data);
+    return true;
+  };
   const LoadData = (props) => {
     // console.log("in load data");
     // console.log(props.data);
-    console.log(props.data.length)
-    return (    
-    // <InfiniteScroll 
-    // dataLength={props.data.length}
-    // hasMore={true}
-    // loader={<h4>Loading...</h4>}
-    // endMessage={
-    //   <p style={{ textAlign: 'center' }}>
-    //     <b>Yay! You have seen it all</b>
-    //   </p>
-    // }
-    // >
-    // {
-      
-    props.data.map((data, i) => 
-      
-    (
-      
-      <div
-        
-        className="course-container"
-        // onClick={(e) => {
-        //   courseDescription(e, data.courseName, data.courseId);
-        // }}
-      > 
-        <div className="course_data" value={data.courseId}>
-          <img alt="course-img" src={data.courseImg} value={data.courseId}  onClick={(e)=> {getCourseDesc(e,data)}} />
-          <div className="courseName" value={data.courseId}>
-            {data.courseName}
-          </div>
-          <div className="price_data" value={data.courseId}>
-           
+    console.log(props.data.length);
+    return (
+      // <InfiniteScroll
+      // dataLength={props.data.length}
+      // hasMore={true}
+      // loader={<h4>Loading...</h4>}
+      // endMessage={
+      //   <p style={{ textAlign: 'center' }}>
+      //     <b>Yay! You have seen it all</b>
+      //   </p>
+      // }
+      // >
+      // {
+
+      props.data.map((data, i) => (
+        <div
+          className="course-container"
+          // onClick={(e) => {
+          //   courseDescription(e, data.courseName, data.courseId);
+          // }}
+        >
+          <div className="course_data" value={data.courseId}>
             <img
-              alt="price"
-              className="price_tag"
-              src="../img/price.png"
+              alt="course-img"
+              src={data.courseImg}
               value={data.courseId}
-             
+              onClick={(e) => {
+                getCourseDesc(e, data);
+              }}
             />
-            &nbsp;
-            <div className="price" value={data.courseId}>    
-              {data.price}/-
+            <div className="courseName" value={data.courseId}>
+              {data.courseName}
             </div>
+            <div className="price_data" value={data.courseId}>
+              <img
+                alt="price"
+                className="price_tag"
+                src="../img/price.png"
+                value={data.courseId}
+              />
+              &nbsp;
+              <div className="price" value={data.courseId}>
+                {data.price}/-
+              </div>
+            </div>
+            <button
+              className="price_btn"
+              onClick={(e) =>
+                handleClick(e, data.price, i, data, data.courseId)
+              }
+            >
+              Add to Cart
+            </button>
           </div>
-          <button className="price_btn" onClick={(e)=>handleClick(e,data.price,i,data)}  >
-            Add to Cart
-          </button>
         </div>
-      </div>
-      
-    ))
+      ))
       // }</InfiniteScroll>
-    )
-  };              
+    );
+  };
   const getSorted_list = () => {
     let sorted_Course = [];
     dataSource.forEach((data) => {
@@ -253,7 +276,7 @@ const CourseData = (props) => {
     } else if (value === "asce") {
       sorted_Course = [...getSorted_list()];
       console.log(sorted_Course);
-      setSortBy("Title A to Z")
+      setSortBy("Title A to Z");
       sorted_Course.sort((a, b) => {
         if (a.courseName.toLowerCase() < b.courseName.toLowerCase()) return -1;
 
@@ -267,7 +290,7 @@ const CourseData = (props) => {
     } else if (value === "desc") {
       sorted_Course = [...getSorted_list()];
       console.log(sorted_Course);
-      setSortBy("Title Z to A")
+      setSortBy("Title Z to A");
 
       sorted_Course.sort((a, b) => {
         if (a.courseName.toLowerCase() > b.courseName.toLowerCase()) return -1;
@@ -283,7 +306,7 @@ const CourseData = (props) => {
       sorted_Course = [...getSorted_list()];
       sorted_Course.sort((a, b) => a.price - b.price);
       setDataSource(sorted_Course);
-      setSortBy("Price: Low to High")
+      setSortBy("Price: Low to High");
 
       console.log(sorted_Course);
     } else if (value === "price_h_l") {
@@ -291,20 +314,19 @@ const CourseData = (props) => {
       sorted_Course.sort((a, b) => b.price - a.price);
       console.log(sorted_Course);
       setDataSource(sorted_Course);
-      setSortBy("Price: High to Low")
-
+      setSortBy("Price: High to Low");
     }
     return console.log("sorting done");
   };
   const resetData = () => {
     setSearchText("");
-    setSortBy("")
-    setFiltertBy("")
-    setOffSet(9)
-    setPrice([])
-    setFinalPrice(0)
-    props.reset()
-    setStatus("Loading...")
+    setSortBy("");
+    setFiltertBy("");
+    setOffSet(9);
+    setPrice([]);
+    setFinalPrice(0);
+    props.reset();
+    setStatus("Loading...");
     return setDataSource(mainDataSource);
   };
   // const checkAndUpdate = (e,value) =>{
@@ -327,11 +349,17 @@ const CourseData = (props) => {
   // }
   return (
     <div>
-    { redirectData ? <Redirect to={{
+      {alertState ? (<WarningAlert msg={alertMsg}/>) : null}
+      {redirectData ? (
+        <Redirect
+          to={{
             pathname: `/Course_Description/${redirectData.courseId}`,
-            state: { data: redirectData }
-        }}/> : null}
+            state: { data: redirectData },
+          }}
+        />
+      ) : null}
       <div className="container">
+        {/* {props.price} */}
         <div className="nav-container">
           <div className="sort">
             <div className="dropdown">
@@ -365,21 +393,25 @@ const CourseData = (props) => {
               </div>
             </div>
           </div>
-          
+
           <div className="filter">
-              Total Price: {props.price}
+            <div className="searchResult">
+            {noOfResult ? (<div>
+            {noOfResult} <small>Results for </small> <q>{searchText}</q>
+          </div>) : null}
+            </div>
+          
           </div>
-          <div
-            className="reset"
-            onClick={props.reset}
-          >
+          <div className="reset" onClick={props.reset}>
             <img
               alt="reset_filter"
               src="../img/refresh.png"
               title="Reset Filters"
             />
           </div>
-          <div style={{backgroundColor:"transparent"}}>
+          
+          
+          <div style={{ backgroundColor: "transparent" }}>
             <input
               className="search_course"
               value={searchText}
@@ -393,6 +425,7 @@ const CourseData = (props) => {
         </div>
       </div>
       <div className="course-list" onScroll={handleScroll}>
+      
         {/* {data.map((data, i) => (
           <div className="course-container">
             <div className="course_data">
@@ -407,7 +440,7 @@ const CourseData = (props) => {
             </div>
           </div>
         ))} */}
-        <LoadData data={dataSource.slice(0,offSet)} />
+        <LoadData data={dataSource.slice(0, offSet)} />
         {/* <div style={{color:"white"}}>
         {status}
         </div> */}
@@ -417,17 +450,19 @@ const CourseData = (props) => {
     </div>
   );
 };
-const mapStateToProps = state =>{
-  return{
-    price:state.cartDetails.price,
-    mainDataSource:state.cartDetails.mainDataSource,
-    dataSource:state.cartDetails.dataSource
-  }
-}
-const mapDispatchToProps = dispatch =>{
-  return{
-    addDetails:(data,price) => dispatch(actions.addDetails(data,price)),
-    reset:()=> dispatch(actions.resetData())
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(CourseData);
+const mapStateToProps = (state) => {
+  return {
+    price: state.cartDetails.price,
+    mainDataSource: state.cartDetails.mainDataSource,
+    dataSource: state.cartDetails.dataSource,
+    id: state.cartDetails.id,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addDetails: (data) => dispatch(actions.addDetails(data)),
+    reset: () => dispatch(actions.resetData()),
+    getCartPrice: () => dispatch(actions.calculateCartPrice()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CourseData);

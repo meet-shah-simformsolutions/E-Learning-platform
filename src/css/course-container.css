@@ -76,6 +76,7 @@
     transition: 0.1s;
 }
 .price_btn:hover{
+    cursor: pointer;
     border: 1px solid #908db9;
     background-color: transparent;
     color: #908db9;
@@ -84,12 +85,19 @@
 }
 .reset > img{
     float: left;
-    position: relative;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     margin: 0px;
 
+
 }
+.searchResult{
+    color: #6d6a9e;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
+
+}
+
 @media only screen and (max-device-width: 480px) {
     .course-container{
         margin: 0px

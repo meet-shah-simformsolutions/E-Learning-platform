@@ -1,10 +1,9 @@
 
 import * as actionTypes from "./actionTypes";
-export const addDetails = (cart,price) =>{
+export const addDetails = (cart) =>{
     return{
         type:actionTypes.ADD_TO_CART,
-        price:price,
-        cart:cart
+        cart:cart,
     }
 }
 export const resetData = () =>{

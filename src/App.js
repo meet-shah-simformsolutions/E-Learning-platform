@@ -28,9 +28,9 @@ function App() {
   return (
     <div className="App">
       <Navbar/>
-      <PrivateRoutes exact path="/" component={Dashboard}/>
+      <PrivateRoutes exact path="/" component={Dashboard} msg="Please login to view dashboard"/>
       <PrivateRoutes exact path="/Update-profile" component={UpdateProfile}/>
-
+      
       <Route path="/web-development" exact component={CourseData}/>
       <Route path="/Registration" exact component={Registration}/>
       <Route path="/Workshop" exact component={WorkshopList}/>
@@ -39,8 +39,8 @@ function App() {
       <Route path="/Forgot_Password" exact component={Forgot_password}/>
       <Route path="/Course_Description"  component={Description}/>
       <Route path="/Dashboard"  component={Dashboard}/>
-      <PrivateRoutes path="/Checkout"  component={Checkout}/>
-      <PrivateRoutes path="/Wishlist"  component={WishList}/>
+      <PrivateRoutes path="/Checkout"  component={Checkout} msg="Please login to view cart"/>
+      <PrivateRoutes path="/Wishlist"  component={WishList} msg="Please login to view wishlist"/>
 
 
 

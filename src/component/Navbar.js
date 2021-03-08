@@ -76,7 +76,8 @@ const Navbar = (props) => {
             <div>
               <li>
                 {/* <NavLink to="/My-learning" exact activeStyle={{color:"red"}}>My learning</NavLink> */}
-                <NavLink to="/Wishlist" exact activeStyle={{color:"black"}}><i className="fa fa-heart" style={{fontSize:"36px"}} ></i></NavLink>
+                <NavLink to="/Wishlist" exact activeStyle={{color:"black"}}><i className="fa fa-heart wishlistIcon" style={{fontSize:"36px"}} >
+                {props.wishlist.length > 0 ? <div className="wishlistCounter">{props.wishlist.length}</div> : null }</i></NavLink>
 
               </li>
             </div>
@@ -106,6 +107,7 @@ const Navbar = (props) => {
 const mapStateToProps = (state) => {
   return {
     cart: state.cartDetails.cart,
+    wishlist:state.cartDetails.wishlist
   };
 };
 export default connect(mapStateToProps,null)(Navbar);
