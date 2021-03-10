@@ -10,7 +10,7 @@ import { WarningAlert } from "./Alert/WarningAlert";
 const CourseData = (props) => {
   const [searchText, setSearchText] = useState("");
   const [mainDataSource, setMaindataSource] = useState(data); /*do not change*/
-  const [dataSource, setDataSource] = useState(data);
+  const [dataSource, setDataSource] = useState([]);
   const [sortBy, setSortBy] = useState("");
   const [filtertBy, setFiltertBy] = useState("");
   const [offSet, setOffSet] = useState(9);
@@ -23,10 +23,13 @@ const CourseData = (props) => {
   const [noOfResult,setNoOfResult] =  useState()
   const [finalPrice, setFinalPrice] = useState(0);
   useEffect(() => {
+    props.setData()
+    console.log(props.dataSource)
+    setDataSource(props.dataSource)
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+  
   const handleScroll = (event) => {
     const scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
@@ -45,6 +48,11 @@ const CourseData = (props) => {
       return setOffSet((prev) => prev + 7);
     }
   };
+  useEffect(() => {
+    console.log("wishlistId",props.wishlistId)
+
+    
+  }, [props.wishlistId])
   // console.log(searchText);
   // useEffect((data) => {}, []);
   // useEffect((searchText)=>{
@@ -131,7 +139,27 @@ const CourseData = (props) => {
 
     return console.log(e.target);
   };
+  const addToWishlistDirectly = (index,id) => {
+    console.log(props.cartId)
+    if(props.cartId.includes(id)){
 
+        setAlertState(true)
+        setAlertMsg("Course Already Added in Cart")
+    }
+    else{
+      if (props.wishlistId.includes(id)) {
+        setAlertState(true)
+        setAlertMsg("Course Already Added in Wishlist")
+
+      } else {
+        setAlertState(false)
+        props.moveToWishlist(index)
+        props.addToWishlistDirectly(id)
+      }
+     
+    }
+    return true
+  }
   const filterStack = (value) => {
     let filterStack_data = mainDataSource.filter((x) => {
       return x.category === value;
@@ -154,7 +182,7 @@ const CourseData = (props) => {
       //   return a + b;
       // }, 0);
       // setFinalPrice(sum);
-      if (props.id.includes(id)) {
+      if (props.cartId.includes(id)) {
         setAlertState(true)
         setAlertMsg("Course Already Added in Cart")
 
@@ -165,7 +193,7 @@ const CourseData = (props) => {
 
       }
     }
-    else if(props.price > 10000 && props.id.includes(id)){
+    else if(props.price > 10000 && props.cartId.includes(id)){
       setAlertState(true)
       setAlertMsg("Limit Reached and Course Already Added in Cart")
     }
@@ -237,6 +265,7 @@ const CourseData = (props) => {
                 {data.price}/-
               </div>
             </div>
+            <div className="buttonWrapper">
             <button
               className="price_btn"
               onClick={(e) =>
@@ -245,6 +274,11 @@ const CourseData = (props) => {
             >
               Add to Cart
             </button>
+            <div className="wishlistIconContainer">
+            <i className="fa fa-heart wishlistIcon" title="wishlist" onClick={()=> addToWishlistDirectly(i,data.courseId)}></i>
+            </div>
+            </div>
+            
           </div>
         </div>
       ))
@@ -455,7 +489,9 @@ const mapStateToProps = (state) => {
     price: state.cartDetails.price,
     mainDataSource: state.cartDetails.mainDataSource,
     dataSource: state.cartDetails.dataSource,
-    id: state.cartDetails.id,
+    cartId: state.cartDetails.cartId,
+    wishlistId: state.cartDetails.wishlistId,
+    
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -463,6 +499,9 @@ const mapDispatchToProps = (dispatch) => {
     addDetails: (data) => dispatch(actions.addDetails(data)),
     reset: () => dispatch(actions.resetData()),
     getCartPrice: () => dispatch(actions.calculateCartPrice()),
+    moveToWishlist: (i) => dispatch(actions.moveToWishlist(i)),
+    addToWishlistDirectly:(id)=>dispatch(actions.addToWishlistDirectly(id)),
+    setData:()=>dispatch(actions.setData())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CourseData);

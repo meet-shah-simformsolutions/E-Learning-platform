@@ -5,5 +5,7 @@ export {
     calculateCartPrice,
     moveToWishlist,
     removeFromWishList,
-    moveToCart
+    moveToCart,
+    addToWishlistDirectly,
+    setData
 } from "./coursePriceAction"

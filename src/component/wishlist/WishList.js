@@ -13,7 +13,7 @@ class WishList extends Component {
     if(!this.props.wishlist.length < 1){
       wishlistData = (
         <div className="wishlistData">
-          <WishlistData cart={this.props.wishlist} />
+          <WishlistData wishlistData={this.props.wishlist} />
         </div>
       )
     }

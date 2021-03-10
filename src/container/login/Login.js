@@ -4,6 +4,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { ADD_PRICE } from "../../store/actions/actionTypes";
 import * as actions from "../../store/actions/index";
+import axios from "../../axios-order"
 function Login(props) {
   const [alertCss, setAlertCss] = useState("danger");
   const [error, setError] = useState("");
@@ -12,12 +13,7 @@ function Login(props) {
   const passwordRef = useRef();
   const { login } = useAuth();
   const history = useHistory();
-  useEffect(() => {
-    console.log(props.details)
-    return () => {
-      
-    }
-  }, [props.details])
+  
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -104,7 +100,8 @@ const mapStateToProps = state =>{
 }
 const mapDispatchToProps = dispatch =>{
   return{
-    change:(e)=> dispatch(actions.addDetails(e.target.value))
+    change:(e)=> dispatch(actions.addDetails(e.target.value)),
+    setData:(res)=>dispatch(actions.setData(res))
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Login);

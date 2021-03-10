@@ -4,17 +4,26 @@ const initialState = {
     price: 0,
     details:"TEST",
     cart:[],
-    dataSource:data,
+    dataSource:[],
     mainDataSource:data,
     wishlist: [],
-    id:[]
+    cartId:[],
+    wishlistId:[],
+
   };
+  const assignData = (state,action) =>{
+    return{
+      ...state,
+      dataSource:action.data,
+      // mainDataSource:action.data,
+    }
+  }
   const addDetails = (state,action) =>{
       console.log("cart",action.cart)
       return {
           ...state,
         //   price:state.price.concat(+action.price),
-            id:state.id.concat([action.cart.courseId]),
+        cartId:state.cartId.concat([action.cart.courseId]),
           cart:state.cart.concat([action.cart]),  
       }
   }
@@ -39,6 +48,9 @@ const initialState = {
   } 
   const removeFromCart = (state,action) => {
       console.log("remove from cart")
+      console.log("action index",action.index)
+      console.log(typeof(action.index))
+
         const removeEle = (a,index) =>{
             let newArray = [...a]
             newArray.splice(index,1)
@@ -47,17 +59,24 @@ const initialState = {
       return{
         ...state,
         cart:removeEle(state.cart,action.index),
+        cartId:removeEle(state.cartId,action.index)
         // calculateCartPrice(state,cart)
       }
   }
   const moveToWishlist = (state,action) =>{
       console.log("item moved to wishlist")
-
+      console.log("wishlist array",state.wishlist)
       return{
             ...state,
-          wishlist:state.wishlist.concat([state.cart[action.index]]),
-
+          wishlist:state.wishlist.concat([state.mainDataSource[action.index]]),
+        
       }
+  }
+  const addToWishlistDirectly = (state,action)=>{
+    return{
+      ...state,
+      wishlistId:state.wishlistId.concat([action.wishlistId])
+    }
   }
   const removeFromWishList = (state,action) =>{
       console.log("removefromwishlist")
@@ -75,7 +94,7 @@ const initialState = {
       console.log("item moved to cart")
       return{
         ...state,
-        cart:state.cart.concat(state.wishlist[action.index])
+        cart:state.cart.concat([state.wishlist[action.index]])
       }
   }
   const reducer = (state = initialState, action) =>{
@@ -87,6 +106,8 @@ const initialState = {
         case actionTypes.MOVE_TO_WISHLIST: return moveToWishlist(state,action)
         case actionTypes.REMOVE_FROM_WISHLIST: return removeFromWishList(state,action)
         case actionTypes.MOVE_TO_CART_FROM_WISHLIST:return moveToCart(state,action)
+        case actionTypes.ADD_TO_WISHLIST_DIRECTLY:return addToWishlistDirectly(state,action)
+        case actionTypes.ASSIGN_DATA:return assignData(state,action)
         default:
             return state
     }

@@ -15,10 +15,20 @@ function LoadData(props) {
     props.remove(i);
     props.getCartPrice();
   }
+  const dragStart = e => {
+    const target = e.target
+    e.dataTransfer.setData("text/plain", target.id)
+    // setTimeout(()=>{
+    //   target.style.display= "none"
+    // },0)
+  }
+  const dragOver = e =>{
+    e.stopPropagation()
+  }
   return props.cart.map((data, i) => {
     return (
       <div>
-        <div className="listOfSelectedCourse">
+        <div className="listOfSelectedCourse" draggable="true" onDragStart={dragStart} onDragOver={dragOver} id={data.courseId}>
           <div className="courseLogo">
             <img src={data.courseImg} alt="courseLogo" />
           </div>

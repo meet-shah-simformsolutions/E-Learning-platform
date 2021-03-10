@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Link } from "react-router-dom";
 import * as actions from "../../store/actions/index";
 
@@ -10,7 +10,12 @@ function WishlistData(props) {
     props.removeFromWishList(i);
     props.getCartPrice();
   }
-  return props.cart.map((data, i) => {
+  useEffect(() => {
+    console.log("props wishlistData",props.wishlistData)
+    
+  }, [])
+  return props.wishlistData.map((data, i) => {
+    console.log(data)
     return (
       <div>
         <div className="listOfSelectedCourse">
@@ -45,7 +50,9 @@ function WishlistData(props) {
   });
 }
 const mapStateToProps = (state) => {
-  return {};
+  return {
+
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -208,3 +208,8 @@
     color: grey;
     height: 550px;
 }
+.deleteIcon{
+    width: 100%;
+    align-items: center;
+    border: 1px solid red;
+}

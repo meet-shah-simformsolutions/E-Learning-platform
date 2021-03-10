@@ -1,5 +1,25 @@
 
 import * as actionTypes from "./actionTypes";
+import axios from "../../axios-order";
+
+export const setData = () => {
+    console.log("setData")
+     return dispatch =>{
+    axios.get("/CourseData.json")
+    .then(res =>{ 
+        dispatch(assignData(res.data))
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+    }
+}
+export const assignData = (data) => {
+    return {
+        type:actionTypes.ASSIGN_DATA,
+        data
+    }
+}
 export const addDetails = (cart) =>{
     return{
         type:actionTypes.ADD_TO_CART,
@@ -42,5 +62,11 @@ export const moveToCart = (index) => {
     return{
         type:actionTypes.MOVE_TO_CART_FROM_WISHLIST,
         index
+    }
+}
+export const addToWishlistDirectly = (id) =>{
+    return{
+        type:actionTypes.ADD_TO_WISHLIST_DIRECTLY,
+        wishlistId:id
     }
 }

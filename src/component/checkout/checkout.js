@@ -5,13 +5,38 @@ import { Link } from "react-router-dom";
 import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
 import LoadData from "./LoadData";
+import axios from "../../axios-order"
 class Checkout extends Component {
-  componentDidMount() {
-    console.log(this.props.id)
-    this.props.getCartPrice();
-  }
   
+  componentDidMount() {
+    this.props.setData()
+    console.log(this.props.dataSource)
+
+  }
+  componentDidUpdate(){
+    console.log("component updated",this.props.cart)
+  }
+  drop(e,props){
+    e.preventDefault()
+    console.log("e object",e)
+    const courseId = e.dataTransfer.getData('text/plain')
+    // const course = document.getElementById(courseId)
+    console.log(courseId)
+    // course.style.display =  "block"
+    // e.target.appendChild(course)
+    console.log(props)
+    console.log(props.cart)
+    this.props.remove(+courseId)
+    this.props.getCartPrice();
+
+  }
+  dragOver(e){
+    e.preventDefault()
+
+  }
+ 
   render() {
+    const obj = this.props
     let cartData = null
   if(!this.props.cart.length < 1){
     cartData = (
@@ -33,6 +58,9 @@ class Checkout extends Component {
               <div className="checkout-btn">
                 <button>Checkout</button>
                 <Link to="/Dashboard"></Link>
+              </div>
+              <div id="bin" onDrop={(e)=>this.drop(e,this.props)} onDragOver={this.dragOver} className="deleteIcon">
+              <i class="fa fa-trash" aria-hidden="true" style={{fontSize:"38px"}}></i>
               </div>
             </div>
           </div>
@@ -58,13 +86,15 @@ const mapStateToProps = (state) => {
   return {
     price: state.cartDetails.price,
     cart: state.cartDetails.cart,
-    id:state.cartDetails.id
+    id:state.cartDetails.id,
+    dataSource:state.cartDetails.dataSource
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     remove: (index) => dispatch(actions.removeFromCart(index)),
     getCartPrice: () => dispatch(actions.calculateCartPrice()),
+    setData:()=>dispatch(actions.setData())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

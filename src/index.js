@@ -16,7 +16,10 @@ cartDetails:cartDetails
 // const store = createStore(rootReducer, composeEnhancers(
 //   applyMiddleware(thunk)
 // ));
-const store  = createStore(rootReducer)
+const store = createStore(rootReducer, 
+  applyMiddleware(thunk)
+);
+// const store  = createStore(rootReducer)
 ReactDOM.render(
   <Provider store={store}>
   <React.StrictMode>

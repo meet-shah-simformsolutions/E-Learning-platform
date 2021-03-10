@@ -34,6 +34,7 @@
   }
 .course-list > .course-container > .course_data{
     display: grid;
+    width: 320px;
     border-radius: 8px;
 }
 .course-list > .course-container > .course_data > img{
@@ -66,6 +67,7 @@
     float: right;
     padding: 10px;
     margin: 10px;
+    margin-top: 5px;
     margin-bottom: 0px;
     background-color: #908db9;
     border: none;
@@ -74,6 +76,8 @@
     font-size: 18px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     transition: 0.1s;
+    width: 80%;
+    /* border: 1px solid black; */
 }
 .price_btn:hover{
     cursor: pointer;
@@ -119,4 +123,32 @@
     .course-list{
         grid-template-columns: auto auto auto auto;
     }
+}
+.buttonWrapper{
+    display: flex;
+    flex-direction: row;
+    justify-items: auto;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.wishlistIconContainer{
+    /* padding-top: 10px; */
+    width: 14%;
+    height: 90%;
+    border: 1px solid #69678f;
+    border-radius: 50%;
+    padding: 2px;
+}
+.wishlistIconContainer > .wishlistIcon {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    color: #c1bfda;
+    font-size: 22px;
+}
+.wishlistIconContainer > .wishlistIcon:hover{
+    color: #6d6a9e;
+}
+.wishlistIconContainer > .wishlistIcon:active{
+    color: #6d6a9e;
 }
