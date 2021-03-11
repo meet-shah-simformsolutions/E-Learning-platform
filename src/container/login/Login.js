@@ -11,8 +11,9 @@ function Login(props) {
   const [loading, setLoading] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login } = useAuth();
+  const { login,currentUser } = useAuth();
   const history = useHistory();
+  
   
   async function handleSubmit(e) {
     e.preventDefault();
@@ -95,13 +96,17 @@ function Login(props) {
 }
 const mapStateToProps = state =>{
   return{
-      details:state.cartDetails.price
+      details:state.cartDetails.price,
+    userId:state.cartDetails.userId
+
   }
 }
 const mapDispatchToProps = dispatch =>{
   return{
     change:(e)=> dispatch(actions.addDetails(e.target.value)),
-    setData:(res)=>dispatch(actions.setData(res))
+    setData:(res)=>dispatch(actions.setData(res)),
+   setUserId:(id)=>dispatch(actions.setUserId(id))
+
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Login);

@@ -1,8 +1,10 @@
-import React, { Component, useRef, useState } from "react";
+import React, { Component, useRef, useState,useEffect } from "react";
 import "./signup.css";
 import { NavLink, Redirect, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
+import * as actions from "../../store/actions/index";
+import { connect } from "react-redux";
 function Signup(props) {
   console.log("component rendered")
   // const [isVerified, setisVerified] = useState(true);
@@ -18,6 +20,15 @@ function Signup(props) {
   const passwordConfirmRef = useRef()
   const { signup, currentUser } = useAuth();
   const history = useHistory()
+
+  useEffect(() => {
+    if(currentUser){
+      props.setUserId(currentUser.uid)
+    }
+  }, [])
+  setTimeout(() => {
+    console.log(props.userId)
+  }, 1000);
 
   async function handleSubmit (e) {
     e.preventDefault();
@@ -160,4 +171,15 @@ return (
   </div>
 );
 }
-export default Signup;
+const mapStateToProps = (state) => {
+  return {
+    userId:state.cartDetails.userId
+    
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+   setUserId:(id)=>dispatch(actions.setUserId(id))
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

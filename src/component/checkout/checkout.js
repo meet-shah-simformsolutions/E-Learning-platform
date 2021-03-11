@@ -6,14 +6,30 @@ import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
 import LoadData from "./LoadData";
 import axios from "../../axios-order"
+import { SuccessAlert } from "../Alert/SuccessAlert";
 class Checkout extends Component {
+  state={
+    finalCart:{cart:null,userId:""}
+  }
   
   componentDidMount() {
-    this.props.setData()
+    // this.props.setData()
     console.log(this.props.dataSource)
-
+    console.log(this.props.userId)
+    this.setState({
+      finalCart:{
+        cart:this.props.cart,
+        userId:this.props.userId
+      }
+    })
+    setTimeout(() => {
+      console.log(this.state.finalCart)
+      
+    }, 1000);
   }
+  
   componentDidUpdate(){
+    console.log(this.props.toast)
     console.log("component updated",this.props.cart)
   }
   drop(e,props){
@@ -38,16 +54,16 @@ class Checkout extends Component {
   render() {
     const obj = this.props
     let cartData = null
-  if(!this.props.cart.length < 1){
-    cartData = (
-      <div className="checkout-container">
+    if(!this.props.cart.length < 1){
+      cartData = (
+        <div className="checkout-container">
             <div className="selectedCourses">
               <LoadData
                 cart={this.props.cart}
                 remove={this.props.remove}
                 getCartPrice={this.props.getCartPrice}
                 moveToWishlist={this.props.moveToWishlist}
-              />
+                />
             </div>
             <div className="price-Container">
               <h3>{this.props.cart.length} Courses in cart</h3>
@@ -56,13 +72,14 @@ class Checkout extends Component {
               <div className="basePrice">Baseprice</div>
               <div className="offer">offer%off</div>
               <div className="checkout-btn">
-                <button>Checkout</button>
+                <button onClick={() => this.props.SubmitData(this.props.userId,this.state.finalCart)}>Checkout</button>
                 <Link to="/Dashboard"></Link>
               </div>
               <div id="bin" onDrop={(e)=>this.drop(e,this.props)} onDragOver={this.dragOver} className="deleteIcon">
               <i class="fa fa-trash" aria-hidden="true" style={{fontSize:"38px"}}></i>
               </div>
             </div>
+                {this.props.toast ? (<SuccessAlert msg="order placed" />): null }
           </div>
     )
   }
@@ -87,14 +104,17 @@ const mapStateToProps = (state) => {
     price: state.cartDetails.price,
     cart: state.cartDetails.cart,
     id:state.cartDetails.id,
-    dataSource:state.cartDetails.dataSource
+    dataSource:state.cartDetails.dataSource,
+    userId:state.cartDetails.userId,
+    toast:state.cartDetails.toast
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     remove: (index) => dispatch(actions.removeFromCart(index)),
     getCartPrice: () => dispatch(actions.calculateCartPrice()),
-    setData:()=>dispatch(actions.setData())
+    setData:()=>dispatch(actions.setData()),
+    SubmitData:(id,cart)=>dispatch(actions.SubmitData(id,cart))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import * as actions from "../../store/actions/index";
+import { connect } from "react-redux";
+
 function Dashboard(props) {
   const { currentUser, logout } = useAuth();
   const [alertCss, setAlertCss] = useState("danger");
   const [error, setError] = useState();
   const history = useHistory();
+
+  useEffect(() => {
+    if(currentUser){
+      props.setUserId(currentUser.uid)
+    }
+  }, [])
+  setTimeout(() => {
+    console.log(props.userId)
+  }, 1000);
   async function handleLogout() {
     setError("");
     try {
@@ -29,5 +41,20 @@ function Dashboard(props) {
     </div>
   );
 }
+const mapStateToProps = state =>{
+  return{
+      details:state.cartDetails.price,
+    userId:state.cartDetails.userId,
+    currentUser:state.cartDetails.currentUser
+  }
+}
+const mapDispatchToProps = dispatch =>{
+  return{
+    change:(e)=> dispatch(actions.addDetails(e.target.value)),
+    setData:(res)=>dispatch(actions.setData(res)),
+   setUserId:(id)=>dispatch(actions.setUserId(id))
 
-export default Dashboard;
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);
+

@@ -7,5 +7,9 @@ export {
     removeFromWishList,
     moveToCart,
     addToWishlistDirectly,
-    setData
+    setData,
+    setUserId,
+    SubmitData,
+    clearCart,
+    getPurchasedCourses
 } from "./coursePriceAction"

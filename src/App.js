@@ -23,6 +23,7 @@ import {  useAuth } from "./contexts/AuthContext";
 import WorkshopList from './component/Workshop/WorkshopList';
 import Checkout from './component/checkout/checkout';
 import WishList from './component/wishlist/WishList';
+import MyLearning from './component/MyLearning/MyLearning';
 function App() {
 
   return (
@@ -41,7 +42,9 @@ function App() {
       <Route path="/Dashboard"  component={Dashboard}/>
       <PrivateRoutes path="/Checkout"  component={Checkout} msg="Please login to view cart"/>
       <PrivateRoutes path="/Wishlist"  component={WishList} msg="Please login to view wishlist"/>
+      <PrivateRoutes path="/My-Learning"  component={MyLearning} msg="Please login to view Learning"/>
 
+      
 
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link,NavLink } from "react-router-dom";
 import { connect } from "react-redux";
+
 const Navbar = (props) => {
 
   return (
@@ -58,7 +59,7 @@ const Navbar = (props) => {
             <div>
               <li>
                 {/* <NavLink to="/My-learning" exact activeStyle={{color:"red"}}>My learning</NavLink> */}
-                <NavLink to="/Signup" exact activeStyle={{color:"black"}}>Signup</NavLink>
+                {!props.userId ? (<NavLink to="/Signup" exact activeStyle={{color:"black"}}>Signup</NavLink>): null}
 
               </li>
             </div>
@@ -67,7 +68,7 @@ const Navbar = (props) => {
             <div>
               <li>
                 {/* <NavLink to="/My-learning" exact activeStyle={{color:"red"}}>My learning</NavLink> */}
-                <NavLink to="/Login" exact activeStyle={{color:"black"}}>Login</NavLink>
+                {props.userId ? ((<NavLink to="/My-Learning" exact activeStyle={{color:"black"}}>My Learning</NavLink>)):(<NavLink to="/Login" exact activeStyle={{color:"black"}}>Login</NavLink>)}
 
               </li>
             </div>
@@ -107,7 +108,9 @@ const Navbar = (props) => {
 const mapStateToProps = (state) => {
   return {
     cart: state.cartDetails.cart,
-    wishlist:state.cartDetails.wishlist
+    wishlist:state.cartDetails.wishlist,
+    currentUser:state.cartDetails.currentUser,
+    userId:state.cartDetails.userId
   };
 };
 export default connect(mapStateToProps,null)(Navbar);

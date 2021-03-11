@@ -4,7 +4,7 @@ import { Redirect, Route } from "react-router-dom";
 import { Alert } from "../component/Alert/Alert";
 function PrivateRoutes({ component: Component, ...rest }) {
   const { currentUser } = useAuth();
-  console.log(currentUser)
+  console.log(currentUser ? currentUser.uid : null)
   const obj = {
     ...rest
   }

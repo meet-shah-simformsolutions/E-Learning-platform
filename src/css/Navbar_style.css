@@ -189,6 +189,10 @@ display: block;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color:#193550;
     font-weight: 500;
+    outline: none;
+  }
+  .search_course:focus{
+      border: 1px double #5c5c92;
   }
   .logo{
   }

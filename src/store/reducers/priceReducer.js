@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
+import { useAuth } from "../../contexts/AuthContext";
 import data from "../../data.json"
 const initialState = {
     price: 0,
@@ -9,12 +10,33 @@ const initialState = {
     wishlist: [],
     cartId:[],
     wishlistId:[],
-
+    userId:"",
+    currentUser:null,
+    order:[],
+    fetchedOrder:[],
+    responseId:"",
+    toast:false,
+    learning:[]
   };
   const assignData = (state,action) =>{
     return{
       ...state,
+      currentUser:action.currentUser,
       dataSource:action.data,
+      // mainDataSource:action.data,
+    }
+  }
+  const setUserId = (state,action) => {
+    return{
+      ...state,
+      userId:action.id
+    }
+  }
+  const orderedData = (state,action) =>{
+    return{
+      ...state,
+      order:action.data,
+      toast:true
       // mainDataSource:action.data,
     }
   }
@@ -97,6 +119,36 @@ const initialState = {
         cart:state.cart.concat([state.wishlist[action.index]])
       }
   }
+  const setResponseId = (state,action) => {
+    return{
+      ...state,
+      responseId:action.id
+    }
+  }
+  const setFetchedOrder = (state,action) => {
+    return{
+      ...state,
+      fetchedOrder:action.data,
+    }
+  }
+  const clearCart = (state,action) =>{
+    return{
+      ...state,
+      cart:[],
+    }
+  }
+  const addToLearningArray = (state,action) => {
+    return{
+      ...state,
+      learning:state.learning.concat([action.purchasedCourse])
+    }
+  }
+  const setEmpty = (state,action)=>{
+    return{
+      ...state,
+      learning:[]
+    }
+  }
   const reducer = (state = initialState, action) =>{
     switch(action.type){
         case actionTypes.ADD_TO_CART: return addDetails(state,action)
@@ -108,6 +160,13 @@ const initialState = {
         case actionTypes.MOVE_TO_CART_FROM_WISHLIST:return moveToCart(state,action)
         case actionTypes.ADD_TO_WISHLIST_DIRECTLY:return addToWishlistDirectly(state,action)
         case actionTypes.ASSIGN_DATA:return assignData(state,action)
+        case actionTypes.SET_USER_ID:return setUserId(state,action)
+        case actionTypes.ORDERED_DATA:return orderedData(state,action)
+        case actionTypes.CLEAR_CART: return clearCart(state,action);
+        case actionTypes.SET_RESPONSE_ID: return setResponseId(state,action)
+        case actionTypes.SET_FETCHED_ORDER: return setFetchedOrder(state,action)
+        case actionTypes.ADD_TO_LEARNING_ARRAY:return addToLearningArray(state,action)
+        case actionTypes.SET_EMPTY:return setEmpty(state,action)
         default:
             return state
     }

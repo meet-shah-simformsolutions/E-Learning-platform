@@ -7,6 +7,7 @@ import Description from "./Description";
 import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
 import { WarningAlert } from "./Alert/WarningAlert";
+import { useAuth } from "../contexts/AuthContext"
 const CourseData = (props) => {
   const [searchText, setSearchText] = useState("");
   const [mainDataSource, setMaindataSource] = useState(data); /*do not change*/
@@ -22,14 +23,19 @@ const CourseData = (props) => {
   const [alertMsg,setAlertMsg] = useState("")
   const [noOfResult,setNoOfResult] =  useState()
   const [finalPrice, setFinalPrice] = useState(0);
+  const { currentUser } = useAuth();
+
   useEffect(() => {
-    props.setData()
+    props.setData(currentUser)
     console.log(props.dataSource)
-    setDataSource(props.dataSource)
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
+  useEffect(() => {
+      setDataSource(props.dataSource)
+      // console.log("current user",props.currentUser ? props.currentUser : null)
+      // console.log("current userid",props.currentUser ? props.currentUser.uid : null)
+  }, [props.dataSource])
   const handleScroll = (event) => {
     const scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
@@ -50,8 +56,6 @@ const CourseData = (props) => {
   };
   useEffect(() => {
     console.log("wishlistId",props.wishlistId)
-
-    
   }, [props.wishlistId])
   // console.log(searchText);
   // useEffect((data) => {}, []);
@@ -381,6 +385,15 @@ const CourseData = (props) => {
   //   console.log("sheight",scrollHeight)
 
   // }
+       let CourseList = null
+       if(dataSource.length > 0){
+         CourseList = ( <LoadData data={dataSource.slice(0, offSet)} />)
+
+       }
+       else{
+
+         CourseList = (<div>Loading..............</div>)
+       }
   return (
     <div>
       {alertState ? (<WarningAlert msg={alertMsg}/>) : null}
@@ -474,7 +487,7 @@ const CourseData = (props) => {
             </div>
           </div>
         ))} */}
-        <LoadData data={dataSource.slice(0, offSet)} />
+        {CourseList}
         {/* <div style={{color:"white"}}>
         {status}
         </div> */}
@@ -491,7 +504,8 @@ const mapStateToProps = (state) => {
     dataSource: state.cartDetails.dataSource,
     cartId: state.cartDetails.cartId,
     wishlistId: state.cartDetails.wishlistId,
-    
+    userId:state.cartDetails.userId,
+    currentUser:state.cartDetails.currentUser
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -501,7 +515,8 @@ const mapDispatchToProps = (dispatch) => {
     getCartPrice: () => dispatch(actions.calculateCartPrice()),
     moveToWishlist: (i) => dispatch(actions.moveToWishlist(i)),
     addToWishlistDirectly:(id)=>dispatch(actions.addToWishlistDirectly(id)),
-    setData:()=>dispatch(actions.setData())
+    setData:(currentUser)=>dispatch(actions.setData(currentUser)),
+    
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CourseData);

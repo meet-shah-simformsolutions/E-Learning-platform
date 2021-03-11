@@ -24,7 +24,6 @@
     padding: 10px 0;
     font-size: 30px;
     border-radius: 8px;
-    transition: 0.5s;
     width: 380px;
     margin:10px 10px ;
     justify-content: center;
@@ -51,7 +50,16 @@
 }
 .course-container:hover{
     /* transform: scale(1.01,1.02); */
+
     /* border: 1px dashed #69678f; */
+    transform: translateY(-10px) scale(1.02);
+ transition: 0.5s ease;
+ box-shadow: 0 5px 20px #908db9;
+    
+
+ -webkit-transform: translateZ(0) scale(1.0, 1.0);
+ 
+ 
 
 }
 .price{
@@ -77,6 +85,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     transition: 0.1s;
     width: 80%;
+    outline: none;
     /* border: 1px solid black; */
 }
 .price_btn:hover{
