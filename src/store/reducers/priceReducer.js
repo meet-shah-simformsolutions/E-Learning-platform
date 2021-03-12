@@ -15,8 +15,9 @@ const initialState = {
     order:[],
     fetchedOrder:[],
     responseId:"",
-    toast:false,
-    learning:[]
+    learning:[],
+    purchasedCourseId:[],
+    toastState:false
   };
   const assignData = (state,action) =>{
     return{
@@ -36,7 +37,7 @@ const initialState = {
     return{
       ...state,
       order:action.data,
-      toast:true
+      toastState:true
       // mainDataSource:action.data,
     }
   }
@@ -135,17 +136,35 @@ const initialState = {
     return{
       ...state,
       cart:[],
+      price:0,
     }
   }
   const addToLearningArray = (state,action) => {
+    // console.log(action.purchasedCourse);
+    console.log("learning array",state.learning)
+
     return{
       ...state,
-      learning:state.learning.concat([action.purchasedCourse])
+      learning:state.learning.concat([action.purchasedCourse]).flat(Infinity)
+    }
+  }
+  const purchasedCourseId = (state,action) => {
+    console.log("purchased courseid array",state.purchasedCourseId)
+    return{
+      ...state,
+      purchasedCourseId:state.purchasedCourseId.concat([action.id])
+    }
+  }
+  const setToast = (state,action) => {
+    return{
+      ...state,
+      toastState:false
     }
   }
   const setEmpty = (state,action)=>{
     return{
       ...state,
+      purchasedCourseId:[],
       learning:[]
     }
   }
@@ -167,6 +186,8 @@ const initialState = {
         case actionTypes.SET_FETCHED_ORDER: return setFetchedOrder(state,action)
         case actionTypes.ADD_TO_LEARNING_ARRAY:return addToLearningArray(state,action)
         case actionTypes.SET_EMPTY:return setEmpty(state,action)
+        case actionTypes.PURCHASED_COURSE_ID:return purchasedCourseId(state,action)
+        case actionTypes.SET_TOAST:return setToast(state,action)
         default:
             return state
     }

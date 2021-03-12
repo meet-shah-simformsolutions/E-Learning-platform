@@ -27,10 +27,13 @@ const CourseData = (props) => {
 
   useEffect(() => {
     props.setData(currentUser)
+    props.setUserId(currentUser.uid)
     console.log(props.dataSource)
+    props.getPurchasedCourses(props.userId)
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   useEffect(() => {
       setDataSource(props.dataSource)
       // console.log("current user",props.currentUser ? props.currentUser : null)
@@ -149,7 +152,11 @@ const CourseData = (props) => {
 
         setAlertState(true)
         setAlertMsg("Course Already Added in Cart")
+    }else if(props.purchasedCourseId.includes(id)){
+      setAlertState(true)
+        setAlertMsg("Course Already Purchased, Please Check Your My-Learning tab")
     }
+
     else{
       if (props.wishlistId.includes(id)) {
         setAlertState(true)
@@ -190,7 +197,11 @@ const CourseData = (props) => {
         setAlertState(true)
         setAlertMsg("Course Already Added in Cart")
 
-      } else {
+      }else if(props.purchasedCourseId.includes(id)){
+        setAlertState(true)
+        setAlertMsg("Course Already Purchased, Please Check Your My-Learning tab")
+      } 
+      else  {
         setAlertState(false)
         props.addDetails(data);
         props.getCartPrice()
@@ -483,7 +494,7 @@ const CourseData = (props) => {
                 &nbsp;
                 <div className="price">{data.price}/-</div>
               </div>
-              <button className="price_btn">Add to Cart</button>
+              <button className="price_btn">Add to Cart</butto  n>
             </div>
           </div>
         ))} */}
@@ -505,7 +516,8 @@ const mapStateToProps = (state) => {
     cartId: state.cartDetails.cartId,
     wishlistId: state.cartDetails.wishlistId,
     userId:state.cartDetails.userId,
-    currentUser:state.cartDetails.currentUser
+    currentUser:state.cartDetails.currentUser,
+    purchasedCourseId:state.cartDetails.purchasedCourseId
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -516,7 +528,9 @@ const mapDispatchToProps = (dispatch) => {
     moveToWishlist: (i) => dispatch(actions.moveToWishlist(i)),
     addToWishlistDirectly:(id)=>dispatch(actions.addToWishlistDirectly(id)),
     setData:(currentUser)=>dispatch(actions.setData(currentUser)),
-    
+    getPurchasedCourses:(id)=> dispatch(actions.getPurchasedCourses(id)),
+   setUserId:(id)=>dispatch(actions.setUserId(id))
+
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CourseData);

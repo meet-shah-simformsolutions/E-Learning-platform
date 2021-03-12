@@ -18,7 +18,7 @@
   .course-list > .course-container {
 
     display: grid; 
-    grid-template-rows: auto;
+    grid-template-rows: auto ;
     background-color:white;
     text-align: center;
     padding: 10px 0;

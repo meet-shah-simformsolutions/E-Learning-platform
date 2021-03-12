@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Link,NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-
+import { useAuth } from "../contexts/AuthContext";
 const Navbar = (props) => {
+  const { currentUser} = useAuth()
 
   return (
     <>
@@ -59,7 +60,7 @@ const Navbar = (props) => {
             <div>
               <li>
                 {/* <NavLink to="/My-learning" exact activeStyle={{color:"red"}}>My learning</NavLink> */}
-                {!props.userId ? (<NavLink to="/Signup" exact activeStyle={{color:"black"}}>Signup</NavLink>): null}
+                {!currentUser ? (<NavLink to="/Signup" exact activeStyle={{color:"black"}}>Signup</NavLink>): (<NavLink to="/Dashboard" exact activeStyle={{color:"black"}}>Dashboard</NavLink>)}
 
               </li>
             </div>
@@ -68,7 +69,7 @@ const Navbar = (props) => {
             <div>
               <li>
                 {/* <NavLink to="/My-learning" exact activeStyle={{color:"red"}}>My learning</NavLink> */}
-                {props.userId ? ((<NavLink to="/My-Learning" exact activeStyle={{color:"black"}}>My Learning</NavLink>)):(<NavLink to="/Login" exact activeStyle={{color:"black"}}>Login</NavLink>)}
+                {currentUser ? ((<NavLink to="/My-Learning" exact activeStyle={{color:"black"}}>My Learning</NavLink>)):(<NavLink to="/Login" exact activeStyle={{color:"black"}}>Login</NavLink>)}
 
               </li>
             </div>

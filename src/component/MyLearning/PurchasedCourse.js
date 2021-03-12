@@ -5,15 +5,16 @@ import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
 function PurchasedCourse(props) {
   useEffect(() => {
-    console.log(this.props)
+    // console.log("inside comp")
     
   }, [])
   
   return props.fetchedOrder.map((data, i) => {
-    console.log("data",data)
+    // console.log("data",data)
     return (
       <div>
-        <div className="listOfSelectedCourse">
+        
+        <div className="listOfPurchasedCourse">
           <div className=" courseLogo myLearning-courseLogo">
             <img src={data.courseImg} alt="courseLogo" />
           </div>
