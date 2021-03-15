@@ -9,7 +9,7 @@ import axios from "../../axios-order";
 import { SuccessAlert } from "../Alert/SuccessAlert";
 class Checkout extends Component {
   state = {
-    finalCart: { cart: null, userId: "" },
+    finalCart: { cart: null, userId: "",wishlist:[]},
   };
 
   componentDidMount() {
@@ -18,11 +18,13 @@ class Checkout extends Component {
     console.log(this.props.userId);
     console.log("toast", this.props.toast);
     console.log("toast State", this.props.toastState);
+    console.log(this.props.wishlist);
     this.props.setToast()
     this.setState({
       finalCart: {
         cart: this.props.cart,
         userId: this.props.userId,
+        wishlist:this.props.wishlist
       },
     });
 
@@ -75,7 +77,7 @@ class Checkout extends Component {
             <div className="checkout-btn">
               <button
                 onClick={() =>
-                  this.props.SubmitData(this.props.userId, this.state.finalCart)
+                  this.props.SubmitData(this.props.userId,this.state.finalCart,)
                 }
               >
                 Checkout
@@ -125,6 +127,7 @@ const mapStateToProps = (state) => {
     dataSource: state.cartDetails.dataSource,
     userId: state.cartDetails.userId,
     toastState: state.cartDetails.toastState,
+    wishlist:state.cartDetails.wishlist
   };
 };
 const mapDispatchToProps = (dispatch) => {

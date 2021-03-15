@@ -13,6 +13,7 @@ function Dashboard(props) {
   useEffect(() => {
     if(currentUser){
       props.setUserId(currentUser.uid)
+      props.getWishlistData(currentUser.uid)
     }
   }, [])
   setTimeout(() => {
@@ -52,8 +53,8 @@ const mapDispatchToProps = dispatch =>{
   return{
     change:(e)=> dispatch(actions.addDetails(e.target.value)),
     setData:(res)=>dispatch(actions.setData(res)),
-   setUserId:(id)=>dispatch(actions.setUserId(id))
-
+   setUserId:(id)=>dispatch(actions.setUserId(id)),
+   getWishlistData:(id)=> dispatch(actions.getWishlistData(id))
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);

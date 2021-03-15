@@ -12,5 +12,8 @@ export {
     SubmitData,
     clearCart,
     getPurchasedCourses,
-    setToast
+    setToast,
+    updateWishlist,
+    storeWishlistData,
+    getWishlistData
 } from "./coursePriceAction"

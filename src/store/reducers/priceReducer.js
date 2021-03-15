@@ -1,6 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 import { useAuth } from "../../contexts/AuthContext";
 import data from "../../data.json"
+import { getWishlistData } from "../actions";
 const initialState = {
     price: 0,
     details:"TEST",
@@ -17,7 +18,7 @@ const initialState = {
     responseId:"",
     learning:[],
     purchasedCourseId:[],
-    toastState:false
+    toastState:false,
   };
   const assignData = (state,action) =>{
     return{
@@ -148,6 +149,7 @@ const initialState = {
       learning:state.learning.concat([action.purchasedCourse]).flat(Infinity)
     }
   }
+
   const purchasedCourseId = (state,action) => {
     console.log("purchased courseid array",state.purchasedCourseId)
     return{
@@ -166,6 +168,13 @@ const initialState = {
       ...state,
       purchasedCourseId:[],
       learning:[]
+    }
+  }
+  const assignWishListData = (state,action) => {
+    return{
+      ...state,
+      wishlist:action.data,
+      
     }
   }
   const reducer = (state = initialState, action) =>{
@@ -188,6 +197,7 @@ const initialState = {
         case actionTypes.SET_EMPTY:return setEmpty(state,action)
         case actionTypes.PURCHASED_COURSE_ID:return purchasedCourseId(state,action)
         case actionTypes.SET_TOAST:return setToast(state,action)
+        case actionTypes.ASSIGN_WISHLIST_DATA:return assignWishListData(state,action)
         default:
             return state
     }

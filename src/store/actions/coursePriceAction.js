@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-order";
-
+import  firebase  from "firebase";
+import { db } from "../../firebase";
 export const purchaseBurger = (orderData, token) => {
   return (dispatch) => {
     dispatch();
@@ -89,24 +90,63 @@ export const addToWishlistDirectly = (id) => {
     wishlistId: id,
   };
 };
-export const SubmitData = (id, cart) => {
-  console.log(cart);
+export const SubmitData = (id, data) => {
+  console.log("id inside submitaction",id)
+  console.log(data);
   return (dispatch) => {
-    axios
-      .post("/orderedData.json", cart)
-      .then((res) => {
-        dispatch(orderedData(cart));
-        dispatch(setResponseId(res.data.name));
-        dispatch(clearCart());
-        console.log("res", res);
-        console.log("res", res.data.name);
-        console.log("data submitted");
+    
+/*-----*/
+
+    // axios
+    //   .post("/orderedData.json", cart)
+    //   .then((res) => {
+    //     dispatch(orderedData(cart));
+    //     dispatch(setResponseId(res.data.name));
+    //     dispatch(clearCart());
+    //     console.log("res", res);
+    //     console.log("res", res.data.name);
+    //     console.log("data submitted");
+    //   })
+    //   .catch((error) => {
+    //     console.log("error durning ");
+    //   });
+
+
+/*-----*/
+
+        // db.settings({
+        //     timestampsInSnapshots: true
+        //     });
+      //  db.collection("orders").doc(id).set({
+      //       cart: cart.cart,
+      //       },{merge:true}).then(()=>{
+      //         console.log("data set to new doc");
+      //       });  
+      
+
+let today = new Date();
+let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+let time = (today + date).slice(0,25)
+      console.log(data.cart);
+      db.collection('orders').doc(id)
+                .collection('Purchased-Courses').doc(time).set({
+                  
+                  purchasedCourse:data.cart
+                })
+      db.collection('orders').doc(id).set({
+      id:id,
+      wishlist:data.wishlist
       })
-      .catch((error) => {
-        console.log("error durning ");
-      });
   };
 };
+export const storeWishlistData = (data,id) => {
+  console.log("data",data);
+  db.collection('orders').doc(id).update({
+    wishlist:data
+  }).then(()=>{
+    console.log("wishlist updated");
+  })
+}
 export const setResponseId = (id) => {
   return {
     type: actionTypes.SET_RESPONSE_ID,
@@ -127,18 +167,39 @@ export const clearCart = () => {
 export const getPurchasedCourses = (id) => {
     console.log(id)
   return (dispatch) => {
-    axios
-      .get("/orderedData.json")
-      .then((res) => {
-        // console.log(res.data);
+    dispatch(setEmpty())
 
-        dispatch(setEmpty());
-        dispatch(selectUser(res.data, id));
-        // dispatch(setFetchedOrder(res.data[id]))
+    /*-------------*/
+
+    // axios
+    //   .get("/orderedData.json")
+    //   .then((res) => {
+    //     // console.log(res.data);
+
+    //     dispatch(setEmpty());
+    //     dispatch(selectUser(res.data, id));
+    //     // dispatch(setFetchedOrder(res.data[id]))
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+
+
+    /*-------------*/
+    if(id){
+
+      db.collection('orders').doc(id).get().then((doc)=>{
+        console.log("fetched id",doc.data());
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      db.collection('orders').doc(id).collection('Purchased-Courses').get()
+      .then(snapShot => {
+          console.log(snapShot.docs.map(doc=>dispatch(selectedId(doc.data().purchasedCourse))));
+           // array of cities objects
+           
+        })
+    }
+
   };
 };
 export const selectUser = (data, id) => {
@@ -195,3 +256,34 @@ export const setFetchedOrder = (data) => {
     data,
   };
 };
+
+
+export const updateWishlist = (id,wishListData) => {
+  return dispatch =>{
+
+    db.collection("orders").doc(id).update({
+      cart: {
+        wishlist: wishListData
+      }
+    }).then(function() {
+      console.log("Data  updated");
+    });
+  }
+  
+}
+
+export const getWishlistData =(id) =>{
+  return dispatch =>{
+    // if(id){
+    //   db.collection('orders').doc(id).get().then((doc)=>{
+    //     dispatch(assignWishListData(doc.data().wishlist));
+    //   })
+    // }
+}
+}
+export const assignWishListData  = (data) => {
+  return{
+    type:actionTypes.ASSIGN_WISHLIST_DATA,
+    data
+  }
+}

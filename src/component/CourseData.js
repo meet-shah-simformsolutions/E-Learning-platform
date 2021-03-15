@@ -475,7 +475,7 @@ const CourseData = (props) => {
               value={searchText}
               required
               name=""
-              type="text"
+              type="search"
               placeholder="Search Course Here"
               onChange={(e) => filterName(e.target.value)}
             />
@@ -517,7 +517,8 @@ const mapStateToProps = (state) => {
     wishlistId: state.cartDetails.wishlistId,
     userId:state.cartDetails.userId,
     currentUser:state.cartDetails.currentUser,
-    purchasedCourseId:state.cartDetails.purchasedCourseId
+    purchasedCourseId:state.cartDetails.purchasedCourseId,
+    wishlist:state.cartDetails.wishlist
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -529,7 +530,8 @@ const mapDispatchToProps = (dispatch) => {
     addToWishlistDirectly:(id)=>dispatch(actions.addToWishlistDirectly(id)),
     setData:(currentUser)=>dispatch(actions.setData(currentUser)),
     getPurchasedCourses:(id)=> dispatch(actions.getPurchasedCourses(id)),
-   setUserId:(id)=>dispatch(actions.setUserId(id))
+   setUserId:(id)=>dispatch(actions.setUserId(id)),
+   storeWishlistData:(data,id)=>dispatch(actions.storeWishlistData(data,id))
 
   };
 };
