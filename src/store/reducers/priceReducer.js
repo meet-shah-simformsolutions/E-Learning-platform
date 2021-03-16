@@ -1,13 +1,12 @@
 import * as actionTypes from "../actions/actionTypes";
-import { useAuth } from "../../contexts/AuthContext";
-import data from "../../data.json"
-import { getWishlistData } from "../actions";
+// import { useAuth } from "../../contexts/AuthContext";
+// import data from "../../data.json"
 const initialState = {
     price: 0,
     details:"TEST",
     cart:[],
     dataSource:[],
-    mainDataSource:data,
+    mainDataSource:[],
     wishlist: [],
     cartId:[],
     wishlistId:[],
@@ -19,19 +18,22 @@ const initialState = {
     learning:[],
     purchasedCourseId:[],
     toastState:false,
+    formatState:true,
+    docName:[]
   };
   const assignData = (state,action) =>{
     return{
       ...state,
       currentUser:action.currentUser,
       dataSource:action.data,
-      // mainDataSource:action.data,
+      mainDataSource:action.data,
     }
   }
   const setUserId = (state,action) => {
+    console.log("action.id",action.id)
     return{
       ...state,
-      userId:action.id
+      userId:action.id,
     }
   }
   const orderedData = (state,action) =>{
@@ -53,6 +55,7 @@ const initialState = {
   }
   const calculateCartPrice = (state) => {
       console.log("cart price reducer")
+      console.log("cart",state.cart);
         let totalPrice = 0
         state.cart.map((data) => {
             totalPrice  = totalPrice + data.price
@@ -138,6 +141,7 @@ const initialState = {
       ...state,
       cart:[],
       price:0,
+      cartId:[]
     }
   }
   const addToLearningArray = (state,action) => {
@@ -146,7 +150,7 @@ const initialState = {
 
     return{
       ...state,
-      learning:state.learning.concat([action.purchasedCourse]).flat(Infinity)
+      learning:state.learning.concat([action.purchasedCourse])
     }
   }
 
@@ -170,11 +174,23 @@ const initialState = {
       learning:[]
     }
   }
+  const setFormateState =  (state,action) => {
+    return{
+      ...state,
+      formatState:false
+    }
+  }
   const assignWishListData = (state,action) => {
     return{
       ...state,
       wishlist:action.data,
       
+    }
+  }
+  const assignCartData  = (state,action) => {
+    return{
+      ...state,
+      cart:action.data
     }
   }
   const reducer = (state = initialState, action) =>{
@@ -198,6 +214,8 @@ const initialState = {
         case actionTypes.PURCHASED_COURSE_ID:return purchasedCourseId(state,action)
         case actionTypes.SET_TOAST:return setToast(state,action)
         case actionTypes.ASSIGN_WISHLIST_DATA:return assignWishListData(state,action)
+        case actionTypes.SET_FORTMAT_STATE:return setFormateState(state,action)
+        case actionTypes.ASSIGN_CART_DATA:return assignCartData(state,action)
         default:
             return state
     }

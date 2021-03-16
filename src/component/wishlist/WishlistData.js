@@ -4,11 +4,16 @@ import * as actions from "../../store/actions/index";
 
 import { connect } from "react-redux";
 function WishlistData(props) {
-  async function moveToCartAndUpdate(i) {
+  async function moveToCartAndUpdate(data,i) {
     console.log("index", i);
     await props.moveToCart(i);
-    props.removeFromWishList(i);
+    props.addCartDataToServer(data,props.userId)
+    removeFromWishListAndUpdateServer(data,i);
     props.getCartPrice();
+  }
+  async function removeFromWishListAndUpdateServer (data,index) {
+    await props.removeFromWishList(index);
+    props.wishlistRemoveUpdateServer(data,props.userId)
   }
   useEffect(() => {
     console.log("props wishlistData",props.wishlistData)
@@ -30,7 +35,7 @@ function WishlistData(props) {
             <div>
               {" "}
               <div
-                onClick={() => props.removeFromWishList(i)}
+                onClick={() => removeFromWishListAndUpdateServer(data,i)}
                 //  onClick= {()=> removeItemAndUpdateCart(i)}
               >
                 {" "}
@@ -38,7 +43,7 @@ function WishlistData(props) {
               </div>
             </div>
             <div>
-              <Link to="/Wishlist" onClick={() => moveToCartAndUpdate(i)}>
+              <Link to="/Wishlist" onClick={() => moveToCartAndUpdate(data,i)}>
                 Move to Cart
               </Link>
             </div>
@@ -51,7 +56,7 @@ function WishlistData(props) {
 }
 const mapStateToProps = (state) => {
   return {
-
+    userId:state.cartDetails.userId
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -61,6 +66,8 @@ const mapDispatchToProps = (dispatch) => {
     moveToWishlist: (i) => dispatch(actions.moveToWishlist(i)),
     removeFromWishList: (i) => dispatch(actions.removeFromWishList(i)),
     moveToCart: (i) => dispatch(actions.moveToCart(i)),
+    wishlistRemoveUpdateServer:(data,id)=>dispatch(actions.wishlistRemoveUpdateServer(data,id)),
+    addCartDataToServer:(data,id)=>dispatch(actions.addCartDataToServer(data,id))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(WishlistData);

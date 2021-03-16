@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-order";
-import  firebase  from "firebase";
+import firebase from "firebase";
 import { db } from "../../firebase";
 export const purchaseBurger = (orderData, token) => {
   return (dispatch) => {
@@ -42,30 +42,13 @@ export const assignData = (data, currentUser) => {
     currentUser,
   };
 };
-export const addDetails = (cart) => {
-  return {
-    type: actionTypes.ADD_TO_CART,
-    cart: cart,
-  };
-};
+
 export const resetData = () => {
   return {
     type: actionTypes.RESET_DATA,
   };
 };
 
-export const removeFromCart = (index) => {
-  return {
-    type: actionTypes.REMOVE_FROM_CART,
-    index,
-  };
-};
-
-export const calculateCartPrice = () => {
-  return {
-    type: actionTypes.CALCULATE_CART_PRICE,
-  };
-};
 export const moveToWishlist = (index) => {
   return {
     type: actionTypes.MOVE_TO_WISHLIST,
@@ -90,84 +73,23 @@ export const addToWishlistDirectly = (id) => {
     wishlistId: id,
   };
 };
-export const SubmitData = (id, data) => {
-  console.log("id inside submitaction",id)
-  console.log(data);
-  return (dispatch) => {
-    
-/*-----*/
 
-    // axios
-    //   .post("/orderedData.json", cart)
-    //   .then((res) => {
-    //     dispatch(orderedData(cart));
-    //     dispatch(setResponseId(res.data.name));
-    //     dispatch(clearCart());
-    //     console.log("res", res);
-    //     console.log("res", res.data.name);
-    //     console.log("data submitted");
-    //   })
-    //   .catch((error) => {
-    //     console.log("error durning ");
-    //   });
-
-
-/*-----*/
-
-        // db.settings({
-        //     timestampsInSnapshots: true
-        //     });
-      //  db.collection("orders").doc(id).set({
-      //       cart: cart.cart,
-      //       },{merge:true}).then(()=>{
-      //         console.log("data set to new doc");
-      //       });  
-      
-
-let today = new Date();
-let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-let time = (today + date).slice(0,25)
-      console.log(data.cart);
-      db.collection('orders').doc(id)
-                .collection('Purchased-Courses').doc(time).set({
-                  
-                  purchasedCourse:data.cart
-                })
-      db.collection('orders').doc(id).set({
-      id:id,
-      wishlist:data.wishlist
-      })
-  };
+export const storeWishlistData = (data, id) => {
+  console.log("data", data);
+  db.collection("orders")
+    .doc(id)
+    .update({
+      wishlist: data,
+    })
+    .then(() => {
+      console.log("wishlist updated");
+    });
 };
-export const storeWishlistData = (data,id) => {
-  console.log("data",data);
-  db.collection('orders').doc(id).update({
-    wishlist:data
-  }).then(()=>{
-    console.log("wishlist updated");
-  })
-}
-export const setResponseId = (id) => {
-  return {
-    type: actionTypes.SET_RESPONSE_ID,
-    id,
-  };
-};
-export const orderedData = (data) => {
-  return {
-    type: actionTypes.ORDERED_DATA,
-    data,
-  };
-};
-export const clearCart = () => {
-  return {
-    type: actionTypes.CLEAR_CART,
-  };
-};
+
 export const getPurchasedCourses = (id) => {
-    console.log(id)
+  console.log(id);
   return (dispatch) => {
-    dispatch(setEmpty())
+    dispatch(setEmpty());
 
     /*-------------*/
 
@@ -184,41 +106,50 @@ export const getPurchasedCourses = (id) => {
     //     console.log(error);
     //   });
 
-
-
     /*-------------*/
-    if(id){
-
-      db.collection('orders').doc(id).get().then((doc)=>{
-        console.log("fetched id",doc.data());
-      })
-      db.collection('orders').doc(id).collection('Purchased-Courses').get()
-      .then(snapShot => {
-          console.log(snapShot.docs.map(doc=>dispatch(selectedId(doc.data().purchasedCourse))));
-           // array of cities objects
-           
-        })
+    if (id) {
+      db.collection("orders")
+        .doc(id)
+        .get()
+        .then((doc) => { 
+          console.log("fetched id", doc.data());
+        });
+        
+      db.collection("orders")
+        .doc(id)
+        .collection("Purchased-Courses")
+        .get()
+        .then((snapShot) => {
+            
+            snapShot.docs.map((doc) =>{
+              
+              console.log(doc.id)
+              dispatch(selectedId(doc.data()))
+            }
+            )
+          
+          // array of cities objects
+        });
     }
-
   };
 };
 export const selectUser = (data, id) => {
   console.log("inside selectUser action");
   console.log(data);
-//   console.log(id);
+  //   console.log(id);
   return (dispatch) => {
     Object.keys(data).map((key, index) => {
-    //   console.log(data[key]);
-    //   console.log(data[key].userId);
-    //   console.log(data[key].cart);
-    //   dispatch(purchasedCourseId(data[key].cart.courseId));
+      //   console.log(data[key]);
+      //   console.log(data[key].userId);
+      //   console.log(data[key].cart);
+      //   dispatch(purchasedCourseId(data[key].cart.courseId));
       if (data[key].userId === id) {
-          console.log(data[key].cart);
+        console.log(data[key].cart);
         dispatch(selectedId(data[key].cart));
-        data[key].cart.map((data)=>{
-            console.log(data);
-            dispatch(purchasedCourseId(data.courseId))
-        })
+        data[key].cart.map((data) => {
+          console.log(data);
+          dispatch(purchasedCourseId(data.courseId));
+        });
       }
     });
   };
@@ -230,7 +161,7 @@ export const setEmpty = () => {
   };
 };
 export const purchasedCourseId = (id) => {
-    console.log(id);
+  console.log(id);
   return {
     type: actionTypes.PURCHASED_COURSE_ID,
     id,
@@ -238,18 +169,16 @@ export const purchasedCourseId = (id) => {
 };
 export const selectedId = (purchasedCourse) => {
   console.log("inside selectedId action");
-  console.log(purchasedCourse.flat(Infinity));
   return {
     type: actionTypes.ADD_TO_LEARNING_ARRAY,
     purchasedCourse,
-    
   };
 };
-export const setToast = () =>{
-    return{
-        type:actionTypes.SET_TOAST
-    }
-}
+export const setToast = () => {
+  return {
+    type: actionTypes.SET_TOAST,
+  };
+};
 export const setFetchedOrder = (data) => {
   return {
     type: actionTypes.SET_FETCHED_ORDER,
@@ -257,33 +186,100 @@ export const setFetchedOrder = (data) => {
   };
 };
 
+export const updateWishlist = (id, wishListData) => {
+  return (dispatch) => {
+    db.collection("orders")
+      .doc(id)
+      .update({
+        cart: {
+          wishlist: wishListData,
+        },
+      })
+      .then(function () {
+        console.log("Data  updated");
+      });
+  };
+};
 
-export const updateWishlist = (id,wishListData) => {
-  return dispatch =>{
-
-    db.collection("orders").doc(id).update({
-      cart: {
-        wishlist: wishListData
-      }
-    }).then(function() {
-      console.log("Data  updated");
-    });
-  }
-  
-}
-
-export const getWishlistData =(id) =>{
-  return dispatch =>{
-    // if(id){
-    //   db.collection('orders').doc(id).get().then((doc)=>{
-    //     dispatch(assignWishListData(doc.data().wishlist));
-    //   })
+export const getWishlistData = (id) => {
+  return (dispatch) => {
+    // if(db.collection('orders').doc(id)){
+    //   console.log(db.collection('orders').doc(id) ? "true" : "false");
     // }
-}
-}
-export const assignWishListData  = (data) => {
-  return{
-    type:actionTypes.ASSIGN_WISHLIST_DATA,
-    data
-  }
-}
+    // else{
+    //   console.log("false inside else");
+    // }
+
+    // console.log(db.collection('orders'));
+    // const docRef = db.collection('orders').doc(id)
+    // docRef.get().then((doc)=>{
+    //   if(doc.exists){
+    //     console.log("doc",docRef.doc.data().wishlist)
+    //     // dispatch(assignWishListData(docRef.doc.data().wishlist));
+    //   }
+    // })
+
+    // if(db.collection('orders')){
+    db.collection("orders")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          dispatch(assignWishListData(doc.data().wishlist));
+        }
+      });
+    // }
+  };
+};
+
+export const assignWishListData = (data) => {
+  return {
+    type: actionTypes.ASSIGN_WISHLIST_DATA,
+    data,
+  };
+};
+
+export const addWishListDataToServer = (data, id) => {
+  return (dispatch) => {
+    const docRef = db.collection("orders").doc(id);
+    docRef.update({
+      wishlist: firebase.firestore.FieldValue.arrayUnion(data),
+    });
+  };
+};
+
+export const wishlistRemoveUpdateServer = (data, id) => {
+  return (dispatch) => {
+    const docRef = db.collection("orders").doc(id);
+    docRef.update({
+      wishlist: firebase.firestore.FieldValue.arrayRemove(data),
+    });
+  };
+};
+
+export const setFormat = (id) => {
+  return (dispatch) => {
+    console.log("setFormat id 1", id);
+
+    db.collection("orders")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        if (!doc.exists) {
+          db.collection("orders").doc(id).set({
+            id: id,
+            // email:currentUser.email,
+            wishlist: [],
+            cart: [],
+          });
+        }
+      });
+    console.log("setFormat id 2", id);
+  };
+};
+
+export const setFormateState = () => {
+  return {
+    type: actionTypes.SET_FORTMAT_STATE,
+  };
+};

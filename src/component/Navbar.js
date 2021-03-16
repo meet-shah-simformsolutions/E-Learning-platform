@@ -1,10 +1,15 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { Link,NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { useAuth } from "../contexts/AuthContext";
 const Navbar = (props) => {
   const { currentUser} = useAuth()
-
+  useEffect(() => {
+    console.log(props.wishlist.length);
+    return () => {
+      
+    }
+  }, [])
   return (
     <>
       <div className="nav">

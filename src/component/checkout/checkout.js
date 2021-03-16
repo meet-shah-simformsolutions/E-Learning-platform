@@ -20,6 +20,7 @@ class Checkout extends Component {
     console.log("toast State", this.props.toastState);
     console.log(this.props.wishlist);
     this.props.setToast()
+    this.props.getCartPrice();
     this.setState({
       finalCart: {
         cart: this.props.cart,
@@ -39,6 +40,7 @@ class Checkout extends Component {
   }
   drop(e, props) {
     e.preventDefault();
+    // this.props.cartItemRemoveUpdateServer(data,props.userId)
     console.log("e object", e);
     const courseId = e.dataTransfer.getData("text/plain");
     // const course = document.getElementById(courseId)
@@ -49,6 +51,7 @@ class Checkout extends Component {
     console.log(props.cart);
     this.props.remove(+courseId);
     this.props.getCartPrice();
+
   }
   dragOver(e) {
     e.preventDefault();
@@ -136,7 +139,9 @@ const mapDispatchToProps = (dispatch) => {
     getCartPrice: () => dispatch(actions.calculateCartPrice()),
     setData: () => dispatch(actions.setData()),
     SubmitData: (id, cart) => dispatch(actions.SubmitData(id, cart)),
-    setToast:()=>dispatch(actions.setToast())
+    setToast:()=>dispatch(actions.setToast()),
+    // cartItemRemoveUpdateServer:(data,id)=>dispatch(actions.cartItemRemoveUpdateServer(data,id))
+    
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

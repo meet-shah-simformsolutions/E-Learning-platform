@@ -10,10 +10,18 @@ function PurchasedCourse(props) {
   }, [])
   
   return props.fetchedOrder.map((data, i) => {
-    // console.log("data",data)
+    console.log("data",data)
     return (
       <div>
-        
+        <fieldset>
+      <legend>
+        {data.docName}
+      </legend>
+     
+        {data.purchasedCourse.map((data)=>{
+          console.log(data.courseImg);
+          return(
+
         <div className="listOfPurchasedCourse">
           <div className=" courseLogo myLearning-courseLogo">
             <img src={data.courseImg} alt="courseLogo" />
@@ -24,7 +32,10 @@ function PurchasedCourse(props) {
           </div>
           <div className="coursePricetag">{data.price}/-</div>
         </div>
-      </div>
+          )
+        })}
+        </fieldset>
+        </div>
     );
   });
 }

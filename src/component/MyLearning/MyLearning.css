@@ -1,6 +1,11 @@
 *{
     box-sizing: border-box;
 }
+fieldset{
+    margin: 25px 0px;
+    border-color: grey;
+    
+}
 .listOfPurchasedCourse{
     /* border: 1px solid #6c68a0; */
     display: flex;
@@ -10,7 +15,7 @@
     height: 150px;
     padding: 10px;
     border-radius: 2px;
-    margin-bottom: 13px;
+    margin: 13px;
     box-shadow: 0 2px 15px #908db9;
     border-radius: 5px;
     margin-bottom: 30px;

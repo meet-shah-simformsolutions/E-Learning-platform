@@ -23,13 +23,9 @@ function Signup(props) {
 
   useEffect(() => {
     if(currentUser){
-      props.setUserId(currentUser.uid)
+      props.setUserId(props.userId)
     }
   }, [])
-  setTimeout(() => {
-    console.log(props.userId)
-  }, 1000);
-
   async function handleSubmit (e) {
     e.preventDefault();
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
@@ -38,8 +34,8 @@ function Signup(props) {
     try{
       setError("")
       setLoading(true)
-     await signup(emailRef.current.value,passwordRef.current.value)
-     history.push("/Dashboard")
+      await signup(emailRef.current.value,passwordRef.current.value)
+      history.push("/Dashboard")
     }catch{
     
       
@@ -174,12 +170,11 @@ return (
 const mapStateToProps = (state) => {
   return {
     userId:state.cartDetails.userId
-    
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-   setUserId:(id)=>dispatch(actions.setUserId(id))
+   setUserId:(id)=>dispatch(actions.setUserId(id)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

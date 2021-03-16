@@ -13,11 +13,20 @@ function Dashboard(props) {
   useEffect(() => {
     if(currentUser){
       props.setUserId(currentUser.uid)
+      if(props.formatState){
+        props.setFormat(currentUser.uid)
+      }
+
+      props.setFormateState()
       props.getWishlistData(currentUser.uid)
+      props.getCartData(currentUser.uid)
+
     }
   }, [])
   setTimeout(() => {
-    console.log(props.userId)
+    console.log("current uSer",currentUser)
+    console.log(props.formatState)
+
   }, 1000);
   async function handleLogout() {
     setError("");
@@ -46,7 +55,8 @@ const mapStateToProps = state =>{
   return{
       details:state.cartDetails.price,
     userId:state.cartDetails.userId,
-    currentUser:state.cartDetails.currentUser
+    currentUser:state.cartDetails.currentUser,
+    formatState:state.cartDetails.formatState
   }
 }
 const mapDispatchToProps = dispatch =>{
@@ -54,7 +64,10 @@ const mapDispatchToProps = dispatch =>{
     change:(e)=> dispatch(actions.addDetails(e.target.value)),
     setData:(res)=>dispatch(actions.setData(res)),
    setUserId:(id)=>dispatch(actions.setUserId(id)),
-   getWishlistData:(id)=> dispatch(actions.getWishlistData(id))
+   getWishlistData:(id)=> dispatch(actions.getWishlistData(id)),
+   setFormat:(id)=>dispatch(actions.setFormat(id)),
+   setFormateState:()=>dispatch(actions.setFormateState()),
+   getCartData:(id)=>dispatch(actions.getCartData(id))
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);

@@ -22,11 +22,15 @@ function Login(props) {
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
       history.push("/Dashboard");
+
     } catch {
       setError("Failed to Login");
     }
     setLoading(false);
   }
+  setTimeout(() => {
+    console.log("login ",props.userId)
+  }, 1000);
   return (
     <div className="Signup">
       <div className="title">
@@ -105,7 +109,7 @@ const mapDispatchToProps = dispatch =>{
   return{
     change:(e)=> dispatch(actions.addDetails(e.target.value)),
     setData:(res)=>dispatch(actions.setData(res)),
-   setUserId:(id)=>dispatch(actions.setUserId(id))
+   setUserId:(id)=>dispatch(actions.setUserId(id)),
 
   }
 }

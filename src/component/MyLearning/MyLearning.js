@@ -19,7 +19,7 @@ class MyLearning extends Component {
     if(this.props.learning.flat(Infinity).length >= 1){
       purchasedItem = (<div className="myLearningData">
           {/* <PurchasedCourse fetchedOrder={this.props.learning.flat(Infinity)} /> */}
-          <PurchasedCourse fetchedOrder={this.props.learning.flat(Infinity)} />
+          <PurchasedCourse fetchedOrder={this.props.learning} />
         </div>)
     }
     else{
@@ -51,7 +51,7 @@ const mapStateToProps = (state) => {
     responseId:state.cartDetails.responseId,
     fetchedOrder:state.cartDetails.fetchedOrder,
     userId:state.cartDetails.userId,
-    learning:state.cartDetails.learning
+    learning:state.cartDetails.learning,
   };
 };
 const mapDispatchToProps = (dispatch) => {

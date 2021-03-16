@@ -36,6 +36,9 @@ const CourseData = (props) => {
 
   useEffect(() => {
       setDataSource(props.dataSource)
+      console.log(props.cart);
+      console.log(props.cartId);
+
       // console.log("current user",props.currentUser ? props.currentUser : null)
       // console.log("current userid",props.currentUser ? props.currentUser.uid : null)
   }, [props.dataSource])
@@ -146,7 +149,7 @@ const CourseData = (props) => {
 
     return console.log(e.target);
   };
-  const addToWishlistDirectly = (index,id) => {
+  const addToWishlistDirectly = (index,id,data) => {
     console.log(props.cartId)
     if(props.cartId.includes(id)){
 
@@ -166,6 +169,7 @@ const CourseData = (props) => {
         setAlertState(false)
         props.moveToWishlist(index)
         props.addToWishlistDirectly(id)
+        props.addWishListDataToServer(data,props.userId)
       }
      
     }
@@ -205,7 +209,7 @@ const CourseData = (props) => {
         setAlertState(false)
         props.addDetails(data);
         props.getCartPrice()
-
+        props.addCartDataToServer(data,props.userId)
       }
     }
     else if(props.price > 10000 && props.cartId.includes(id)){
@@ -290,7 +294,7 @@ const CourseData = (props) => {
               Add to Cart
             </button>
             <div className="wishlistIconContainer">
-            <i className="fa fa-heart wishlistIcon" title="wishlist" onClick={()=> addToWishlistDirectly(i,data.courseId)}></i>
+            <i className="fa fa-heart wishlistIcon" title="wishlist" onClick={()=> addToWishlistDirectly(i,data.courseId,data)}></i>
             </div>
             </div>
             
@@ -518,7 +522,8 @@ const mapStateToProps = (state) => {
     userId:state.cartDetails.userId,
     currentUser:state.cartDetails.currentUser,
     purchasedCourseId:state.cartDetails.purchasedCourseId,
-    wishlist:state.cartDetails.wishlist
+    wishlist:state.cartDetails.wishlist,
+    cart:state.cartDetails.cart
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -531,8 +536,9 @@ const mapDispatchToProps = (dispatch) => {
     setData:(currentUser)=>dispatch(actions.setData(currentUser)),
     getPurchasedCourses:(id)=> dispatch(actions.getPurchasedCourses(id)),
    setUserId:(id)=>dispatch(actions.setUserId(id)),
-   storeWishlistData:(data,id)=>dispatch(actions.storeWishlistData(data,id))
-
+   storeWishlistData:(data,id)=>dispatch(actions.storeWishlistData(data,id)),
+   addWishListDataToServer:(data,id)=>dispatch(actions.addWishListDataToServer(data,id)),
+   addCartDataToServer:(data,id)=>dispatch(actions.addCartDataToServer(data,id))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CourseData);
