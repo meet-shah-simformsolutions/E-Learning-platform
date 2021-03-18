@@ -7,16 +7,20 @@ import PurchasedCourse from "./PurchasedCourse";
 import { useAuth } from "../../contexts/AuthContext";
 import "./MyLearning.css"
 class MyLearning extends Component {
+  state={
+    length:0,
+  }
   componentDidMount(){
     // this.props.getPurchasedCourses(this.props.responseId)
     this.props.getPurchasedCourses(this.props.userId)
-    setTimeout(() => {
-      // console.log("learning",this.props.learning.flat(Infinity))
-    }, 1000);
+    console.log("normal",this.props.learning);
+    // this.props.setPurchasedCourses(this.props.learning)
+    
   }
   render() {
     let purchasedItem = null
-    if(this.props.learning.flat(Infinity).length >= 1){
+    if(this.props.learning.length >= 1){
+      console.log(this.props.sortedArray);
       purchasedItem = (<div className="myLearningData">
           {/* <PurchasedCourse fetchedOrder={this.props.learning.flat(Infinity)} /> */}
           <PurchasedCourse fetchedOrder={this.props.learning} />
@@ -36,7 +40,7 @@ class MyLearning extends Component {
         <div>
         <p>
           Total
-          {this.props.learning.flat(Infinity).length}
+          {this.props.totalNoOfPurchasedCourses}
           Courses Purchased
           </p>
         </div>
@@ -52,13 +56,15 @@ const mapStateToProps = (state) => {
     fetchedOrder:state.cartDetails.fetchedOrder,
     userId:state.cartDetails.userId,
     learning:state.cartDetails.learning,
+    totalNoOfPurchasedCourses:state.cartDetails.totalNoOfPurchasedCourses,
+    sortedArray:state.cartDetails.sortedArray
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     getPurchasedCourses:(id)=> dispatch(actions.getPurchasedCourses(id)),
-   setUserId:(id)=>dispatch(actions.setUserId(id))
-
+   setUserId:(id)=>dispatch(actions.setUserId(id)),
+  //  setPurchasedCourses:(data)=>dispatch(actions.setPurchasedCourses(data))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MyLearning);

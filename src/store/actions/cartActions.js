@@ -55,18 +55,46 @@ export const addDetails = (cart) => {
         //       });  
         
   
+  // let today = new Date();
+  // let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  // let time = (today + date).slice(0,25)
   let today = new Date();
-  let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  let time = (today + date).slice(0,25)
+  let dd = today.getDate();
+  let mm = today.getMonth()+1; 
+  let yyyy = today.getFullYear();
+  if(dd<10) 
+  {
+      dd='0'+dd;
+  } 
+  if(mm<10) 
+  {
+      mm='0'+mm;
+  } 
+  let seconds = today.getSeconds()
+  if(seconds<10){
+    seconds = '0'+seconds
+  }
+  let minutes = today.getMinutes();
+  if(minutes<10){
+    minutes = '0'+minutes
+  }
+  let hour = today.getHours();
+  if(hour<10){
+    hour = '0'+hour
+  }
+  let time = today = 'Date: '+dd+'-'+mm+'-'+yyyy + ' Time: '+hour +':' +minutes+ ':' + seconds;
         console.log(data.cart);
         db.collection('orders').doc(id)
                   .collection('Purchased-Courses').doc(time).set({
-                    
                     purchasedCourse:data.cart,
                     docName:time
                   })
         db.collection('orders').doc(id).update({
         cart:[],
+        }).then(()=>{
+          console.log("data posted");
+
+          dispatch(orderedData(data.cart));
         }).then(()=>{
             dispatch(clearCart())
         })
@@ -132,3 +160,13 @@ export const addDetails = (cart) => {
   
     }
   }
+  export const setToast = () => {
+    return {
+      type: actionTypes.SET_TOAST,
+    };
+  };
+  export const resetToast = () => {
+    return {
+      type: actionTypes.RESET_TOAST,
+    };
+  };

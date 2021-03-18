@@ -3,3 +3,9 @@
     color: red;
     font-weight: 700;
 }
+.toast-container{
+    background-color: #736fad;
+    color: whitesmoke;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

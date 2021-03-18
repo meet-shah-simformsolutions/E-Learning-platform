@@ -19,8 +19,8 @@ class Checkout extends Component {
     console.log("toast", this.props.toast);
     console.log("toast State", this.props.toastState);
     console.log(this.props.wishlist);
-    this.props.setToast()
     this.props.getCartPrice();
+    this.props.resetToast();
     this.setState({
       finalCart: {
         cart: this.props.cart,
@@ -141,7 +141,7 @@ const mapDispatchToProps = (dispatch) => {
     SubmitData: (id, cart) => dispatch(actions.SubmitData(id, cart)),
     setToast:()=>dispatch(actions.setToast()),
     // cartItemRemoveUpdateServer:(data,id)=>dispatch(actions.cartItemRemoveUpdateServer(data,id))
-    
+    resetToast:()=>dispatch(actions.resetToast())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

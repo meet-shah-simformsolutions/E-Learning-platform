@@ -2,37 +2,50 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../axios-order";
 import firebase from "firebase";
 import { db } from "../../firebase";
-export const purchaseBurger = (orderData, token) => {
-  return (dispatch) => {
-    dispatch();
-    axios
-      .post("/order.json?auth=" + token, orderData)
-      .then((response) => {
-        dispatch();
-      })
-      .catch((error) => {
-        dispatch();
-      });
-  };
-};
+
 export const setUserId = (id) => {
   return {
     type: actionTypes.SET_USER_ID,
     id,
   };
 };
-
-export const setData = (currentUser) => {
-  console.log("setData");
+export const setData = (currentUser,start,end) => {
+  // console.log("set User");
+  console.log(start,end);
+  console.log(start,end);
+  // let temp_array = []
   return (dispatch) => {
-    axios
-      .get("/CourseData.json")
-      .then((res) => {
-        dispatch(assignData(res.data, currentUser));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    for(let i=start;i<end;i++){
+      axios
+        .get(`/CourseData/${i}.json`)
+        .then((res) => {
+          // console.log(`/CourseData/${i}.json`);
+          console.log("api called");
+          // console.log(res.data);//object received from api
+          // temp_array.push(res.data)
+          dispatch(assignData(res.data, currentUser));
+        })
+        // .then(()=>{
+        //   console.log(  );
+
+        //   console.log("temp",temp_array);
+
+        //   // dispatch(assignData(temp_array, currentUser));
+
+        // })
+        .catch((error) => {
+          // console.log(error);
+        });
+      }
+
+      // axios
+      //   .get(`/CourseData/.json`)
+      //   .then((res) => {
+      //     dispatch(assignData(res.data, currentUser));
+      //   })
+      //   .catch((error) => {
+      //     // console.log(error);
+      //   });
   };
 };
 export const assignData = (data, currentUser) => {
@@ -75,19 +88,19 @@ export const addToWishlistDirectly = (id) => {
 };
 
 export const storeWishlistData = (data, id) => {
-  console.log("data", data);
+  // console.log("data", data);
   db.collection("orders")
     .doc(id)
     .update({
       wishlist: data,
     })
     .then(() => {
-      console.log("wishlist updated");
+      // console.log("wishlist updated");
     });
 };
 
 export const getPurchasedCourses = (id) => {
-  console.log(id);
+  // console.log(id);
   return (dispatch) => {
     dispatch(setEmpty());
 
@@ -112,18 +125,21 @@ export const getPurchasedCourses = (id) => {
         .doc(id)
         .get()
         .then((doc) => { 
-          console.log("fetched id", doc.data());
+          // console.log("fetched id", doc.data());
         });
         
       db.collection("orders")
         .doc(id)
         .collection("Purchased-Courses")
+        .orderBy("docName", "desc")
         .get()
         .then((snapShot) => {
             
             snapShot.docs.map((doc) =>{
               
-              console.log(doc.id)
+              // console.log(doc.id)
+              // console.log(doc.data().purchasedCourse.length)
+
               dispatch(selectedId(doc.data()))
             }
             )
@@ -134,8 +150,8 @@ export const getPurchasedCourses = (id) => {
   };
 };
 export const selectUser = (data, id) => {
-  console.log("inside selectUser action");
-  console.log(data);
+  // console.log("inside selectUser action");
+  // console.log(data);
   //   console.log(id);
   return (dispatch) => {
     Object.keys(data).map((key, index) => {
@@ -144,10 +160,10 @@ export const selectUser = (data, id) => {
       //   console.log(data[key].cart);
       //   dispatch(purchasedCourseId(data[key].cart.courseId));
       if (data[key].userId === id) {
-        console.log(data[key].cart);
+        // console.log(data[key].cart);
         dispatch(selectedId(data[key].cart));
         data[key].cart.map((data) => {
-          console.log(data);
+          // console.log(data);
           dispatch(purchasedCourseId(data.courseId));
         });
       }
@@ -161,24 +177,22 @@ export const setEmpty = () => {
   };
 };
 export const purchasedCourseId = (id) => {
-  console.log(id);
+  // console.log(id);
   return {
     type: actionTypes.PURCHASED_COURSE_ID,
     id,
   };
 };
 export const selectedId = (purchasedCourse) => {
-  console.log("inside selectedId action");
+  // console.log("inside selectedId action");
   return {
     type: actionTypes.ADD_TO_LEARNING_ARRAY,
     purchasedCourse,
+    totalNoOfPurchasedCourse:purchasedCourse.purchasedCourse.length
   };
 };
-export const setToast = () => {
-  return {
-    type: actionTypes.SET_TOAST,
-  };
-};
+
+
 export const setFetchedOrder = (data) => {
   return {
     type: actionTypes.SET_FETCHED_ORDER,
@@ -259,7 +273,7 @@ export const wishlistRemoveUpdateServer = (data, id) => {
 
 export const setFormat = (id) => {
   return (dispatch) => {
-    console.log("setFormat id 1", id);
+    // console.log("setFormat id 1", id);
 
     db.collection("orders")
       .doc(id)
@@ -273,8 +287,10 @@ export const setFormat = (id) => {
             cart: [],
           });
         }
+      }).then(()=>{
+        console.log("account created");
       });
-    console.log("setFormat id 2", id);
+    // console.log("setFormat id 2", id);
   };
 };
 
@@ -283,3 +299,4 @@ export const setFormateState = () => {
     type: actionTypes.SET_FORTMAT_STATE,
   };
 };
+

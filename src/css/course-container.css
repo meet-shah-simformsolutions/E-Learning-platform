@@ -1,23 +1,24 @@
 *{
     box-sizing: border-box;
 }
+.main_Container{
+}
 .course-list {
     display: inline-grid;
     grid-template-columns: auto auto auto auto;
     grid-gap: 10px;
     background-color: #d0d1e1;
     padding: 10px;
-    margin: 0px 10px;
+    /* margin: 0px 10px; */
     border-radius: 8px;
     width: auto;
     height: auto;
-    overflow-y: scroll;
     border-radius: 8px;
   }
-  
+
   .course-list > .course-container {
 
-    display: grid; 
+    display: grid;
     grid-template-rows: auto ;
     background-color:white;
     text-align: center;
@@ -55,11 +56,11 @@
     transform: translateY(-10px) scale(1.02);
  transition: 0.5s ease;
  box-shadow: 0 5px 20px #908db9;
-    
+
 
  -webkit-transform: translateZ(0) scale(1.0, 1.0);
- 
- 
+
+
 
 }
 .price{
@@ -67,7 +68,7 @@
     font-size: 25px;
     color: #69678f;
     font-weight: bold;
-}   
+}
 .price_tag{
     height: 24px;
 }
@@ -107,14 +108,14 @@
 .searchResult{
     color: #6d6a9e;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    
+
 
 }
 
 @media only screen and (max-device-width: 480px) {
     .course-container{
         margin: 0px
-        
+
     }
     .course-list{
         display: inline-flex;
@@ -127,7 +128,7 @@
 @media only screen and (max-device-width: 2200px) {
     .course-container{
         margin: 0px
-        
+
     }
     .course-list{
         grid-template-columns: auto auto auto auto;

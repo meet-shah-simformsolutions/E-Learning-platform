@@ -32,7 +32,7 @@ function Login(props) {
     console.log("login ",props.userId)
   }, 1000);
   return (
-    <div className="Signup">
+    <div className="Login">
       <div className="title">
         <h2>
           <strong>Log In to your E-Learning Account</strong>

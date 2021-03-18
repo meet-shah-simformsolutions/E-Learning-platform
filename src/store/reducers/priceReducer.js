@@ -19,18 +19,22 @@ const initialState = {
     purchasedCourseId:[],
     toastState:false,
     formatState:true,
-    docName:[]
+    docName:[],
+    totalNoOfPurchasedCourses:0,
+    sortedArray:[]
   };
   const assignData = (state,action) =>{
     return{
       ...state,
       currentUser:action.currentUser,
-      dataSource:action.data,
+      // dataSource:action.data,
+      dataSource:[...state.dataSource,action.data],
+
       mainDataSource:action.data,
     }
   }
   const setUserId = (state,action) => {
-    console.log("action.id",action.id)
+    // console.log("action.id",action.id)
     return{
       ...state,
       userId:action.id,
@@ -45,7 +49,7 @@ const initialState = {
     }
   }
   const addDetails = (state,action) =>{
-      console.log("cart",action.cart)
+      // console.log("cart",action.cart)
       return {
           ...state,
         //   price:state.price.concat(+action.price),
@@ -54,8 +58,8 @@ const initialState = {
       }
   }
   const calculateCartPrice = (state) => {
-      console.log("cart price reducer")
-      console.log("cart",state.cart);
+      // console.log("cart price reducer")
+      // console.log("cart",state.cart);
         let totalPrice = 0
         state.cart.map((data) => {
             totalPrice  = totalPrice + data.price
@@ -67,16 +71,16 @@ const initialState = {
       }
   }
   const resetData = (state,action) => {
-      console.log("reset")
+      // console.log("reset")
       return{
           ...state,
           cart:[]
       }
   } 
   const removeFromCart = (state,action) => {
-      console.log("remove from cart")
-      console.log("action index",action.index)
-      console.log(typeof(action.index))
+      // console.log("remove from cart")
+      // console.log("action index",action.index)
+      // console.log(typeof(action.index))
 
         const removeEle = (a,index) =>{
             let newArray = [...a]
@@ -91,8 +95,8 @@ const initialState = {
       }
   }
   const moveToWishlist = (state,action) =>{
-      console.log("item moved to wishlist")
-      console.log("wishlist array",state.wishlist)
+      // console.log("item moved to wishlist")
+      // console.log("wishlist array",state.wishlist)
       return{
             ...state,
           wishlist:state.wishlist.concat([state.mainDataSource[action.index]]),
@@ -106,7 +110,7 @@ const initialState = {
     }
   }
   const removeFromWishList = (state,action) =>{
-      console.log("removefromwishlist")
+      // console.log("removefromwishlist")
       const removeSlected =(wishlist,index) =>{
         const newArray = [...wishlist]
         newArray.splice(index,1)
@@ -118,7 +122,7 @@ const initialState = {
       }
   }
   const moveToCart = (state,action) => {
-      console.log("item moved to cart")
+      // console.log("item moved to cart")
       return{
         ...state,
         cart:state.cart.concat([state.wishlist[action.index]])
@@ -146,22 +150,29 @@ const initialState = {
   }
   const addToLearningArray = (state,action) => {
     // console.log(action.purchasedCourse);
-    console.log("learning array",state.learning)
+    // console.log("learning array",state.learning)
 
     return{
       ...state,
-      learning:state.learning.concat([action.purchasedCourse])
+      learning:[...state.learning,action.purchasedCourse],
+      totalNoOfPurchasedCourses:state.totalNoOfPurchasedCourses + (+[action.purchasedCourse.purchasedCourse.length])
     }
   }
 
   const purchasedCourseId = (state,action) => {
-    console.log("purchased courseid array",state.purchasedCourseId)
+    // console.log("purchased courseid array",state.purchasedCourseId)
     return{
       ...state,
       purchasedCourseId:state.purchasedCourseId.concat([action.id])
     }
   }
   const setToast = (state,action) => {
+    return{
+      ...state,
+      toastState:true
+    }
+  }
+  const resetToast = (state,action) => {
     return{
       ...state,
       toastState:false
@@ -171,7 +182,8 @@ const initialState = {
     return{
       ...state,
       purchasedCourseId:[],
-      learning:[]
+      learning:[],
+      totalNoOfPurchasedCourses:0
     }
   }
   const setFormateState =  (state,action) => {
@@ -193,6 +205,13 @@ const initialState = {
       cart:action.data
     }
   }
+  // const setPurchasedCourses = (state,action) =>{
+  //   console.log(action.newList);
+  //   return{
+  //     ...state,
+  //     sortedArray:action.newList
+  //   }
+  // }
   const reducer = (state = initialState, action) =>{
     switch(action.type){
         case actionTypes.ADD_TO_CART: return addDetails(state,action)
@@ -216,6 +235,8 @@ const initialState = {
         case actionTypes.ASSIGN_WISHLIST_DATA:return assignWishListData(state,action)
         case actionTypes.SET_FORTMAT_STATE:return setFormateState(state,action)
         case actionTypes.ASSIGN_CART_DATA:return assignCartData(state,action)
+        case actionTypes.RESET_TOAST:return resetToast(state,action)
+        // case actionTypes.SET_SORTED_LIST_TO_LEARNING_ARRAY:return setPurchasedCourses(state,action)
         default:
             return state
     }

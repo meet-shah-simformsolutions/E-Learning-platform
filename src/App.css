@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   background-color: #ebecef;
+  width: auto;
 }
 @media only screen and (max-device-width: 480px) {
   .App{

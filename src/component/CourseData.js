@@ -7,7 +7,8 @@ import Description from "./Description";
 import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
 import { WarningAlert } from "./Alert/WarningAlert";
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../contexts/AuthContext";
+import axios from "../axios-order";
 const CourseData = (props) => {
   const [searchText, setSearchText] = useState("");
   const [mainDataSource, setMaindataSource] = useState(data); /*do not change*/
@@ -19,29 +20,33 @@ const CourseData = (props) => {
   const [price, setPrice] = useState([]);
   const [newComp, setNewComp] = useState(false);
   const [redirectData, setRedirectData] = useState(null);
-  const [alertState,setAlertState] = useState(false)
-  const [alertMsg,setAlertMsg] = useState("")
-  const [noOfResult,setNoOfResult] =  useState()
+  const [alertState, setAlertState] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
+  const [noOfResult, setNoOfResult] = useState();
   const [finalPrice, setFinalPrice] = useState(0);
   const { currentUser } = useAuth();
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(9);
 
   useEffect(() => {
-    props.setData(currentUser)
-    props.setUserId(currentUser.uid)
-    console.log(props.dataSource)
-    props.getPurchasedCourses(props.userId)
+    props.setData(currentUser, start, end);
+    props.setUserId(currentUser.uid);
+    // console.log(props.dataSource);
+    props.getPurchasedCourses(props.userId);
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-      setDataSource(props.dataSource)
-      console.log(props.cart);
-      console.log(props.cartId);
+    // console.log("main fetched data",props.dataSource.flat(Infinity));
+    setDataSource(props.dataSource);
+    // console.log(props.cart);
+    // console.log(props.cartId);
 
-      // console.log("current user",props.currentUser ? props.currentUser : null)
-      // console.log("current userid",props.currentUser ? props.currentUser.uid : null)
-  }, [props.dataSource])
+    // console.log("current user",props.currentUser ? props.currentUser : null)
+    // console.log("current userid",props.currentUser ? props.currentUser.uid : null)
+  }, [props.dataSource]);
   const handleScroll = (event) => {
     const scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
@@ -56,13 +61,23 @@ const CourseData = (props) => {
 
     if (scrollTop + window.innerHeight + 10 >= scrollHeight) {
       // console.log("inside")
+
+      console.log("start", start);
+      console.log("end", end);
+
       setStatus("");
+      // console.log("total", start + end);
+      // setStart(9);
+      // setEnd(18);
+      // console.log("start", start);
+      // console.log("end", end);
+      props.setData(currentUser, start+end, end+8);
       return setOffSet((prev) => prev + 7);
     }
   };
   useEffect(() => {
-    console.log("wishlistId",props.wishlistId)
-  }, [props.wishlistId])
+    // console.log("wishlistId", props.wishlistId);
+  }, [props.wishlistId]);
   // console.log(searchText);
   // useEffect((data) => {}, []);
   // useEffect((searchText)=>{
@@ -120,7 +135,7 @@ const CourseData = (props) => {
   const filterName = (value) => {
     if (value < 1) {
       setSearchText("");
-      setNoOfResult(0)
+      setNoOfResult(0);
       return setDataSource(mainDataSource);
     } else {
       setSearchText(value.toLowerCase());
@@ -133,9 +148,9 @@ const CourseData = (props) => {
           lowerString_category.includes(searchText)
         );
       });
-      setNoOfResult(filteredData.length)
-      console.log(filteredData.length);
-      console.log(filteredData);
+      setNoOfResult(filteredData.length);
+      // console.log(filteredData.length);
+      // console.log(filteredData);
       return setDataSource(filteredData);
     }
   };
@@ -149,32 +164,29 @@ const CourseData = (props) => {
 
     return console.log(e.target);
   };
-  const addToWishlistDirectly = (index,id,data) => {
-    console.log(props.cartId)
-    if(props.cartId.includes(id)){
-
-        setAlertState(true)
-        setAlertMsg("Course Already Added in Cart")
-    }else if(props.purchasedCourseId.includes(id)){
-      setAlertState(true)
-        setAlertMsg("Course Already Purchased, Please Check Your My-Learning tab")
-    }
-
-    else{
+  const addToWishlistDirectly = (index, id, data) => {
+    console.log(props.cartId);
+    if (props.cartId.includes(id)) {
+      setAlertState(true);
+      setAlertMsg("Course Already Added in Cart");
+    } else if (props.purchasedCourseId.includes(id)) {
+      setAlertState(true);
+      setAlertMsg(
+        "Course Already Purchased, Please Check Your My-Learning tab"
+      );
+    } else {
       if (props.wishlistId.includes(id)) {
-        setAlertState(true)
-        setAlertMsg("Course Already Added in Wishlist")
-
+        setAlertState(true);
+        setAlertMsg("Course Already Added in Wishlist");
       } else {
-        setAlertState(false)
-        props.moveToWishlist(index)
-        props.addToWishlistDirectly(id)
-        props.addWishListDataToServer(data,props.userId)
+        setAlertState(false);
+        props.moveToWishlist(index);
+        props.addToWishlistDirectly(id);
+        props.addWishListDataToServer(data, props.userId);
       }
-     
     }
-    return true
-  }
+    return true;
+  };
   const filterStack = (value) => {
     let filterStack_data = mainDataSource.filter((x) => {
       return x.category === value;
@@ -190,7 +202,7 @@ const CourseData = (props) => {
   };
 
   const handleClick = (e, course_price, index, data, id) => {
-    console.log("button clicked")
+    console.log("button clicked");
     if (props.price < 10000) {
       // setPrice([...price, course_price]);
       // let sum = price.reduce((a, b) => {
@@ -198,31 +210,29 @@ const CourseData = (props) => {
       // }, 0);
       // setFinalPrice(sum);
       if (props.cartId.includes(id)) {
-        setAlertState(true)
-        setAlertMsg("Course Already Added in Cart")
-
-      }else if(props.purchasedCourseId.includes(id)){
-        setAlertState(true)
-        setAlertMsg("Course Already Purchased, Please Check Your My-Learning tab")
-      } 
-      else  {
-        setAlertState(false)
+        setAlertState(true);
+        setAlertMsg("Course Already Added in Cart");
+      } else if (props.purchasedCourseId.includes(id)) {
+        setAlertState(true);
+        setAlertMsg(
+          "Course Already Purchased, Please Check Your My-Learning tab"
+        );
+      } else {
+        setAlertState(false);
         props.addDetails(data);
-        props.getCartPrice()
-        props.addCartDataToServer(data,props.userId)
+        props.getCartPrice();
+        props.addCartDataToServer(data, props.userId);
       }
-    }
-    else if(props.price > 10000 && props.cartId.includes(id)){
-      setAlertState(true)
-      setAlertMsg("Limit Reached and Course Already Added in Cart")
-    }
-    else {
-      setAlertState(true)
-      setAlertMsg("Limit Reached")
+    } else if (props.price > 10000 && props.cartId.includes(id)) {
+      setAlertState(true);
+      setAlertMsg("Limit Reached and Course Already Added in Cart");
+    } else {
+      setAlertState(true);
+      setAlertMsg("Limit Reached");
     }
     setTimeout(() => {
       setAlertState(false);
-    },4000);
+    }, 4000);
     console.log(price);
     console.log(index);
     console.log(dataSource[index].courseDesc);
@@ -239,7 +249,7 @@ const CourseData = (props) => {
   const LoadData = (props) => {
     // console.log("in load data");
     // console.log(props.data);
-    console.log(props.data.length);
+    // console.log(props.data.length);
     return (
       // <InfiniteScroll
       // dataLength={props.data.length}
@@ -285,19 +295,22 @@ const CourseData = (props) => {
               </div>
             </div>
             <div className="buttonWrapper">
-            <button
-              className="price_btn"
-              onClick={(e) =>
-                handleClick(e, data.price, i, data, data.courseId)
-              }
-            >
-              Add to Cart
-            </button>
-            <div className="wishlistIconContainer">
-            <i className="fa fa-heart wishlistIcon" title="wishlist" onClick={()=> addToWishlistDirectly(i,data.courseId,data)}></i>
+              <button
+                className="price_btn"
+                onClick={(e) =>
+                  handleClick(e, data.price, i, data, data.courseId)
+                }
+              >
+                Add to Cart
+              </button>
+              <div className="wishlistIconContainer">
+                <i
+                  className="fa fa-heart wishlistIcon"
+                  title="wishlist"
+                  onClick={() => addToWishlistDirectly(i, data.courseId, data)}
+                ></i>
+              </div>
             </div>
-            </div>
-            
           </div>
         </div>
       ))
@@ -400,18 +413,20 @@ const CourseData = (props) => {
   //   console.log("sheight",scrollHeight)
 
   // }
-       let CourseList = null
-       if(dataSource.length > 0){
-         CourseList = ( <LoadData data={dataSource.slice(0, offSet)} />)
-
-       }
-       else{
-
-         CourseList = (<div>Loading..............</div>)
-       }
+  let CourseList = null;
+  if (dataSource.length > 0) {
+    CourseList = (
+      <LoadData
+        // data={dataSource.slice(0, offSet)}
+        data={dataSource}
+      />
+    );
+  } else {
+    CourseList = <div>Loading..............</div>;
+  }
   return (
-    <div>
-      {alertState ? (<WarningAlert msg={alertMsg}/>) : null}
+    <div className="main_Container">
+      {alertState ? <WarningAlert msg={alertMsg} /> : null}
       {redirectData ? (
         <Redirect
           to={{
@@ -455,15 +470,14 @@ const CourseData = (props) => {
               </div>
             </div>
           </div>
-
-          <div className="filter">
-            <div className="searchResult">
-            {noOfResult ? (<div>
-            {noOfResult} <small>Results for </small> <q>{searchText}</q>
-          </div>) : null}
-            </div>
-          
-          </div>
+          {noOfResult ? (
+            <>
+              <div className="searchResult">
+                {noOfResult}
+                <small>Results for </small> <q>{searchText}</q>
+              </div>
+            </>
+          ) : null}
           <div className="reset" onClick={props.reset}>
             <img
               alt="reset_filter"
@@ -471,8 +485,7 @@ const CourseData = (props) => {
               title="Reset Filters"
             />
           </div>
-          
-          
+
           <div style={{ backgroundColor: "transparent" }}>
             <input
               className="search_course"
@@ -487,7 +500,6 @@ const CourseData = (props) => {
         </div>
       </div>
       <div className="course-list" onScroll={handleScroll}>
-      
         {/* {data.map((data, i) => (
           <div className="course-container">
             <div className="course_data">
@@ -519,11 +531,11 @@ const mapStateToProps = (state) => {
     dataSource: state.cartDetails.dataSource,
     cartId: state.cartDetails.cartId,
     wishlistId: state.cartDetails.wishlistId,
-    userId:state.cartDetails.userId,
-    currentUser:state.cartDetails.currentUser,
-    purchasedCourseId:state.cartDetails.purchasedCourseId,
-    wishlist:state.cartDetails.wishlist,
-    cart:state.cartDetails.cart
+    userId: state.cartDetails.userId,
+    currentUser: state.cartDetails.currentUser,
+    purchasedCourseId: state.cartDetails.purchasedCourseId,
+    wishlist: state.cartDetails.wishlist,
+    cart: state.cartDetails.cart,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -532,13 +544,17 @@ const mapDispatchToProps = (dispatch) => {
     reset: () => dispatch(actions.resetData()),
     getCartPrice: () => dispatch(actions.calculateCartPrice()),
     moveToWishlist: (i) => dispatch(actions.moveToWishlist(i)),
-    addToWishlistDirectly:(id)=>dispatch(actions.addToWishlistDirectly(id)),
-    setData:(currentUser)=>dispatch(actions.setData(currentUser)),
-    getPurchasedCourses:(id)=> dispatch(actions.getPurchasedCourses(id)),
-   setUserId:(id)=>dispatch(actions.setUserId(id)),
-   storeWishlistData:(data,id)=>dispatch(actions.storeWishlistData(data,id)),
-   addWishListDataToServer:(data,id)=>dispatch(actions.addWishListDataToServer(data,id)),
-   addCartDataToServer:(data,id)=>dispatch(actions.addCartDataToServer(data,id))
+    addToWishlistDirectly: (id) => dispatch(actions.addToWishlistDirectly(id)),
+    setData: (currentUser, start, end) =>
+      dispatch(actions.setData(currentUser, start, end)),
+    getPurchasedCourses: (id) => dispatch(actions.getPurchasedCourses(id)),
+    setUserId: (id) => dispatch(actions.setUserId(id)),
+    storeWishlistData: (data, id) =>
+      dispatch(actions.storeWishlistData(data, id)),
+    addWishListDataToServer: (data, id) =>
+      dispatch(actions.addWishListDataToServer(data, id)),
+    addCartDataToServer: (data, id) =>
+      dispatch(actions.addCartDataToServer(data, id)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CourseData);
