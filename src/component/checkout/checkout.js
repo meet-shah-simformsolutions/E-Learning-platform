@@ -72,9 +72,9 @@ class Checkout extends Component {
             />
           </div>
           <div className="price-Container">
-            <h3>{this.props.cart.length} Courses in cart</h3>
-            <div className="courseTotal">Total:</div>
-            <div className="coursePrice">{this.props.price}/-</div>
+            <h3 className="white">{this.props.cart.length} Courses in cart</h3>
+            <div className="courseTotal ">Total:</div>
+            <div className="coursePrice white">{this.props.price}/-</div>
             <div className="basePrice">Baseprice</div>
             <div className="offer">offer%off</div>
             <div className="checkout-btn">
@@ -115,7 +115,6 @@ class Checkout extends Component {
         <div className="cartLanding">
           <h1>Shopping Cart</h1>
         </div>
-
         {cartData}
       </div>
     );

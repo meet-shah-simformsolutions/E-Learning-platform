@@ -1,5 +1,7 @@
 .dashboard_container{
     margin-top: 0px;
+    background-color:#212121;
+    color: white;
 }
 .main_dashboard{
     margin-top: 110px;

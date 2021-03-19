@@ -1,6 +1,9 @@
 *{
     box-sizing: border-box;
 }
+a{
+    color: inherit;
+}
 .wishlist_container{
     width: 100%;
     display: flex;
@@ -8,7 +11,7 @@
     justify-content: center;
     align-items: center;
     margin: auto;
-    padding: 10px;
+    background-color: #212121;
     /* border: 1px solid red; */
 }
 .cartLanding{
@@ -18,6 +21,7 @@
     width: 60%;
     /* border: 1px solid green; */
     padding: 10px;
+    margin:10px 0px
 }
 .Wishlist-courseLogo{
     width: 20%;
@@ -26,12 +30,10 @@
     width: 100%;
     height: 150px;
     display: flex;
-    background-color: #a9a9c4;
-    color: whitesmoke;
+    background-color: orange;
+    color: #000000;
     font-size: 25px;
     text-align: center;
-    margin: 10px;
-    border-radius: 8px;
     justify-content: center;
     align-items: center;
     margin-top: 110px;
@@ -43,4 +45,24 @@
     font-size: 25px;
     color: grey;
     height: 500px;
+}
+.listOfWishlistedCourses{
+    border: 1px dotted rgba(207, 205, 205, 0.726);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: left;
+    height: 150px;
+    padding: 10px;
+    border-radius: 2px;
+    margin-bottom: 13px;
+    margin:10px 0px 20px 0px
+}
+.removeFromWishlist{
+    color: rgba(246, 124, 124, 0.931);
+    margin-bottom: 10px;
+}
+.moveToCartFromWishlist{
+    color: rgb(158, 158, 243);
+    text-decoration: none;
 }

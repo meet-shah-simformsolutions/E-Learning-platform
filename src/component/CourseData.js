@@ -11,7 +11,7 @@ import { useAuth } from "../contexts/AuthContext";
 import axios from "../axios-order";
 const CourseData = (props) => {
   const [searchText, setSearchText] = useState("");
-  const [mainDataSource, setMaindataSource] = useState(data); /*do not change*/
+  const [mainDataSource, setMaindataSource] = useState([]); /*do not change*/
   const [dataSource, setDataSource] = useState([]);
   const [sortBy, setSortBy] = useState("");
   const [filtertBy, setFiltertBy] = useState("");
@@ -41,11 +41,7 @@ const CourseData = (props) => {
   useEffect(() => {
     // console.log("main fetched data",props.dataSource.flat(Infinity));
     setDataSource(props.dataSource);
-    // console.log(props.cart);
-    // console.log(props.cartId);
-
-    // console.log("current user",props.currentUser ? props.currentUser : null)
-    // console.log("current userid",props.currentUser ? props.currentUser.uid : null)
+    setMaindataSource(props.mainDataSource)
   }, [props.dataSource]);
   const handleScroll = (event) => {
     const scrollTop =
@@ -60,18 +56,12 @@ const CourseData = (props) => {
     // console.log("clientheight",window.innerHeight)
 
     if (scrollTop + window.innerHeight + 10 >= scrollHeight) {
-      // console.log("inside")
-
       console.log("start", start);
       console.log("end", end);
-
       setStatus("");
-      // console.log("total", start + end);
-      // setStart(9);
-      // setEnd(18);
-      // console.log("start", start);
-      // console.log("end", end);
-      props.setData(currentUser, start+end, end+8);
+      setStart(start+end)
+      setEnd(end+8)
+      props.setData(currentUser, start, end);
       return setOffSet((prev) => prev + 7);
     }
   };

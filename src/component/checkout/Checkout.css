@@ -1,25 +1,25 @@
 .main_cart{
     width: auto;
-    height: auto;
-    background-color: transparent;
+    height:100%;
+    background-color: #212121;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
 
 }
 .cartLanding{
     width: auto;
     height: 150px;
     display: flex;
-    background-color: #a9a9c4;
+    background-color: orange;
     color: whitesmoke;
     font-size: 25px;
     text-align: center;
     margin: 10px;
-    border-radius: 8px;
     margin-top: 110px;
+    color: #000000;
 }
 .cartLanding > h1 {
     margin: auto;
@@ -37,7 +37,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 60%;
-    height: auto;
     /* border: 1px solid black; */
 }
 .selectedCourses{
@@ -47,7 +46,7 @@
  
 }
 .listOfSelectedCourse{
-    border: 1px solid rgb(207, 205, 205);
+    border: 1px dotted rgba(207, 205, 205, 0.726);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -55,7 +54,8 @@
     height: 150px;
     padding: 10px;
     border-radius: 2px;
-    margin-bottom: 13px;
+    margin-top:10px;
+    margin-bottom: 25px;
 }
 .courseLogo{
     width: 25%;
@@ -64,10 +64,10 @@
 
 }  
 .remove{
-    color: rgb(245, 79, 79);
+    color: rgba(246, 124, 124, 0.931);
 }
 .wishlist{
-    color: rgb(95, 95, 238);
+    color: rgb(158, 158, 243);
 }
 .courseLogo > img {
     width: 100%;
@@ -75,7 +75,6 @@
 }    
 .courseDetails{
     width: 42%;
-    height: 100%;
     /* border: 1px solid rgb(4, 59, 4); */
     text-align: left;
     padding-left: 10px;
@@ -123,7 +122,9 @@
     margin: 3px 0px;
     display: block;
     font-size: 25px;
-    color: #686f7a;
+    color: orange;
+    font-weight: bold;
+    letter-spacing: 1.5px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .coursePrice{
@@ -139,7 +140,7 @@
     margin: 3px 0px;
     display: block;
     font-size: 18px;
-    color: rgb(177, 170, 170);
+    color: gray;
     text-decoration: line-through;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -147,7 +148,7 @@
     margin: 3px 0px;
     display: block;
     font-size: 18px;
-    color: rgb(177, 170, 170);
+    color: gray;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 
 }
@@ -162,8 +163,9 @@
 }
 .checkout-btn > button {
     width: 100%;
-    color: whitesmoke;
-    background-color: #5c5c92;
+    color: #000000;
+    font-style: bold;
+    background-color: orange;
     outline: none;
     border: none;
     height: 100%;
@@ -175,8 +177,9 @@
 
 .checkout-btn:hover button{
     background-color:transparent;
-    border: 1px solid #5c5c92;
-    color: #5c5c92;
+    border: 1px solid orange;
+    color: orange;
+    font-style: bold;
 }
 @media only screen and (max-device-width: 480px) {
     .main_cart{
@@ -213,4 +216,7 @@
     width: 100%;
     align-items: center;
     border: 1px solid red;
+}
+.white{
+    color: whitesmoke;
 }

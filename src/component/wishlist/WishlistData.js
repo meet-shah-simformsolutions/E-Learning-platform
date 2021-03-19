@@ -23,7 +23,7 @@ function WishlistData(props) {
     console.log(data)
     return (
       <div>
-        <div className="listOfSelectedCourse">
+        <div className="listOfWishlistedCourses">
           <div className=" courseLogo Wishlist-courseLogo">
             <img src={data.courseImg} alt="courseLogo" />
           </div>
@@ -35,6 +35,7 @@ function WishlistData(props) {
             <div>
               {" "}
               <div
+              className="removeFromWishlist"
                 onClick={() => removeFromWishListAndUpdateServer(data,i)}
                 //  onClick= {()=> removeItemAndUpdateCart(i)}
               >
@@ -42,7 +43,7 @@ function WishlistData(props) {
                 remove
               </div>
             </div>
-            <div>
+            <div className="moveToCartFromWishlist">
               <Link to="/Wishlist" onClick={() => moveToCartAndUpdate(data,i)}>
                 Move to Cart
               </Link>

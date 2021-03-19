@@ -30,7 +30,7 @@ const initialState = {
       // dataSource:action.data,
       dataSource:[...state.dataSource,action.data],
 
-      mainDataSource:action.data,
+      mainDataSource:[...state.dataSource,action.data],
     }
   }
   const setUserId = (state,action) => {

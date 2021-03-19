@@ -38,10 +38,11 @@ class MyLearning extends Component {
           
         </div>
         <div>
-        <p>
-          Total
-          {this.props.totalNoOfPurchasedCourses}
-          Courses Purchased
+
+        <p className="totalPurchasedCourses">
+          <hr/>
+          {`Total ${this.props.totalNoOfPurchasedCourses} Courses Purchased`}
+          <hr/>
           </p>
         </div>
         {purchasedItem}

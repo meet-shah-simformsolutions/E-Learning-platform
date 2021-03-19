@@ -11,8 +11,8 @@ export const setUserId = (id) => {
 };
 export const setData = (currentUser,start,end) => {
   // console.log("set User");
-  console.log(start,end);
-  console.log(start,end);
+  console.log("start",start);
+  console.log("end",end);
   // let temp_array = []
   return (dispatch) => {
     for(let i=start;i<end;i++){
