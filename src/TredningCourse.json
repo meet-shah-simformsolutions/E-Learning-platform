@@ -1,0 +1,14 @@
+[
+    {
+        "img":"../img/frontend.png",
+        "category":"Frontend"
+    },
+    {
+        "img":"../img/backend.png",
+        "category":"Backend"
+    },
+    {
+        "img":"../img/fullstack.jpeg",
+        "category":"Fullstack"
+    }
+]

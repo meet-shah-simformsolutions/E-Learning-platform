@@ -31,7 +31,7 @@ const Navbar = (props) => {
           <li>
             <div>
               <li>
-                <NavLink to="/" exact activeStyle={{color:"black"}}> 
+                <NavLink to="/Home" exact activeStyle={{color:"black"}}> 
                 <img
                 // src="../img/simform-logo.png"
                 src="../img/test-1-logo.png"
@@ -63,7 +63,7 @@ const Navbar = (props) => {
           <li>
             <div>
               <li className="bottom-line">
-                <NavLink to="/" exact activeStyle={{color:"orange"}}>Home</NavLink>
+                <NavLink to="/Home" exact activeStyle={{color:"orange"}}>Home</NavLink>
               </li>
             </div>
           </li>
@@ -71,7 +71,7 @@ const Navbar = (props) => {
           <li>
             <div>
               <li className="bottom-line">
-                <NavLink to="/web-development" exact activeStyle={{color:"orange"}}>Web Development Courses</NavLink>
+                <NavLink to="/web-development/all" exact activeStyle={{color:"orange"}}>Web Development Courses</NavLink>
               </li>
             </div>
           </li>

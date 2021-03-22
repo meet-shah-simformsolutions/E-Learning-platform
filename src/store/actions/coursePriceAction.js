@@ -3,6 +3,24 @@ import axios from "../../axios-order";
 import firebase from "firebase";
 import { db } from "../../firebase";
 
+export const getTrendingCourses = () =>{
+  return(dispatch) =>{
+    axios.get("/TrendingCourses.json")
+        .then((res) => {
+          dispatch(assignTrendingCourses(res.data));
+        })
+        .catch((error) => {
+          // console.log(error);
+        })
+  }
+}
+export const assignTrendingCourses = (data) => {
+  console.log(data);
+  return{
+    type:actionTypes.ASSIGN_TRENDING_COURSES,
+    data
+  }
+}
 export const setUserId = (id) => {
   return {
     type: actionTypes.SET_USER_ID,
@@ -11,41 +29,41 @@ export const setUserId = (id) => {
 };
 export const setData = (currentUser,start,end) => {
   // console.log("set User");
-  console.log("start",start);
-  console.log("end",end);
+  // console.log("start",start);
+  // console.log("end",end);
   // let temp_array = []
   return (dispatch) => {
-    for(let i=start;i<end;i++){
+    // for(let i=start;i<end;i++){
+    //   axios
+    //     .get(`/CourseData/${i}.json`)
+    //     .then((res) => {
+    //       // console.log(`/CourseData/${i}.json`);
+    //       console.log("api called");
+    //       // console.log(res.data);//object received from api
+    //       // temp_array.push(res.data)
+    //       dispatch(assignData(res.data, currentUser));
+    //     })
+    //     // .then(()=>{
+    //     //   console.log(  );
+
+    //     //   console.log("temp",temp_array);
+
+    //     //   // dispatch(assignData(temp_array, currentUser));
+
+    //     // })
+    //     .catch((error) => {
+    //       // console.log(error);
+    //     });
+    //   }
+
       axios
-        .get(`/CourseData/${i}.json`)
+        .get("/CourseData/.json")
         .then((res) => {
-          // console.log(`/CourseData/${i}.json`);
-          console.log("api called");
-          // console.log(res.data);//object received from api
-          // temp_array.push(res.data)
           dispatch(assignData(res.data, currentUser));
         })
-        // .then(()=>{
-        //   console.log(  );
-
-        //   console.log("temp",temp_array);
-
-        //   // dispatch(assignData(temp_array, currentUser));
-
-        // })
         .catch((error) => {
           // console.log(error);
         });
-      }
-
-      // axios
-      //   .get(`/CourseData/.json`)
-      //   .then((res) => {
-      //     dispatch(assignData(res.data, currentUser));
-      //   })
-      //   .catch((error) => {
-      //     // console.log(error);
-      //   });
   };
 };
 export const assignData = (data, currentUser) => {

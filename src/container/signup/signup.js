@@ -83,7 +83,7 @@ return (
   <div className="Signup">
     <div className="title">
       <h2>
-        <strong>Sign Up and Start Learning!</strong>
+        <strong className="white">Sign Up and Start Learning!</strong>
       </h2>
       <hr className="line" />
     </div>
@@ -155,7 +155,7 @@ return (
           </button>
         </div>
         <div className="container">
-          <p>
+          <p className="white">
             Already have an account?{" "}
             <strong>
               <NavLink to="/Login">LogIn</NavLink>

@@ -21,16 +21,18 @@ const initialState = {
     formatState:true,
     docName:[],
     totalNoOfPurchasedCourses:0,
-    sortedArray:[]
+    sortedArray:[],
+    TrendingCourses:[]
   };
   const assignData = (state,action) =>{
     return{
       ...state,
       currentUser:action.currentUser,
-      // dataSource:action.data,
-      dataSource:[...state.dataSource,action.data],
+      dataSource:action.data,
+      mainDataSource:action.data
+      // dataSource:[...state.dataSource,action.data],
 
-      mainDataSource:[...state.dataSource,action.data],
+      // mainDataSource:[...state.dataSource,action.data],
     }
   }
   const setUserId = (state,action) => {
@@ -212,6 +214,12 @@ const initialState = {
   //     sortedArray:action.newList
   //   }
   // }
+  const assignTrendingCourses = (state,action) =>{
+    return{
+      ...state,
+      TrendingCourses:action.data
+    }
+  }
   const reducer = (state = initialState, action) =>{
     switch(action.type){
         case actionTypes.ADD_TO_CART: return addDetails(state,action)
@@ -236,6 +244,7 @@ const initialState = {
         case actionTypes.SET_FORTMAT_STATE:return setFormateState(state,action)
         case actionTypes.ASSIGN_CART_DATA:return assignCartData(state,action)
         case actionTypes.RESET_TOAST:return resetToast(state,action)
+        case actionTypes.ASSIGN_TRENDING_COURSES: return assignTrendingCourses(state,action)
         // case actionTypes.SET_SORTED_LIST_TO_LEARNING_ARRAY:return setPurchasedCourses(state,action)
         default:
             return state

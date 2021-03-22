@@ -15,7 +15,7 @@ const CourseData = (props) => {
   const [dataSource, setDataSource] = useState([]);
   const [sortBy, setSortBy] = useState("");
   const [filtertBy, setFiltertBy] = useState("");
-  const [offSet, setOffSet] = useState(9);
+  const [offSet, setOffSet] = useState(7);
   const [status, setStatus] = useState("Loading....");
   const [price, setPrice] = useState([]);
   const [newComp, setNewComp] = useState(false);
@@ -25,15 +25,23 @@ const CourseData = (props) => {
   const [noOfResult, setNoOfResult] = useState();
   const [finalPrice, setFinalPrice] = useState(0);
   const { currentUser } = useAuth();
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(9);
+  const [categorisedData,setCategorisedData] = useState([])
+  // const [start, setStart] = useState(0);
+  // const [end, setEnd] = useState(9);
 
   useEffect(() => {
-    props.setData(currentUser, start, end);
+    props.setData(currentUser);
     props.setUserId(currentUser.uid);
     // console.log(props.dataSource);
     props.getPurchasedCourses(props.userId);
+    console.log("link param",props.match.params.value);
+    // filterName(props.match.params.value)
     window.addEventListener("scroll", handleScroll);
+    if(props.match.params.value !== "all"){
+      console.log("called");
+        
+        getCategorisedData(props.match.params.value)
+      }
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -42,7 +50,22 @@ const CourseData = (props) => {
     // console.log("main fetched data",props.dataSource.flat(Infinity));
     setDataSource(props.dataSource);
     setMaindataSource(props.mainDataSource)
+    
   }, [props.dataSource]);
+  const getCategorisedData = (data) => {
+    setCategorisedData([])
+    setSearchText(data)
+      props.dataSource.map((item)=>{
+        let lowerItem = item.category.toLowerCase()
+        let lowerData = data.toLowerCase() 
+        if(lowerItem === lowerData){
+          console.log(item);
+          setCategorisedData(categorisedData => [...categorisedData, item])
+        }
+      })
+      console.log(categorisedData);
+      return setDataSource(categorisedData)
+  }
   const handleScroll = (event) => {
     const scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
@@ -56,12 +79,12 @@ const CourseData = (props) => {
     // console.log("clientheight",window.innerHeight)
 
     if (scrollTop + window.innerHeight + 10 >= scrollHeight) {
-      console.log("start", start);
-      console.log("end", end);
-      setStatus("");
-      setStart(start+end)
-      setEnd(end+8)
-      props.setData(currentUser, start, end);
+      // console.log("start", start);
+      // console.log("end", end);
+      // setStatus("");
+      // setStart(start+end)
+      // setEnd(end+8)
+      // props.setData(currentUser, start, end);
       return setOffSet((prev) => prev + 7);
     }
   };
@@ -123,11 +146,16 @@ const CourseData = (props) => {
   // );
 
   const filterName = (value) => {
+    setSortBy("")
+    setFiltertBy("")
+    setCategorisedData([])
+    console.log(value);
     if (value < 1) {
       setSearchText("");
       setNoOfResult(0);
       return setDataSource(mainDataSource);
     } else {
+      console.log(value);
       setSearchText(value.toLowerCase());
       let filteredData = mainDataSource.filter((x) => {
         let lowerString_coursename = x.courseName.toLowerCase();
@@ -238,7 +266,6 @@ const CourseData = (props) => {
   };
   const LoadData = (props) => {
     // console.log("in load data");
-    // console.log(props.data);
     // console.log(props.data.length);
     return (
       // <InfiniteScroll
@@ -405,14 +432,15 @@ const CourseData = (props) => {
   // }
   let CourseList = null;
   if (dataSource.length > 0) {
+
     CourseList = (
       <LoadData
-        // data={dataSource.slice(0, offSet)}
-        data={dataSource}
+        data={categorisedData.length>1 ? categorisedData : dataSource.slice(0, offSet)}
+        // data={dataSource}
       />
     );
   } else {
-    CourseList = <div>Loading..............</div>;
+    CourseList = <div className="white">Loading..............</div>;
   }
   return (
     <div className="main_Container">
@@ -478,6 +506,7 @@ const CourseData = (props) => {
 
           <div style={{ backgroundColor: "transparent" }}>
             <input
+              autoFocus
               className="search_course"
               value={searchText}
               required
@@ -504,6 +533,7 @@ const CourseData = (props) => {
             </div>
           </div>
         ))} */}
+        {/* {categorisedData ? } */}
         {CourseList}
         {/* <div style={{color:"white"}}>
         {status}

@@ -78,7 +78,6 @@
     padding: 10px;
     font-size: 18px;
     padding-left: 15px;
-    border: 1px dashed #160f30;
 }
 .container-input:focus{
     border-bottom: 2px solid #160f30;
@@ -88,14 +87,14 @@
 .signup-btn, .reset-btn, .login-btn, .logout-btn, .update-btn{
     width: 100%;
     height: 50px;
-    background-color: #69678f;
+    background-color: orange;
     outline:none;
     border: none;
     border-radius: 15px;
     margin-top: 20px;
     padding: 10px;
     font-size: 20px;
-    color: aliceblue;
+    color: #212121;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     letter-spacing: 2px;
 }
@@ -112,8 +111,8 @@
 }
 .signup-btn:hover {
     background-color: transparent;
-    border: 2px solid #69678f;
-    color: #69678f;
+    border: 2px solid orange;
+    color: orange;
 
 }
 .login-btn:hover{

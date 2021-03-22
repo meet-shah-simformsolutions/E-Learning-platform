@@ -46,7 +46,7 @@ function Dashboard(props) {
       setError("Failed to Logout");
     }
   }
-  let currentUser_email = `Welcome ${currentUser.email}`
+  let currentUser_email = currentUser ? `Welcome ${currentUser.email}` : null
   return (
     <div className="dashboard_container">
       <div className="main_dashboard">

@@ -24,6 +24,7 @@ import WorkshopList from './component/Workshop/WorkshopList';
 import Checkout from './component/checkout/checkout';
 import WishList from './component/wishlist/WishList';
 import MyLearning from './component/MyLearning/MyLearning';
+import LandingPage from './component/LandingPage/LandingPage';
 function App() {
 
   return (
@@ -31,8 +32,8 @@ function App() {
       <Navbar/>
       <PrivateRoutes exact path="/" component={Dashboard} msg="Please login to view dashboard"/>
       <PrivateRoutes exact path="/Update-profile" component={UpdateProfile}/>
-      
-      <Route path="/web-development" exact component={CourseData}/>
+      <Route path="/Home" exact component={LandingPage}/>
+      <Route path="/web-development/:value"  component={CourseData}/>
       <Route path="/Registration" exact component={Registration}/>
       <Route path="/Workshop" exact component={WorkshopList}/>
       <Route path="/Signup" exact component={Signup}/>
