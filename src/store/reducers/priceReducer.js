@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
+// import { assignTableContent } from "../actions/coursePriceAction";
 // import { useAuth } from "../../contexts/AuthContext";
 // import data from "../../data.json"
 const initialState = {
@@ -22,7 +23,8 @@ const initialState = {
     docName:[],
     totalNoOfPurchasedCourses:0,
     sortedArray:[],
-    TrendingCourses:[]
+    TrendingCourses:[],
+    TableContent:[]
   };
   const assignData = (state,action) =>{
     return{
@@ -220,6 +222,13 @@ const initialState = {
       TrendingCourses:action.data
     }
   }
+  const assignTableContent = (state,action) => {
+    console.log(action.data);
+    return{
+      ...state,
+      TableContent:action.data
+    }
+  }
   const reducer = (state = initialState, action) =>{
     switch(action.type){
         case actionTypes.ADD_TO_CART: return addDetails(state,action)
@@ -245,6 +254,7 @@ const initialState = {
         case actionTypes.ASSIGN_CART_DATA:return assignCartData(state,action)
         case actionTypes.RESET_TOAST:return resetToast(state,action)
         case actionTypes.ASSIGN_TRENDING_COURSES: return assignTrendingCourses(state,action)
+        case actionTypes.ASSIGN_TABLECONTENT: return assignTableContent(state,action)
         // case actionTypes.SET_SORTED_LIST_TO_LEARNING_ARRAY:return setPurchasedCourses(state,action)
         default:
             return state

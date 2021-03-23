@@ -15,7 +15,8 @@ export {
     wishlistRemoveUpdateServer,
     setFormat,
     setFormateState,
-    getTrendingCourses
+    getTrendingCourses,
+    getTableContent
     // setPurchasedCourses
 } from "./coursePriceAction"
 export {

@@ -73,7 +73,25 @@ export const assignData = (data, currentUser) => {
     currentUser,
   };
 };
-
+export const getTableContent  = () => {
+  return dispatch => {
+    axios
+    .get("/TableContent.json")
+    .then((res) => {
+      console.log(res.data);
+      dispatch(assignTableContent(res.data));
+    })
+    .catch((error) => {
+      // console.log(error);
+    });
+  }
+}
+export const assignTableContent  = (data) => {
+  return{
+    type:actionTypes.ASSIGN_TABLECONTENT,
+    data
+  }
+}
 export const resetData = () => {
   return {
     type: actionTypes.RESET_DATA,
