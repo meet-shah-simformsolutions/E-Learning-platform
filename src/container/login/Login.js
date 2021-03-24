@@ -35,7 +35,7 @@ function Login(props) {
     <div className="Login">
       <div className="title">
         <h2>
-          <strong>Log In to your E-Learning Account</strong>
+          <strong className="white">Log In to your E-Learning Account</strong>
         </h2>
         <hr className="line" />
       </div>
@@ -79,14 +79,14 @@ function Login(props) {
             <p>
               {" "}
               <strong>
-                <NavLink to="/Forgot_Password" className="forgot_password">
+                <NavLink to="/Forgot_Password" className="forgot_password white">
                   Forgot Password?
                 </NavLink>
               </strong>
             </p>
           </div>
           <div className="container">
-            <p>
+            <p className="white">
               Don't have an account?{" "}
               <strong>
                 <NavLink to="/Signup">SignUp</NavLink>

@@ -3,28 +3,28 @@ import React,{useEffect, useState} from 'react';
 function Modal(props) {
     const [modalDisplay, setModalDisplay] = useState("block");
     useEffect(() => {
-        console.log("Modal rendered");
-        console.log(props.url);
-        console.log(props.title);
-        // setTimeout(() => {
-        //     props.setModal()
-        // }, 1000);
+      console.log("Modal rendered");
+      console.log(props.url);
+      console.log(props.title);
     }, [])
-    
+    const myModalClickHandler = () =>{
+      setModalDisplay("none")
+      props.resetModal()
+    }
     return (
         <div>
             <div
                 id="myModal"
-                class="modal"
+                className="modal"
                 style={{ display: modalDisplay}}
-                onClick={() => setModalDisplay("none")}
+                onClick={() => myModalClickHandler()}
               >
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <span class="close">&times;</span>
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <span className="close">&times;</span>
                     <h6> {props.title}</h6>
                   </div>
-                  <div class="modal-body">
+                  <div className="modal-body">
                     <div className="videoContainer">
                       <video controls>
                         <source

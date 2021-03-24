@@ -46,8 +46,6 @@ const Navbar = (props) => {
           <li>
             <div>
               <li>
-                <a href="#">
-
               <input
                 className="search"
                 required
@@ -55,7 +53,6 @@ const Navbar = (props) => {
                 type="text"
                 placeholder="Search Everything Here"
               />
-              </a>
               </li>
             </div>
           </li>

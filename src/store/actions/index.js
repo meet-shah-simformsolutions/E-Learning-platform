@@ -16,7 +16,8 @@ export {
     setFormat,
     setFormateState,
     getTrendingCourses,
-    getTableContent
+    getTableContent,
+    checkAuthentication
     // setPurchasedCourses
 } from "./coursePriceAction"
 export {

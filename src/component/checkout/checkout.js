@@ -25,7 +25,7 @@ class Checkout extends Component {
       finalCart: {
         cart: this.props.cart,
         userId: this.props.userId,
-        wishlist:this.props.wishlist
+        wishlist:this.props.wishlist,
       },
     });
 

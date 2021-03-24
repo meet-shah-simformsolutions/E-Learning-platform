@@ -69,12 +69,14 @@ a{
     color: #f69b23;
 }
 .search{
+  outline: none;
+
     width: 300px;
     height:33px;
     vertical-align:middle;
     margin-top: 2px;
     margin-bottom: 2px;
-    border-radius: 20px;
+    border-radius: 7px;
     border: none;
     font-size: 20px;
     padding: 10px;

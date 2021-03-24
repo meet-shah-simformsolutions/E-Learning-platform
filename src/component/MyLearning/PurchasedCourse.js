@@ -5,7 +5,7 @@ import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
 function PurchasedCourse(props) {
   useEffect(() => {
-    // console.log("inside purchased orders", props.fetchedOrder);
+    console.log("inside purchased orders", props.fetchedOrder);
   }, []);
 
   return props.fetchedOrder.map((data, i) => {

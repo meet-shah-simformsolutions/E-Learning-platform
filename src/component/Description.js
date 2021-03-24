@@ -8,39 +8,53 @@ function Description(props) {
   const [alertMsg, setAlertMsg] = useState("");
   const [displayStyle, setDisplayStyle] = useState("none");
   const [showModal, setShowModal] = useState(false);
-  const [link, setLink] = useState(null)
-  console.log(props.location.state);
+  const [link, setLink] = useState(null);
+  const [check, setCheck] = useState(false);
+  const [title, setTitle] = useState(null);
+  // console.log(props.location.state);
   useEffect(() => {
-    props.getTableContent();
+    props.getTableContent(props.userId);
+    // props.checkAuthentication(props.userId)
+    setTimeout(() => {
+      console.log(props.paidCourseId);
+    }, 2000);
   }, []);
   const handleClick = (e, course_price, data, id) => {
     console.log("button clicked");
-    if (props.price < 10000) {
-      // setPrice([...price, course_price]);
-      // let sum = price.reduce((a, b) => {
-      //   return a + b;
-      // }, 0);
-      // setFinalPrice(sum);
-      if (props.cartId.includes(id)) {
+
+     if(props.paidCourseId.includes(id)){
+      setAlertState(true);
+      setAlertMsg("Course Already Purchased, Please Check Your My-Learning tab");
+    }
+    else{
+      if (props.price < 10000 ) {
+        // setPrice([...price, course_price]);
+        // let sum = price.reduce((a, b) => {
+        //   return a + b;
+        // }, 0);
+        // setFinalPrice(sum);
+       
+        if (props.cartId.includes(id)) {
+          setAlertState(true);
+          setAlertMsg("Course Already Added in Cart");
+        } else if (props.purchasedCourseId.includes(id)) {
+          setAlertState(true);
+          setAlertMsg(
+            "Course Already Purchased, Please Check Your My-Learning tab"
+          );
+        } else {
+          setAlertState(false);
+          props.addDetails(data);
+          props.getCartPrice();
+          props.addCartDataToServer(data, props.userId);
+        }
+      } else if (props.price > 10000 && props.cartId.includes(id)) {
         setAlertState(true);
-        setAlertMsg("Course Already Added in Cart");
-      } else if (props.purchasedCourseId.includes(id)) {
-        setAlertState(true);
-        setAlertMsg(
-          "Course Already Purchased, Please Check Your My-Learning tab"
-        );
+        setAlertMsg("Limit Reached and Course Already Added in Cart");
       } else {
-        setAlertState(false);
-        props.addDetails(data);
-        props.getCartPrice();
-        props.addCartDataToServer(data, props.userId);
+        setAlertState(true);
+        setAlertMsg("Limit Reached");
       }
-    } else if (props.price > 10000 && props.cartId.includes(id)) {
-      setAlertState(true);
-      setAlertMsg("Limit Reached and Course Already Added in Cart");
-    } else {
-      setAlertState(true);
-      setAlertMsg("Limit Reached");
     }
     setTimeout(() => {
       setAlertState(false);
@@ -48,20 +62,41 @@ function Description(props) {
     // setDataSource(dataSource.slice(index,1))
     // price.reduce(sum)
   };
-  const toggle  = (id) => {
-    let obj   = document.getElementById(id);
+  const toggle = (id) => {
+    let obj = document.getElementById(id);
     if (obj.style.display === "block") obj.style.display = "none";
     else obj.style.display = "block";
-  }
-  const data = props.location.state.data;
-  const setLinkAndModal = (blockLink) => {
-      console.log(blockLink);
-      setLink(blockLink)
-      setShowModal(true)
-  }
+  };
+  const data = props.location.state.data ? props.location.state.data : null;
+  const setLinkAndModal = (blockLink, title, id) => {
+    // props.checkAuthentication(id)
+    console.log(blockLink);
+    if(props.paidCourseId.includes(id)){
+      setLink(blockLink);
+      setShowModal(true);
+      setTitle(title);
+    }
+    else{
+      setAlertState(true)
+      setAlertMsg("Sorry you are not authorized")
+      setTimeout(() => {
+        setAlertState(false)
+      }, 4000);
+    }
+  };
+  const againSetTheModalState = () => {
+    setShowModal(false);
+  };
   return (
     <div className="description_container">
       {alertState ? <WarningAlert msg={alertMsg} /> : null}
+      {showModal ? (
+        <Modal
+          url={link}
+          title={title}
+          resetModal={() => againSetTheModalState()}
+        />
+      ) : null}
 
       <div className="first-container">
         <div className="course_title">
@@ -77,12 +112,9 @@ function Description(props) {
           <div className="tableOfContent">
             {props.TableContent.map((item) => {
               if (item.courseId === data.courseId) {
-                return item.data.map((block,i) => (
+                return item.data.map((block, i) => (
                   <>
-                    <div
-                      className="ContentTitle"
-                      onClick={()=>toggle(i)}
-                      >
+                    <div className="ContentTitle" onClick={() => toggle(i)}>
                       {block.title}
                     </div>
 
@@ -90,20 +122,19 @@ function Description(props) {
                       className="ContentDescription"
                       style={{ display: displayStyle }}
                       id={i}
-                      >
+                    >
                       {block.description.map((linkBlock) => (
                         <>
                           <div
                             className="ContentDescriptionLink"
-                            onClick={() => setLinkAndModal(linkBlock.link)}
-                            >
-                            <i className="fa fa-play-circle">  
-                              {linkBlock.title}
+                            onClick={() =>
+                              setLinkAndModal(linkBlock.link, linkBlock.title,data.courseId)
+                            }
+                          >
+                            <i className="fa fa-play-circle" style={{marginRight:"10px"}}>
                             </i>
+                              <strong>{linkBlock.title}</strong>
                           </div>
-                          {showModal ? (
-                            <Modal url={link} title={linkBlock.title} />
-                          ) : null}
                         </>
                       ))}
                     </div>
@@ -193,6 +224,9 @@ const mapStateToProps = (state) => {
     wishlist: state.cartDetails.wishlist,
     cart: state.cartDetails.cart,
     TableContent: state.cartDetails.TableContent,
+    userId:state.cartDetails.userId,
+    Authentication:state.cartDetails.Authentication,
+    paidCourseId:state.cartDetails.paidCourseId
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -201,7 +235,8 @@ const mapDispatchToProps = (dispatch) => {
     getCartPrice: () => dispatch(actions.calculateCartPrice()),
     addCartDataToServer: (data, id) =>
       dispatch(actions.addCartDataToServer(data, id)),
-    getTableContent: () => dispatch(actions.getTableContent()),
+    getTableContent: (id) => dispatch(actions.getTableContent(id)),
+    checkAuthentication:(uid)=> dispatch(actions.checkAuthentication(uid))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Description);

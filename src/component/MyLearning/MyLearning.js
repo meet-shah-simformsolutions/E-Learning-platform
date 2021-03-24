@@ -20,7 +20,6 @@ class MyLearning extends Component {
   render() {
     let purchasedItem = null
     if(this.props.learning.length >= 1){
-      console.log(this.props.sortedArray);
       purchasedItem = (<div className="myLearningData">
           {/* <PurchasedCourse fetchedOrder={this.props.learning.flat(Infinity)} /> */}
           <PurchasedCourse fetchedOrder={this.props.learning} />

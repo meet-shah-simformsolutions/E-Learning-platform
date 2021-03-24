@@ -34,9 +34,15 @@ const CourseData = (props) => {
     props.setUserId(currentUser.uid);
     // console.log(props.dataSource);
     props.getPurchasedCourses(props.userId);
+    // props.getTableContent(props.userId);
+
     console.log("link param",props.match.params.value);
     // filterName(props.match.params.value)
     window.addEventListener("scroll", handleScroll);
+    setTimeout(() => {
+      
+      console.log("paid CourseID",props.paidCourseId);
+    }, 3000);
     if(props.match.params.value !== "all"){
       console.log("called");
         
@@ -184,24 +190,32 @@ const CourseData = (props) => {
   };
   const addToWishlistDirectly = (index, id, data) => {
     console.log(props.cartId);
-    if (props.cartId.includes(id)) {
+    if(props.paidCourseId.includes(id)){
       setAlertState(true);
-      setAlertMsg("Course Already Added in Cart");
-    } else if (props.purchasedCourseId.includes(id)) {
-      setAlertState(true);
-      setAlertMsg(
-        "Course Already Purchased, Please Check Your My-Learning tab"
-      );
-    } else {
-      if (props.wishlistId.includes(id)) {
+      setAlertMsg("Course Already Purchased, Please Check Your My-Learning tab");
+    }
+    else{
+
+      if (props.cartId.includes(id)) {
         setAlertState(true);
-        setAlertMsg("Course Already Added in Wishlist");
+        setAlertMsg("Course Already Added in Cart");
+      } else if (props.purchasedCourseId.includes(id)) {
+        setAlertState(true);
+        setAlertMsg(
+          "Course Already Purchased, Please Check Your My-Learning tab"
+        );
       } else {
-        setAlertState(false);
-        props.moveToWishlist(index);
-        props.addToWishlistDirectly(id);
-        props.addWishListDataToServer(data, props.userId);
-      }
+        if (props.wishlistId.includes(id)) {
+          setAlertState(true);
+          setAlertMsg("Course Already Added in Wishlist");
+        } else {
+          setAlertState(false);
+          props.moveToWishlist(index);
+          props.addToWishlistDirectly(id);
+          props.addWishListDataToServer(data, props.userId);
+        }
+    }
+
     }
     return true;
   };
@@ -221,33 +235,44 @@ const CourseData = (props) => {
 
   const handleClick = (e, course_price, index, data, id) => {
     console.log("button clicked");
-    if (props.price < 10000) {
-      // setPrice([...price, course_price]);
-      // let sum = price.reduce((a, b) => {
-      //   return a + b;
-      // }, 0);
-      // setFinalPrice(sum);
-      if (props.cartId.includes(id)) {
-        setAlertState(true);
-        setAlertMsg("Course Already Added in Cart");
-      } else if (props.purchasedCourseId.includes(id)) {
-        setAlertState(true);
-        setAlertMsg(
-          "Course Already Purchased, Please Check Your My-Learning tab"
-        );
-      } else {
-        setAlertState(false);
-        props.addDetails(data);
-        props.getCartPrice();
-        props.addCartDataToServer(data, props.userId);
-      }
-    } else if (props.price > 10000 && props.cartId.includes(id)) {
+    console.log(id);
+    console.log(props.paidCourseId);
+    console.log(props.paidCourseId.includes(id));
+    if(props.paidCourseId.includes(id)){
       setAlertState(true);
-      setAlertMsg("Limit Reached and Course Already Added in Cart");
-    } else {
-      setAlertState(true);
-      setAlertMsg("Limit Reached");
+      setAlertMsg("Course Already Purchased, Please Check Your My-Learning tab");
     }
+    else{
+      if (props.price < 10000 ) {
+        // setPrice([...price, course_price]);
+        // let sum = price.reduce((a, b) => {
+        //   return a + b;
+        // }, 0);
+        // setFinalPrice(sum);
+       
+        if (props.cartId.includes(id)) {
+          setAlertState(true);
+          setAlertMsg("Course Already Added in Cart");
+        } else if (props.purchasedCourseId.includes(id)) {
+          setAlertState(true);
+          setAlertMsg(
+            "Course Already Purchased, Please Check Your My-Learning tab"
+          );
+        } else {
+          setAlertState(false);
+          props.addDetails(data);
+          props.getCartPrice();
+          props.addCartDataToServer(data, props.userId);
+        }
+      } else if (props.price > 10000 && props.cartId.includes(id)) {
+        setAlertState(true);
+        setAlertMsg("Limit Reached and Course Already Added in Cart");
+      } else {
+        setAlertState(true);
+        setAlertMsg("Limit Reached");
+      }
+    }
+    
     setTimeout(() => {
       setAlertState(false);
     }, 4000);
@@ -556,6 +581,7 @@ const mapStateToProps = (state) => {
     purchasedCourseId: state.cartDetails.purchasedCourseId,
     wishlist: state.cartDetails.wishlist,
     cart: state.cartDetails.cart,
+    paidCourseId:state.cartDetails.paidCourseId
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -575,6 +601,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.addWishListDataToServer(data, id)),
     addCartDataToServer: (data, id) =>
       dispatch(actions.addCartDataToServer(data, id)),
+    getTableContent: (id) => dispatch(actions.getTableContent(id)),
+
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CourseData);

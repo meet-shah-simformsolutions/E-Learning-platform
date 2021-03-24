@@ -1,7 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-order";
 import firebase from "firebase";
-import { db } from "../../firebase";
+import { db,storageRef } from "../../firebase";
 
 export const getTrendingCourses = () =>{
   return(dispatch) =>{
@@ -55,7 +55,7 @@ export const setData = (currentUser,start,end) => {
     //       // console.log(error);
     //     });
     //   }
-
+      dispatch(checkAuthentication(currentUser.uid))
       axios
         .get("/CourseData/.json")
         .then((res) => {
@@ -73,17 +73,20 @@ export const assignData = (data, currentUser) => {
     currentUser,
   };
 };
-export const getTableContent  = () => {
+export const getTableContent  = (id) => {
   return dispatch => {
+    dispatch(checkAuthentication(id))
     axios
     .get("/TableContent.json")
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       dispatch(assignTableContent(res.data));
     })
     .catch((error) => {
       // console.log(error);
     });
+  
+    // axios.get("https://newsapi.org/v2/everything?q=tesla&apiKey=2a27986ea0a24fb997dffa1fd17c5731").then((res)=> console.log(res.data))
   }
 }
 export const assignTableContent  = (data) => {
@@ -181,7 +184,7 @@ export const getPurchasedCourses = (id) => {
             )
           
           // array of cities objects
-        });
+        })
     }
   };
 };
@@ -335,4 +338,50 @@ export const setFormateState = () => {
     type: actionTypes.SET_FORTMAT_STATE,
   };
 };
+
+export const checkAuthentication = (userId) =>{
+  console.log(userId);
+  return dispatch => {
+    dispatch(setEmpty())
+    if(userId){
+
+      db.collection("orders")
+          .doc(userId)
+          .collection("Purchased-Courses")
+          .orderBy("docName", "desc")
+          .get()
+          .then((snapShot) => {
+              
+              snapShot.docs.map((doc) =>{
+                
+                // console.log(doc.id)
+                console.log(doc.data().purchasedCourse)
+  
+                dispatch(paidCourseId(doc.data().purchasedCourse))
+              }
+              )
+            
+            // array of cities objects
+          });
+    }
+  }
+}
+
+export const paidCourseId = (data) =>{
+  return dispatch =>{
+
+    data.map((data)=>{
+      console.log(data.courseId);
+      dispatch(setPaidCourseId(data.courseId))
+    })
+
+  }
+}
+export const setPaidCourseId = (id)=>{
+  return{
+    type:actionTypes.PAID_COURSE_ID,
+    id
+  } 
+
+}
 

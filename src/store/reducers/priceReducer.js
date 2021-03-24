@@ -24,7 +24,9 @@ const initialState = {
     totalNoOfPurchasedCourses:0,
     sortedArray:[],
     TrendingCourses:[],
-    TableContent:[]
+    TableContent:[],
+    Authentication:false,
+    paidCourseId:[]
   };
   const assignData = (state,action) =>{
     return{
@@ -154,7 +156,8 @@ const initialState = {
   }
   const addToLearningArray = (state,action) => {
     // console.log(action.purchasedCourse);
-    // console.log("learning array",state.learning)
+    console.log("learning array",state.learning)
+    console.log(action.purchasedCourse.purchasedCourse[0]);
 
     return{
       ...state,
@@ -164,7 +167,7 @@ const initialState = {
   }
 
   const purchasedCourseId = (state,action) => {
-    // console.log("purchased courseid array",state.purchasedCourseId)
+    console.log("purchased courseid array",state.purchasedCourseId)
     return{
       ...state,
       purchasedCourseId:state.purchasedCourseId.concat([action.id])
@@ -187,7 +190,8 @@ const initialState = {
       ...state,
       purchasedCourseId:[],
       learning:[],
-      totalNoOfPurchasedCourses:0
+      totalNoOfPurchasedCourses:0,
+      paidCourseId:[]
     }
   }
   const setFormateState =  (state,action) => {
@@ -223,10 +227,17 @@ const initialState = {
     }
   }
   const assignTableContent = (state,action) => {
-    console.log(action.data);
+    // console.log(action.data);
+    // console.log(state.purchasedCourseId);
     return{
       ...state,
       TableContent:action.data
+    }
+  }
+  const paidCourseId =(state,action) =>{
+    return{
+      ...state,
+      paidCourseId:[...state.paidCourseId,action.id]
     }
   }
   const reducer = (state = initialState, action) =>{
@@ -255,6 +266,7 @@ const initialState = {
         case actionTypes.RESET_TOAST:return resetToast(state,action)
         case actionTypes.ASSIGN_TRENDING_COURSES: return assignTrendingCourses(state,action)
         case actionTypes.ASSIGN_TABLECONTENT: return assignTableContent(state,action)
+        case actionTypes.PAID_COURSE_ID: return paidCourseId(state,action)
         // case actionTypes.SET_SORTED_LIST_TO_LEARNING_ARRAY:return setPurchasedCourses(state,action)
         default:
             return state
