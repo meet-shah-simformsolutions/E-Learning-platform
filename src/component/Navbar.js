@@ -1,18 +1,32 @@
 import React, { Component, useEffect } from "react";
 import { Link,NavLink } from "react-router-dom";
+import * as actions from "../store/actions/index"
 import { connect } from "react-redux";
 import { useAuth } from "../contexts/AuthContext";
+import Notification from "./Notification/Notification";
 const Navbar = (props) => {
   const { currentUser} = useAuth()
   useEffect(() => {
     console.log(props.wishlist.length);
+    console.log("notifi.",props.notificationState);
+    console.log(props.notificationItems.length);
+
     return () => {
       
     }
   }, [])
+  const handleMouseClicked = () => {
+    console.log("nav called");
+    props.showNotification()
+  }
+  // const handleMouseLeave = () => {
+  //   props.showNotification()
+    
+  // }
   return (
     <>
       <div className="nav">
+
         <ul>
           {/* <li className="logo">
             <div>
@@ -100,12 +114,29 @@ const Navbar = (props) => {
               </li>
             </div>
           </li>
-          
+         
+          <li>
+            <div onClick={()=>handleMouseClicked()}
+                  // onMouseLeave={()=>handleMouseLeave()}
+                 >
+                    {props.notificationState ? (<Notification/>) : null}
+              <li className="notification">
+              {currentUser ? ( 
+                // <NavLink to="" exact activeStyle={{color:"orange"}}>
+                  <i class="fa fa-bell notificationIcon" aria-hidden="true" title="notification" style={{fontSize:"32px"}}>
+                    {props.notificationItems.length > 0 ? <div className="notificationCounter">{props.notificationItems.length}</div> : null }
+                </i>
+              //</NavLink>
+                ):null}
+
+              </li>
+            </div>
+          </li>
           <li>
             <div>
               <li >
                 {/* <NavLink to="/My-learning" exact activeStyle={{color:"red"}}>My learning</NavLink> */}
-                <NavLink to="/Wishlist" exact activeStyle={{color:"orange"}}><i className="fa fa-heart wishlistIcon" style={{fontSize:"36px"}} >
+                <NavLink to="/Wishlist" exact activeStyle={{color:"orange"}}><i className="fa fa-heart wishlistIcon" style={{fontSize:"32px"}}  title="wishlist">
                 {props.wishlist.length > 0 ? <div className="wishlistCounter">{props.wishlist.length}</div> : null }</i></NavLink>
 
               </li>
@@ -113,10 +144,10 @@ const Navbar = (props) => {
           </li>
 
           <li>
-            <div>
+            <div >
               <li >
                 {/* <NavLink to="/My-learning" exact activeStyle={{color:"red"}}>My learning</NavLink> */}
-                <NavLink to="/Checkout" exact activeStyle={{color:"orange"}}><i className="fa fa-shopping-cart cartIcon"  aria-hidden="true">
+                <NavLink to="/Checkout" exact activeStyle={{color:"orange"}}><i className="fa fa-shopping-cart cartIcon"  aria-hidden="true" title="cart" style={{fontSize:"32px"}}>
                   {props.cart.length > 0 ? <div className="cartCounter">{props.cart.length}</div> : null }</i></NavLink>
 
               </li>
@@ -140,7 +171,14 @@ const mapStateToProps = (state) => {
     cart: state.cartDetails.cart,
     wishlist:state.cartDetails.wishlist,
     currentUser:state.cartDetails.currentUser,
-    userId:state.cartDetails.userId
+    userId:state.cartDetails.userId,
+    notificationState:state.cartDetails.notificationState,
+    notificationItems:state.cartDetails.notificationItems
   };
 };
-export default connect(mapStateToProps,null)(Navbar);
+const mapDispatchToProps = dispatch => {
+return{
+  showNotification:()=>dispatch(actions.showNotification())
+}
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Navbar);

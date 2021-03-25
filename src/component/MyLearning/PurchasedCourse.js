@@ -16,20 +16,38 @@ function PurchasedCourse(props) {
     return (
       <div>
         <fieldset>
-          <legend>{data.docName ? (<code><div>{data.docName.slice(0,16)}{data.docName.slice(16,)}</div></code>) : "No Data Found"}</legend>
+          <legend>
+            {data.docName ? (
+              <code>
+                <div>
+                  {data.docName.slice(0, 16)}
+                  {data.docName.slice(16)}
+                </div>
+              </code>
+            ) : (
+              "No Data Found"
+            )}
+          </legend>
           {data.purchasedCourse.map((data, j) => {
-            
+            let path = `/Course_Description/${data.courseId}`
             return (
-              <div className="listOfPurchasedCourse">
-                <div className=" courseLogo myLearning-courseLogo">
-                  <img src={data.courseImg} alt="courseLogo" />
+              <Link
+                to={{
+                  pathname: path,
+                  state: {data:data},
+                }}
+              >
+                <div className="listOfPurchasedCourse">
+                  <div className=" courseLogo myLearning-courseLogo">
+                    <img src={data.courseImg} alt="courseLogo" />
+                  </div>
+                  <div className="courseDetails">
+                    <div className="courseTitle">{data.courseName}</div>
+                    <div className="courseDesc">{data.courseDesc}</div>
+                  </div>
+                  <div className="coursePricetag">{data.price}/-</div>
                 </div>
-                <div className="courseDetails">
-                  <div className="courseTitle">{data.courseName}</div>
-                  <div className="courseDesc">{data.courseDesc}</div>
-                </div>
-                <div className="coursePricetag">{data.price}/-</div>
-              </div>
+              </Link>
             );
           })}
         </fieldset>

@@ -12,6 +12,24 @@ function Dashboard(props) {
   const history = useHistory();
 
   useEffect(() => {
+    if(!window.sessionStorage.getItem("user")){
+      let today = new Date();
+      
+      let seconds = today.getSeconds()
+      if(seconds<10){
+        seconds = '0'+seconds
+      }
+      let minutes = today.getMinutes();
+      if(minutes<10){
+        minutes = '0'+minutes
+      }
+      let hour = today.getHours();
+      if(hour<10){
+        hour = '0'+hour
+      }
+      let timeOnly = hour +':' +minutes+ ':' + seconds;
+      props.AddMsgToNotificationList("Login Successfully",timeOnly)
+    }
     if(currentUser){
       props.setUserId(currentUser.uid)
       if(props.formatState){
@@ -86,6 +104,7 @@ const mapDispatchToProps = dispatch =>{
    setFormateState:()=>dispatch(actions.setFormateState()),
     setToast:()=>dispatch(actions.setToast()),
     getCartData:(id)=>dispatch(actions.getCartData(id)),
+    AddMsgToNotificationList:(msg,time)=>dispatch(actions.AddMsgToNotificationList(msg,time))
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);

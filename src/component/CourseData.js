@@ -35,7 +35,7 @@ const CourseData = (props) => {
     // console.log(props.dataSource);
     props.getPurchasedCourses(props.userId);
     // props.getTableContent(props.userId);
-
+    console.log("redirect Data",redirectData);
     console.log("link param",props.match.params.value);
     // filterName(props.match.params.value)
     window.addEventListener("scroll", handleScroll);

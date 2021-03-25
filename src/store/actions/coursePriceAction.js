@@ -385,3 +385,26 @@ export const setPaidCourseId = (id)=>{
 
 }
 
+export const showNotification = () => {
+  return{
+    type:actionTypes.SHOW_NOTIFICATION
+  }
+}
+
+
+export const AddMsgToNotificationList = (msg,time) =>{
+  return{
+    type:actionTypes.ADD_MSG_TO_NOTIFICATION_LIST,
+    Item:{
+      msg:msg,
+      time:time
+    }
+    
+  }
+}
+export const ClearNotificationList = (msg) =>{
+  return{
+    type:actionTypes.CLEAR_NOTIFICATION_LIST,
+    msg
+  }
+}

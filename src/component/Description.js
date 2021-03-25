@@ -11,6 +11,7 @@ function Description(props) {
   const [link, setLink] = useState(null);
   const [check, setCheck] = useState(false);
   const [title, setTitle] = useState(null);
+  const [lockDisplay, setLockDisplay] = useState("block")
   // console.log(props.location.state);
   useEffect(() => {
     props.getTableContent(props.userId);
@@ -18,6 +19,7 @@ function Description(props) {
     setTimeout(() => {
       console.log(props.paidCourseId);
     }, 2000);
+    
   }, []);
   const handleClick = (e, course_price, data, id) => {
     console.log("button clicked");
@@ -62,12 +64,16 @@ function Description(props) {
     // setDataSource(dataSource.slice(index,1))
     // price.reduce(sum)
   };
-  const toggle = (id) => {
+  const toggle = (id,courseId) => {
+    if(props.paidCourseId.includes(courseId)){
+      setLockDisplay("none")
+    }
     let obj = document.getElementById(id);
     if (obj.style.display === "block") obj.style.display = "none";
     else obj.style.display = "block";
   };
   const data = props.location.state.data ? props.location.state.data : null;
+  console.log(data);
   const setLinkAndModal = (blockLink, title, id) => {
     // props.checkAuthentication(id)
     console.log(blockLink);
@@ -114,7 +120,7 @@ function Description(props) {
               if (item.courseId === data.courseId) {
                 return item.data.map((block, i) => (
                   <>
-                    <div className="ContentTitle" onClick={() => toggle(i)}>
+                    <div className="ContentTitle" onClick={() => toggle(i,data.courseId)}>
                       {block.title}
                     </div>
 
@@ -134,6 +140,7 @@ function Description(props) {
                             <i className="fa fa-play-circle" style={{marginRight:"10px"}}>
                             </i>
                               <strong>{linkBlock.title}</strong>
+                            <div className="lock" ><i class="fa fa-lock" aria-hidden="true" title="video is locked" style={{display:lockDisplay}}></i></div>
                           </div>
                         </>
                       ))}

@@ -53,7 +53,7 @@ return (
   <div className="Signup">
     <div className="title">
       <h2>
-        <strong>Update-Profile</strong>
+        <strong className="white">Update-Profile</strong>
       </h2>
       <hr className="line" />
     </div>
@@ -114,7 +114,7 @@ return (
         <div className="container">
           <p>
             
-            <strong>
+            <strong className="white">
               <NavLink to="/">Cancel</NavLink>
             </strong>
           </p>

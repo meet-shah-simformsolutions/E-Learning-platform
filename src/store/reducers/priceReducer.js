@@ -26,7 +26,9 @@ const initialState = {
     TrendingCourses:[],
     TableContent:[],
     Authentication:false,
-    paidCourseId:[]
+    paidCourseId:[],
+    notificationState:false,
+    notificationItems:[]
   };
   const assignData = (state,action) =>{
     return{
@@ -240,6 +242,26 @@ const initialState = {
       paidCourseId:[...state.paidCourseId,action.id]
     }
   }
+  const showNotification = (state,action) =>{
+    console.log("called");
+    return{
+      ...state,
+      notificationState:!state.notificationState
+    }
+  }
+  const AddMsgToNotificationList = (state,action) =>{
+    return{
+      ...state,
+      notificationItems:[action.Item,...state.notificationItems]
+    }
+  }
+  const ClearNotificationList = (state,action) =>{
+    return{
+      ...state,
+      notificationItems:[]
+    }
+  }
+  
   const reducer = (state = initialState, action) =>{
     switch(action.type){
         case actionTypes.ADD_TO_CART: return addDetails(state,action)
@@ -267,6 +289,11 @@ const initialState = {
         case actionTypes.ASSIGN_TRENDING_COURSES: return assignTrendingCourses(state,action)
         case actionTypes.ASSIGN_TABLECONTENT: return assignTableContent(state,action)
         case actionTypes.PAID_COURSE_ID: return paidCourseId(state,action)
+        case actionTypes.SHOW_NOTIFICATION:return showNotification(state,action)
+        case actionTypes.ADD_MSG_TO_NOTIFICATION_LIST:return AddMsgToNotificationList(state,action)
+        case actionTypes.CLEAR_NOTIFICATION_LIST:return ClearNotificationList(state,action)
+
+        
         // case actionTypes.SET_SORTED_LIST_TO_LEARNING_ARRAY:return setPurchasedCourses(state,action)
         default:
             return state

@@ -104,6 +104,11 @@ button[disabled]{
   background-color: #cccccc;
   color: #666666;
 }
+.lock{
+    float: right;
+    font-size: 23px;
+    color: #212121;
+}
 .actionButtons{
     margin: 10px 0px 0px 0px;
     width: 100%;

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import './App.css';
 import "./css/form_style.css"
 import "./css/course-container.css"
@@ -25,10 +26,12 @@ import Checkout from './component/checkout/checkout';
 import WishList from './component/wishlist/WishList';
 import MyLearning from './component/MyLearning/MyLearning';
 import LandingPage from './component/LandingPage/LandingPage';
-function App() {
-
+// import * as actions from "../store/actions/index";
+import { connect } from "react-redux";
+function App(props) {
+  const [notifyDisplay, setNotifyDisplay] = useState(false)
   return (
-    <div className="App">
+    <div className="App" >
       <Navbar/>
       <PrivateRoutes exact path="/" component={Dashboard} msg="Please login to view dashboard"/>
       <PrivateRoutes exact path="/Update-profile" component={UpdateProfile}/>
@@ -39,13 +42,12 @@ function App() {
       <Route path="/Signup" exact component={Signup}/>
       <Route path="/Login" exact component={Login}/>
       <Route path="/Forgot_Password" exact component={Forgot_password}/>
-      <Route path="/Course_Description"  component={Description}/>
+      <Route path="/Course_Description/:value"  component={Description}/>
       <Route path="/Dashboard"  component={Dashboard}/>
+      <PrivateRoutes path="/Notification"  exact component={Notification} msg="Please login to Notification"/>
       <PrivateRoutes path="/Checkout"  component={Checkout} msg="Please login to view cart"/>
       <PrivateRoutes path="/Wishlist"  component={WishList} msg="Please login to view wishlist"/>
       <PrivateRoutes path="/My-Learning"  component={MyLearning} msg="Please login to view Learning"/>
-
-      
 
 
 
@@ -59,4 +61,12 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

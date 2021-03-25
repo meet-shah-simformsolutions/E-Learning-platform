@@ -2,7 +2,7 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../axios-order";
 import  firebase  from "firebase";
 import { db } from "../../firebase";
-
+import {AddMsgToNotificationList} from "./coursePriceAction"
 
 export const addDetails = (cart) => {
     return {
@@ -82,7 +82,8 @@ export const addDetails = (cart) => {
   if(hour<10){
     hour = '0'+hour
   }
-  let time = today = 'Date: '+dd+'-'+mm+'-'+yyyy + ' Time: '+hour +':' +minutes+ ':' + seconds;
+  let time  = 'Date: '+dd+'-'+mm+'-'+yyyy + ' Time: '+hour +':' +minutes+ ':' + seconds;
+  let timeOnly = hour +':' +minutes+ ':' + seconds;
         console.log(data.cart);
         db.collection('orders').doc(id)
                   .collection('Purchased-Courses').doc(time).set({
@@ -96,6 +97,7 @@ export const addDetails = (cart) => {
 
           dispatch(orderedData(data.cart));
         }).then(()=>{
+          dispatch(AddMsgToNotificationList("Order Placed Successfully",timeOnly))
             dispatch(clearCart())
         })
     };

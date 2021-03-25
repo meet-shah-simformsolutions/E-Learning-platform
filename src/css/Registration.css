@@ -6,12 +6,13 @@
     flex-direction: column;
     justify-content: center;
     width: auto;
-    height: 100%;
-    border: 1px solid rgb(107, 97, 2);
+    /* border: 1px solid rgb(107, 97, 2); */
     border-radius: 20px;
     background-color: #160f30;
-    margin: 10px 10px;
-    background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
+    margin: 110px 10px;
+    background-image: linear-gradient(to right, rgb(100, 67, 5) 0%, #212121 100%);
+    box-shadow: inset -6px -3px 20px 18px rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+
 }
 .sub-registration{
     width: 160px;

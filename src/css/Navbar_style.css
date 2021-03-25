@@ -203,7 +203,11 @@ display: block;
     0% { opacity: 0; -moz-transform: translateY(-100%); }   
   100% { opacity: 1; -moz-transform: translateY(0); }
 }
- 
+.notification{
+    cursor: pointer;
+} 
+
+
   .search_course{
       float: right;
     width: 400px;
@@ -287,11 +291,11 @@ display: block;
         width: 100%;
     }  
 }
-.cartIcon, .wishlistIcon{
+.cartIcon, .wishlistIcon, .notificationIcon{
     position: relative;
     font-size: 35px;
 }
-.cartCounter, .wishlistCounter{
+.cartCounter, .wishlistCounter, .notificationCounter{
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -307,6 +311,10 @@ display: block;
     top:-10px;
     right: -15px;
     text-align: center;
+}
+.notificationCounter{
+    right: -8px;
+
 }
 
   li.bottom-line{

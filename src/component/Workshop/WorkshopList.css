@@ -58,9 +58,9 @@ a{
 .body-1{
     width: auto;
     height: 220px;
-    margin-top: 0px;
+    margin-top: 110px;
     border-radius: 20px;
-    background-color: #a9a9c4;
+    background-color: black;
     margin-left: 30px;
     margin-right: 30px;
     display: flex;
@@ -84,8 +84,8 @@ a{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .nav-first .Workshop-Title{
-    height: 100px;
     font-family: 'Luckiest Guy', cursive;
+    color: orange;
 
 }
 .workshopHub{
@@ -137,12 +137,10 @@ a{
     border-radius: 20px;
     margin-left: 30px;
     margin-right:30px;
-    border-left: 1px dashed black;
-    border-bottom: 1px dashed black;
     /* box-shadow: 2px 2px 2px 2px #535252; */
-    background-color: #908db9;
+    background-color: #212121;
     margin-bottom: 15px;
-    /* background-image: linear-gradient(-225deg, #bac4cc 0%, #2580B3 100%); */
+    background-image: linear-gradient(-225deg, rgba(170, 111, 0, 0.329) 0%, black 100%);
 }
 
 .topic-logo{
@@ -165,7 +163,7 @@ a{
     margin-left: 20px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
-    color: #db7500ea;
+    color: orange;
     font-size: 28px;
 }
 h1, h5{
