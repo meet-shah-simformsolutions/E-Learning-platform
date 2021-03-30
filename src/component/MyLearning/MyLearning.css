@@ -9,7 +9,7 @@ fieldset{
 
 legend{
 
-    background-color:#000000;
+    background-color:var(--black);
     border-radius: 5px;
     padding: 3px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;

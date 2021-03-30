@@ -11,7 +11,7 @@ function LandingPage(props) {
     <div className="wrapper">
       <div className="LandingPage">
         <div>
-          <img src="../img/landingImg.jpg" alt="langingimg" />
+          <img src="../img/landingImg.jpg" alt="langingimg" className="landingPageImg"/>
         </div>
         <div className="trendingCourse">sdasd</div>
         <div className="topCategories white">

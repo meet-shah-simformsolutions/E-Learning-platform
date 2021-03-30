@@ -26,6 +26,7 @@ import Checkout from './component/checkout/checkout';
 import WishList from './component/wishlist/WishList';
 import MyLearning from './component/MyLearning/MyLearning';
 import LandingPage from './component/LandingPage/LandingPage';
+import NewsFeed from "./component/NewsFeed/NewsFeed"
 // import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
 function App(props) {
@@ -44,6 +45,8 @@ function App(props) {
       <Route path="/Forgot_Password" exact component={Forgot_password}/>
       <Route path="/Course_Description/:value"  component={Description}/>
       <Route path="/Dashboard"  component={Dashboard}/>
+      <Route path="/NewsFeed"  component={NewsFeed}/>
+
       <PrivateRoutes path="/Notification"  exact component={Notification} msg="Please login to Notification"/>
       <PrivateRoutes path="/Checkout"  component={Checkout} msg="Please login to view cart"/>
       <PrivateRoutes path="/Wishlist"  component={WishList} msg="Please login to view wishlist"/>

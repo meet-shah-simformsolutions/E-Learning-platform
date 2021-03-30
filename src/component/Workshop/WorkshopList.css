@@ -10,17 +10,17 @@
     background-color: rgb(158, 34, 34);
     border-radius: 20px;
   }
-  
+
 header nav ul li {
     float: left;
     height: 80px;
     border-right:1px solid #bbb;
   }
-  
+
 li:last-child {
     border-right: none;
   }
-  
+
 li a {
     display: block;
     color: white;
@@ -28,11 +28,11 @@ li a {
     padding: 14px 16px;
     text-decoration: none;
   }
-  
+
 li a:hover:not(.active) {
     background-color: #111;
   }
-  
+
 .active {
     background-color: #4CAF50;
   } */
@@ -40,7 +40,7 @@ li a:hover:not(.active) {
 
 
 
- 
+
 
 a{
     text-decoration: none;
@@ -60,7 +60,7 @@ a{
     height: 220px;
     margin-top: 110px;
     border-radius: 20px;
-    background-color: black;
+    background-color: var(--black);
     margin-left: 30px;
     margin-right: 30px;
     display: flex;
@@ -71,7 +71,7 @@ a{
 /* .nav-main{
     background-color: rgb(177, 226, 210);
     height: 80px;
-    
+
     border-radius: 20px;
     width: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -101,7 +101,7 @@ a{
     background-color: blue;
 } */
 /* button{
-    
+
     float:right;
     background-color: chocolate;
     margin: 7px 12px;
@@ -118,9 +118,11 @@ a{
     color: black;
 } */
 .body-1{
- 
+
 }
 .Listcard{
+    margin: auto;
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -130,57 +132,58 @@ a{
 .topic-com{
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
     width: 80%;
-    height: 280px;
     background-color: white;
     margin-top: 30px;
     border-radius: 20px;
-    margin-left: 30px;
-    margin-right:30px;
-    /* box-shadow: 2px 2px 2px 2px #535252; */
+    box-shadow: inset 0px 0px 2px 2px #ffa5001c;
     background-color: #212121;
-    margin-bottom: 15px;
-    background-image: linear-gradient(-225deg, rgba(170, 111, 0, 0.329) 0%, black 100%);
+    padding: 10px;
+    /* background-image: linear-gradient(-225deg, rgba(170, 111, 0, 0.329) 0%, black 100%); */
 }
-
+.topic-com:nth-of-type(even) {
+    flex-direction: row-reverse;
+  }
 .topic-logo{
     width: 30%;
     height: 100%;
-    padding-left: 50px;
+    /* padding-left: 50px; */
     border-radius: 20px;
     overflow: auto;
-    padding-top: 10px;
     opacity:1;
     position: relative;
     background-color: white;
-
 }
 .workshopTitle{
     width: 100%;
     /* border: 1px solid blue; */
     flex: 4;
     text-align: left;
-    margin-left: 20px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
     color: orange;
     font-size: 28px;
+    margin: 0px 10px;
+    
+
 }
 h1, h5{
     margin-top: 2px;
     margin-bottom: 4px;
-    
+
 }
 .instructor{
  display: flex;
  flex-direction: row;
- justify-content: left;
+ /* justify-content: ; */
+ /* justify-content: space-between; */
  align-items: flex-start;
  margin-top: 10px;
  /* border: 1px solid red; */
 }
 .instructor-img{
-    width: 90px;
+    width: 11%;
     height: 80px;
     /* border: 1px solid rgb(218, 148, 148); */
     border-radius: 50%;
@@ -192,7 +195,7 @@ h1, h5{
 
 }
 .instructor-details{
-    width: 100%;
+    width: 20%;
     height: 80px;
     /* border: 1px solid blue; */
     text-align: left;
@@ -209,9 +212,10 @@ h1, h5{
     color: rgb(176, 184, 190);
 }
 .workshopDesc{
-    margin-top: 10px;
-    font-size: 17px;
-    font-family:'Courier New', Courier, monospace;
+    font-size: 22px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    letter-spacing: 1px;
+    font-weight:400;
     color: whitesmoke;
 }
 .one{
@@ -249,12 +253,13 @@ h1, h5{
     flex: 1.5;
 
 }
+.reg-icon{
+    margin: auto;
+    margin-right: 0;
+}
 .reg-icon-even{
-    float: right ;
     margin-top: 100px;
-    width: 200px;
     height: 75px;
-    flex: 1;
 }
 .reg-icon-odd{
     float: left ;
@@ -272,7 +277,21 @@ h1, h5{
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
   }
-
+.Workshop-Reg-btn{
+    background-image:linear-gradient(48deg, #f8d273 0%, orange 100%) ;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 22px;
+    color: rgb(35, 36, 35);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    outline: none;
+    border: none;
+}
+.Workshop-Reg-btn:hover{
+ cursor: pointer;
+}
 @media only screen and (max-width: 1195px){
     .topic-com > div{
        padding-left: 0px;
@@ -295,5 +314,5 @@ h1, h5{
     .topic-com > div{
         padding-left: 0px;
         width: 260px;
-     }  
-} 
+     }
+}

@@ -4,7 +4,7 @@
         "workshopImg":"../img/angular-2.png",
         "workshopDesc":"n this 2-day training, attendees will go from knowing nothing — or very little — about React to building a whole app using React and the surrounding tools in the React ecosystem.",
         "workshopBy":"demo1",
-        "instructorImg":"../img/instructor.png",
+        "instructorImg":"../img/instructor-2.png",
         "instructorPosition":"Microsoft",
         "workshopPrice":500
     },
@@ -13,7 +13,7 @@
         "workshopImg":"../img/react-1.png",
         "workshopDesc":"Spend A Full Day Immersed in the Rust Programming Language with Richard Feldman ...full details TBA!",
         "workshopBy":"demo2",
-        "instructorImg":"../img/instructor.png",
+        "instructorImg":"../img/instructor-2.png",
         "instructorPosition":"Apple",
         "workshopPrice":500
     },{
@@ -21,7 +21,7 @@
         "workshopImg":"../img/vue-1.png",
         "workshopDesc":"This workshop will turn you into a frontend performance expert, we'll take a look at advanced DevTools concepts with exercises and practical case studies.",
         "workshopBy":"demo3",
-        "instructorImg":"../img/instructor.png",
+        "instructorImg":"../img/instructor-2.png",
         "instructorPosition":"Google",
         "workshopPrice":500
     },{
@@ -29,7 +29,7 @@
         "workshopImg":"../img/node-1.png",
         "workshopDesc":"Spend A Full Day Immersed in Advanced CSS Variables (Custom Properties) with Lea Verou.",
         "workshopBy":"demo4",
-        "instructorImg":"../img/instructor.png",
+        "instructorImg":"../img/instructor-2.png",
         "instructorPosition":"Amazon",
         "workshopPrice":500
     }

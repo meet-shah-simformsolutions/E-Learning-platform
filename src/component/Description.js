@@ -12,6 +12,7 @@ function Description(props) {
   const [check, setCheck] = useState(false);
   const [title, setTitle] = useState(null);
   const [lockDisplay, setLockDisplay] = useState("block")
+
   // console.log(props.location.state);
   useEffect(() => {
     props.getTableContent(props.userId);
@@ -64,13 +65,28 @@ function Description(props) {
     // setDataSource(dataSource.slice(index,1))
     // price.reduce(sum)
   };
-  const toggle = (id,courseId) => {
+  const toggle = (id,courseId,dropDownId) => {
+
     if(props.paidCourseId.includes(courseId)){
       setLockDisplay("none")
     }
-    let obj = document.getElementById(id);
-    if (obj.style.display === "block") obj.style.display = "none";
-    else obj.style.display = "block";
+    // let obj1 = document.getElementById(id);
+    // if((obj1.className === "fa fa-caret-down dropDown")) obj1.className === "fa fa-caret-up dropDown"
+    // else obj1.className === "fa fa-caret-down dropDown"
+    let obj2 = document.getElementById(id);
+    if (obj2.style.display === "block"){
+      obj2.style.display = "none"
+      document.getElementById(dropDownId).classList.remove("fa","fa-caret-up","dropDown")
+      document.getElementById(dropDownId).classList.add("fa","fa-caret-down","dropDown")
+      
+    }
+    else 
+    {
+      obj2.style.display = "block"
+      document.getElementById(dropDownId).classList.remove("fa","fa-caret-down","dropDown")
+      document.getElementById(dropDownId).classList.add("fa","fa-caret-up","dropDown")
+
+    }
   };
   const data = props.location.state.data ? props.location.state.data : null;
   console.log(data);
@@ -106,8 +122,9 @@ function Description(props) {
 
       <div className="first-container">
         <div className="course_title">
+          <div>
           {data.courseName}
-          <br />
+          </div>
           <div className="course_description">{data.courseDesc}.....</div>
           <div className="category">{data.category}</div>
         </div>
@@ -120,8 +137,14 @@ function Description(props) {
               if (item.courseId === data.courseId) {
                 return item.data.map((block, i) => (
                   <>
-                    <div className="ContentTitle" onClick={() => toggle(i,data.courseId)}>
+    
+                    <div className="ContentTitle" onClick={() => toggle(i,data.courseId,i+"dropdown")}>
                       {block.title}
+                      <div className="dropDown" >
+                          <i 
+                          className="fa fa-caret-down dropDown"
+                          id={i+"dropdown"}></i>
+                      </div>
                     </div>
 
                     <div
@@ -157,6 +180,7 @@ function Description(props) {
             </div> */}
           </div>
         </div>
+        
       </div>
       <div className="sidebar-container">
         <img src={data.courseImg} alt="img" />

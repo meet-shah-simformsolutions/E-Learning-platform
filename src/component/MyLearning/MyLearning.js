@@ -34,7 +34,6 @@ class MyLearning extends Component {
       <div className="myLearning_container">
         <div className="myLearningLanding">
           <h1>Purchased Courses</h1>
-          
         </div>
         <div>
 

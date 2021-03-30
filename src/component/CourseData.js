@@ -220,6 +220,8 @@ const CourseData = (props) => {
     return true;
   };
   const filterStack = (value) => {
+    setNoOfResult(0);
+    setSearchText("")
     let filterStack_data = mainDataSource.filter((x) => {
       return x.category === value;
     });
@@ -379,6 +381,8 @@ const CourseData = (props) => {
     return sorted_Course;
   };
   const sortCourse = (value) => {
+    setNoOfResult(0);
+    setSearchText("")
     let sorted_Course = [];
     if (value === "recent") {
     } else if (value === "asce") {

@@ -96,7 +96,7 @@
     padding: 10px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 20px;
-    color: black;
+    color: var(--black);
 }
 .buttonWrapper > button:disabled,
 button[disabled]{
@@ -136,7 +136,7 @@ button[disabled]{
     /* border: 1px solid red; */
 }
 .horizontalLine{
-    border: 0.5px solid black;
+    border: 0.5px solid var(--black);
     width: 100%;
 }
 
@@ -296,4 +296,11 @@ h6{
       height: 100%;
     border-radius: 5px;
 
+  }
+
+  .dropDown{
+      margin: -2.5px;
+      margin-right: 0px;
+      float: right;
+      font-size: 36px;
   }

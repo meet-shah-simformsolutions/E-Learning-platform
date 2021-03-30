@@ -1,20 +1,64 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Link,NavLink } from "react-router-dom";
 import * as actions from "../store/actions/index"
 import { connect } from "react-redux";
 import { useAuth } from "../contexts/AuthContext";
 import Notification from "./Notification/Notification";
+import color from "../color.jsx"
 const Navbar = (props) => {
+  const [newcolor,setNewColor] = useState("black")
   const { currentUser} = useAuth()
   useEffect(() => {
     console.log(props.wishlist.length);
     console.log("notifi.",props.notificationState);
     console.log(props.notificationItems.length);
-
+    // autoChangeColor()
     return () => {
       
     }
   }, [])
+const autoChangeColor  = () => {
+  const r = document.querySelector(':root');
+  setInterval(() => {
+    const value = Math.floor(100000 + Math.random() * 900000)
+    const newValue = `#${value}`
+    console.log(newValue);
+    r.style.setProperty('--black', newValue )
+  }, 1000);
+}
+  const changeColor = () =>{
+    let colorName = prompt("Enter Color Name",newcolor)
+    console.log(color);
+    console.log(colorName);
+    console.log(color.includes(colorName))
+    // if(color.includes(colorName)){
+      setNewColor(colorName)
+      const r = document.querySelector(':root');
+      myFunction_get()
+      function myFunction_get() {
+        const rs = getComputedStyle(r);
+        // alert("The value of --whitesmoke is: " + rs.getPropertyValue('--whitesmoke'));
+      }
+      function myFunction_set() {
+        r.style.setProperty('--blue', 'lightblue');
+      }
+      let today = new Date();
+      let hour = today.getHours();
+      if(hour>=6 && hour<12){
+        r.style.setProperty('--black', 'white');
+      }
+      if(hour>=12){
+        r.style.setProperty('--black', colorName);
+      }
+      if(hour>=18 && hour<6){
+        r.style.setProperty('--black', 'black');
+      }
+    // }
+    // else{
+    //   alert("Enter Valid Color Name")
+    // }
+    
+  }
   const handleMouseClicked = () => {
     console.log("nav called");
     props.showNotification()
@@ -42,6 +86,10 @@ const Navbar = (props) => {
               </li>
             </div>
           </li> */}
+          <li onClick={()=>changeColor()}>
+                    <i class="fas fa-palette" aria-hidden="true" title="change Color" style={{fontSize:"32px"}}>
+                </i>  
+          </li>
           <li>
             <div>
               <li>
@@ -153,6 +201,7 @@ const Navbar = (props) => {
               </li>
             </div>
           </li>
+          
           {/* <a href="https://github.com">
             <li>
               <div className="fav_logo">

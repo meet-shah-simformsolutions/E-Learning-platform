@@ -29,8 +29,10 @@ function WorkshopList(props) {
         return (
           <div className="topic-com">
             
-          <div className={ test ? "topic-logo even" : "topic-logo odd"}>
-            
+          <div 
+          // className={ test ? "topic-logo even" : "topic-logo odd"}
+          className="topic-logo"
+          >
             <img src={data.workshopImg} alt="" />
           </div>
           <div className="workshopTitle">
@@ -45,18 +47,22 @@ function WorkshopList(props) {
                 {data.instructorPosition}
                 </div>
             </div>
+           
           </div>
           <div className="workshopDesc">
-            <h5>{data.workshopDesc}</h5>
-
+            <p>{data.workshopDesc}</p>
           </div>
-
+          <div className= "reg-icon" title="Register for Angular">
+            <Link to="/Registration">
+              <button className="Workshop-Reg-btn">Register Now</button>
+            </Link>
+          </div>
             </div>
-          <div className={ test ? "reg-icon-even" : "reg-icon-odd"} title="Register for Angular">
+          {/* <div className={ test ? "reg-icon-even" : "reg-icon-odd"} title="Register for Angular">
             <Link to="/Registration">
               <button className="RegisterButton">Register Now</button>
             </Link>
-          </div>
+          </div> */}
         </div>
         )
       })
