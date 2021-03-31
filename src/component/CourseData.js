@@ -32,6 +32,8 @@ const CourseData = (props) => {
   useEffect(() => {
     props.setData(currentUser);
     props.setUserId(currentUser.uid);
+    props.getWishlistData(currentUser.uid)
+      props.getCartData(currentUser.uid)
     // console.log(props.dataSource);
     props.getPurchasedCourses(props.userId);
     // props.getTableContent(props.userId);
@@ -593,6 +595,8 @@ const mapDispatchToProps = (dispatch) => {
     addDetails: (data) => dispatch(actions.addDetails(data)),
     reset: () => dispatch(actions.resetData()),
     getCartPrice: () => dispatch(actions.calculateCartPrice()),
+   getWishlistData:(id)=> dispatch(actions.getWishlistData(id)),
+   getCartData:(id)=>dispatch(actions.getCartData(id)),
     moveToWishlist: (i) => dispatch(actions.moveToWishlist(i)),
     addToWishlistDirectly: (id) => dispatch(actions.addToWishlistDirectly(id)),
     setData: (currentUser, start, end) =>

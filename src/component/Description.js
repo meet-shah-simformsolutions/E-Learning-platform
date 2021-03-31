@@ -3,6 +3,7 @@ import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
 import Modal from "../component/Modal/Modal";
 import { WarningAlert } from "./Alert/WarningAlert";
+import { useAuth } from "../contexts/AuthContext";
 function Description(props) {
   const [alertState, setAlertState] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
@@ -12,11 +13,12 @@ function Description(props) {
   const [check, setCheck] = useState(false);
   const [title, setTitle] = useState(null);
   const [lockDisplay, setLockDisplay] = useState("block")
+  const { currentUser } = useAuth();
 
-  // console.log(props.location.state);
   useEffect(() => {
-    props.getTableContent(props.userId);
-    // props.checkAuthentication(props.userId)
+    console.log();
+    props.getTableContent(currentUser.uid);
+
     setTimeout(() => {
       console.log(props.paidCourseId);
     }, 2000);
@@ -31,12 +33,6 @@ function Description(props) {
     }
     else{
       if (props.price < 10000 ) {
-        // setPrice([...price, course_price]);
-        // let sum = price.reduce((a, b) => {
-        //   return a + b;
-        // }, 0);
-        // setFinalPrice(sum);
-       
         if (props.cartId.includes(id)) {
           setAlertState(true);
           setAlertMsg("Course Already Added in Cart");
@@ -62,17 +58,11 @@ function Description(props) {
     setTimeout(() => {
       setAlertState(false);
     }, 4000);
-    // setDataSource(dataSource.slice(index,1))
-    // price.reduce(sum)
   };
   const toggle = (id,courseId,dropDownId) => {
-
     if(props.paidCourseId.includes(courseId)){
       setLockDisplay("none")
     }
-    // let obj1 = document.getElementById(id);
-    // if((obj1.className === "fa fa-caret-down dropDown")) obj1.className === "fa fa-caret-up dropDown"
-    // else obj1.className === "fa fa-caret-down dropDown"
     let obj2 = document.getElementById(id);
     if (obj2.style.display === "block"){
       obj2.style.display = "none"
@@ -91,7 +81,6 @@ function Description(props) {
   const data = props.location.state.data ? props.location.state.data : null;
   console.log(data);
   const setLinkAndModal = (blockLink, title, id) => {
-    // props.checkAuthentication(id)
     console.log(blockLink);
     if(props.paidCourseId.includes(id)){
       setLink(blockLink);
@@ -172,15 +161,8 @@ function Description(props) {
                 ));
               }
             })}
-            {/* <div
-              className="ContentTitle"
-              onClick={() => setDisplayStyle("block")}
-            >
-              Index
-            </div> */}
           </div>
         </div>
-        
       </div>
       <div className="sidebar-container">
         <img src={data.courseImg} alt="img" />
@@ -237,11 +219,6 @@ function Description(props) {
           <hr className="horizontalLine" />
         </div>
       </div>
-      {/* <div className="courseDes_price">
-        <div className="courseDes">{data.courseDesc}</div>
-        <div className="courseprice">{data.price}</div>
-      </div>
-      <div className="course_author">{data.author}</div> */}
     </div>
   );
 }

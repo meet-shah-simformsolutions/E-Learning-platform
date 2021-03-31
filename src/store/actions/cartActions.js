@@ -126,12 +126,15 @@ export const addDetails = (cart) => {
   };
   export const getCartData =(id) =>{
     return dispatch =>{
-      db.collection('orders').doc(id).get().then((doc)=>{
+      if(id){
 
-        if(doc.exists){
-              dispatch(assignCartData(doc.data().cart));
-        }
-    })
+        db.collection('orders').doc(id).get().then((doc)=>{
+  
+          if(doc.exists){
+                dispatch(assignCartData(doc.data().cart));
+          }
+      })
+      }
   // }
   }
   }
@@ -144,13 +147,15 @@ export const addDetails = (cart) => {
   }
   export const addCartDataToServer = (data,id) => {
     return dispatch => {
-      const docRef = db.collection("orders").doc(id);
-      console.log("data inside add to cart function",data)
-      docRef.update({
-      cart: firebase.firestore.FieldValue.arrayUnion(data)
-    }).then(()=>{
-      dispatch(calculateCartPrice())
-    })
+      if(id){
+        const docRef = db.collection("orders").doc(id);
+        console.log("data inside add to cart function",data)
+        docRef.update({
+        cart: firebase.firestore.FieldValue.arrayUnion(data)
+      }).then(()=>{
+        dispatch(calculateCartPrice())
+      })
+      }
     }
   }
   export const cartItemRemoveUpdateServer = (data,id) => {

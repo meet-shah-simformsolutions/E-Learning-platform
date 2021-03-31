@@ -5,13 +5,12 @@ import { Link } from "react-router-dom";
 import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
 import LoadData from "./LoadData";
-import axios from "../../axios-order";
 import { SuccessAlert } from "../Alert/SuccessAlert";
 class Checkout extends Component {
   state = {
     finalCart: { cart: null, userId: "",wishlist:[]},
   };
-
+  
   componentDidMount() {
     // this.props.setData()
     console.log(this.props.dataSource);
@@ -19,6 +18,7 @@ class Checkout extends Component {
     console.log("toast", this.props.toast);
     console.log("toast State", this.props.toastState);
     console.log(this.props.wishlist);
+
     this.props.getCartPrice();
     this.props.resetToast();
     this.setState({
@@ -139,6 +139,8 @@ const mapDispatchToProps = (dispatch) => {
     setData: () => dispatch(actions.setData()),
     SubmitData: (id, cart) => dispatch(actions.SubmitData(id, cart)),
     setToast:()=>dispatch(actions.setToast()),
+    
+    getCartData:(id)=>dispatch(actions.getCartData(id)),
     // cartItemRemoveUpdateServer:(data,id)=>dispatch(actions.cartItemRemoveUpdateServer(data,id))
     resetToast:()=>dispatch(actions.resetToast())
   };

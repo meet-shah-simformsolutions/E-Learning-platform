@@ -34,25 +34,26 @@ const autoChangeColor  = () => {
     // if(color.includes(colorName)){
       setNewColor(colorName)
       const r = document.querySelector(':root');
-      myFunction_get()
-      function myFunction_get() {
-        const rs = getComputedStyle(r);
-        // alert("The value of --whitesmoke is: " + rs.getPropertyValue('--whitesmoke'));
-      }
-      function myFunction_set() {
-        r.style.setProperty('--blue', 'lightblue');
-      }
-      let today = new Date();
-      let hour = today.getHours();
-      if(hour>=6 && hour<12){
-        r.style.setProperty('--black', 'white');
-      }
-      if(hour>=12){
-        r.style.setProperty('--black', colorName);
-      }
-      if(hour>=18 && hour<6){
-        r.style.setProperty('--black', 'black');
-      }
+      r.style.setProperty('--black', colorName)
+      // myFunction_get()
+      // function myFunction_get() {
+      //   const rs = getComputedStyle(r);
+      //   // alert("The value of --whitesmoke is: " + rs.getPropertyValue('--whitesmoke'));
+      // }
+      // function myFunction_set() {
+      //   r.style.setProperty('--blue', 'lightblue');
+      // }
+      // let today = new Date();
+      // let hour = today.getHours();
+      // if(hour>=6 && hour<12){
+      //   r.style.setProperty('--black', 'white');
+      // }
+      // if(hour>=12){
+      //   r.style.setProperty('--black', colorName);
+      // }
+      // if(hour>=18 && hour<6){
+      //   r.style.setProperty('--black', 'black');
+      // }
     // }
     // else{
     //   alert("Enter Valid Color Name")
@@ -130,7 +131,7 @@ const autoChangeColor  = () => {
           <li>
             <div>
               <li className="bottom-line">
-                <NavLink to="/web-development/all" exact activeStyle={{color:"orange"}}>Web Development Courses</NavLink>
+                <NavLink to="/Courses/all" exact activeStyle={{color:"orange"}}>Courses</NavLink>
               </li>
             </div>
           </li>
@@ -142,7 +143,13 @@ const autoChangeColor  = () => {
               </li>
             </div>
           </li>
-
+          <li>
+            <div>
+              <li className="bottom-line">
+                <NavLink to="/NewsFeed" exact activeStyle={{color:"orange"}}>News Feed</NavLink>
+              </li>
+            </div>
+          </li>
           <li>
             <div>
               <li className="bottom-line">

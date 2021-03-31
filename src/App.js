@@ -37,7 +37,7 @@ function App(props) {
       <PrivateRoutes exact path="/" component={Dashboard} msg="Please login to view dashboard"/>
       <PrivateRoutes exact path="/Update-profile" component={UpdateProfile}/>
       <Route path="/Home" exact component={LandingPage}/>
-      <Route path="/web-development/:value"  component={CourseData}/>
+      <Route path="/Courses/:value" exact component={CourseData}/>
       <Route path="/Registration" exact component={Registration}/>
       <Route path="/Workshop" exact component={WorkshopList}/>
       <Route path="/Signup" exact component={Signup}/>
@@ -45,8 +45,8 @@ function App(props) {
       <Route path="/Forgot_Password" exact component={Forgot_password}/>
       <Route path="/Course_Description/:value"  component={Description}/>
       <Route path="/Dashboard"  component={Dashboard}/>
-      <Route path="/NewsFeed"  component={NewsFeed}/>
-
+      <Route path="/NewsFeed" exact component={NewsFeed}/>
+      
       <PrivateRoutes path="/Notification"  exact component={Notification} msg="Please login to Notification"/>
       <PrivateRoutes path="/Checkout"  component={Checkout} msg="Please login to view cart"/>
       <PrivateRoutes path="/Wishlist"  component={WishList} msg="Please login to view wishlist"/>
