@@ -29,11 +29,14 @@ import LandingPage from './component/LandingPage/LandingPage';
 import NewsFeed from "./component/NewsFeed/NewsFeed"
 // import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
+import Admin from "./component/Admin/Admin";
 function App(props) {
   const [notifyDisplay, setNotifyDisplay] = useState(false)
   return (
     <div className="App" >
       <Navbar/>
+      <Route path="/Admin" exact component={Admin}/>
+
       <PrivateRoutes exact path="/" component={Dashboard} msg="Please login to view dashboard"/>
       <PrivateRoutes exact path="/Update-profile" component={UpdateProfile}/>
       <Route path="/Home" exact component={LandingPage}/>

@@ -35,3 +35,7 @@ export {
     resetToast,
     setToast,
 } from "./cartActions.js"
+
+export {
+    giftCourse,
+} from "./adminActions"

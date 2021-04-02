@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import data from "../data.json";
 import "../css/course-container.css";
-import { Link, Redirect } from "react-router-dom";
-import Description from "./Description";
+import { Redirect } from "react-router-dom";
 import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
 import { WarningAlert } from "./Alert/WarningAlert";
 import { useAuth } from "../contexts/AuthContext";
-import axios from "../axios-order";
 const CourseData = (props) => {
   const [searchText, setSearchText] = useState("");
   const [mainDataSource, setMaindataSource] = useState([]); /*do not change*/

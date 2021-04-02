@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { auth } from "../firebase";                     
-// import * as firebase from "firebase/app";
+import { auth } from "../firebase";         
 const AuthContext = React.createContext();
 export function useAuth() {
   return useContext(AuthContext);
 }
 export function AuthProvider({ children }) {
+
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
   
@@ -29,9 +29,10 @@ export function AuthProvider({ children }) {
   }
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log("current User0",user.uid);
-      setCurrentUser(user);
-      setLoading(false);
+        console.log(user ? user : "not");
+        // console.log("current User",user.uid);
+        setCurrentUser(user);
+        setLoading(false);
     });
     return unsubscribe;
   }, []);

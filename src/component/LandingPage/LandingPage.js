@@ -20,7 +20,7 @@ function LandingPage(props) {
           <div className="landing-category">
             {props.TrendingCourses.map((data) => (  
               <div>
-                  <Link to={'web-development/'+ data.category}>
+                  <Link to={'Courses/'+ data.category}>
                 <div>
                   <img
                     src={data.img}
